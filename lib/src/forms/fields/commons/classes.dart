@@ -1,4 +1,4 @@
-import 'package:caravaggio_ui/caravaggio.dart';
+import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
 /// Decoration options for a form field.
@@ -63,7 +63,7 @@ class CFieldStyle {
   final bool bordered;
 
   /// Creates a [CFieldStyle] instance.
-  CFieldStyle._({
+  CFieldStyle({
     this.backgroundColor,
     Color? foregroundColor,
     this.gradient,
@@ -75,7 +75,7 @@ class CFieldStyle {
   factory CFieldStyle.simple({
     Color? foregroundColor,
   }) {
-    return CFieldStyle._(
+    return CFieldStyle(
       foregroundColor: foregroundColor,
     );
   }
@@ -86,7 +86,7 @@ class CFieldStyle {
     Color? foregroundColor,
     LinearGradient? gradient,
   }) {
-    return CFieldStyle._(
+    return CFieldStyle(
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
       gradient: gradient,
@@ -98,7 +98,7 @@ class CFieldStyle {
   factory CFieldStyle.bordered({
     Color? foregroundColor,
   }) {
-    return CFieldStyle._(
+    return CFieldStyle(
       foregroundColor: foregroundColor,
       bordered: true,
     );
@@ -110,7 +110,7 @@ class CFieldStyle {
     Color? foregroundColor,
     LinearGradient? gradient,
   }) {
-    return CFieldStyle._(
+    return CFieldStyle(
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
       gradient: gradient,

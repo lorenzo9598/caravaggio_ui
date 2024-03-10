@@ -1,4 +1,4 @@
-import 'package:caravaggio_ui/src/generics/fonts/fonts.dart';
+import 'package:caravaggio_ui/src/generics/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -105,7 +105,7 @@ class _CCheckboxState extends State<CCheckbox> {
             widget.onChanged?.call(val);
           },
         ),
-        if (widget.label != null) Text(widget.label!, style: CaravaggioText.style.labelMedium),
+        if (widget.label != null) Text(widget.label!, style: CText.style.labelMedium),
       ],
     );
   }

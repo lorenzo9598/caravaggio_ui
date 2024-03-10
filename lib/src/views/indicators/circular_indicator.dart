@@ -1,4 +1,4 @@
-import 'package:caravaggio_ui/caravaggio.dart';
+import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -97,7 +97,7 @@ class CCircularIndicator extends StatelessWidget {
               child: _CProgressIndicator(
                 radius: radius,
                 percent: currentExternalValue / maxExternalValue,
-                gradient: CaravaggioGradient.primaryDarkToSecondaryDark,
+                gradient: CGradient.primaryDarkToSecondaryDark,
                 lineWidth: lineWidth,
               ),
             ),
@@ -106,7 +106,7 @@ class CCircularIndicator extends StatelessWidget {
                 child: _CProgressIndicator(
                   radius: radius - lineWidth - space,
                   percent: currentInternalValue! / maxInternalValue!,
-                  gradient: CaravaggioGradient.primaryLightToSecondaryLight,
+                  gradient: CGradient.primaryLightToSecondaryLight,
                   lineWidth: lineWidth,
                 ),
               ),

@@ -24,6 +24,12 @@ enum CButtonSize {
 
 /// Class defining the decoration properties for a [CButton].
 class CButtonDecoration {
+  /// An optional icon to display before the child widget.
+  final Widget? icon;
+
+  /// An optional icon to display after the child widget.
+  final Widget? suffixIcon;
+
   /// Indicates whether the button is filled with color or not.
   final bool filled;
 
@@ -46,6 +52,8 @@ class CButtonDecoration {
   final double radius;
 
   const CButtonDecoration({
+    this.icon,
+    this.suffixIcon,
     this.filled = false,
     this.bordered = false,
     this.size = CButtonSize.normal,
@@ -65,12 +73,6 @@ class CButton extends StatelessWidget {
   /// The widget to display as the button's child.
   final Widget child;
 
-  /// An optional icon to display before the child widget.
-  final Widget? icon;
-
-  /// An optional icon to display after the child widget.
-  final Widget? suffixIcon;
-
   /// The decoration properties for the button.
   final CButtonDecoration decoration;
 
@@ -78,8 +80,6 @@ class CButton extends StatelessWidget {
     Key? key,
     this.onPressed,
     required this.child,
-    this.icon,
-    this.suffixIcon,
     this.decoration = const CButtonDecoration(),
   }) : super(key: key);
 
@@ -96,8 +96,6 @@ class CButton extends StatelessWidget {
     return CButton._(
       key: key,
       onPressed: onPressed,
-      icon: icon,
-      suffixIcon: suffixIcon,
       decoration: CButtonDecoration(
         filled: true,
         bordered: false,
@@ -121,9 +119,9 @@ class CButton extends StatelessWidget {
     return CButton._(
       key: key,
       onPressed: onPressed,
-      icon: icon,
-      suffixIcon: suffixIcon,
       decoration: CButtonDecoration(
+        icon: icon,
+        suffixIcon: suffixIcon,
         filled: true,
         bordered: false,
         filledColor: color,
@@ -146,9 +144,9 @@ class CButton extends StatelessWidget {
     return CButton._(
       key: key,
       onPressed: onPressed,
-      icon: icon,
-      suffixIcon: suffixIcon,
       decoration: CButtonDecoration(
+        icon: icon,
+        suffixIcon: suffixIcon,
         filled: false,
         bordered: true,
         filledColor: color,
@@ -169,9 +167,9 @@ class CButton extends StatelessWidget {
     return CButton._(
       key: key,
       onPressed: onPressed,
-      icon: icon,
-      suffixIcon: suffixIcon,
       decoration: CButtonDecoration(
+        icon: icon,
+        suffixIcon: suffixIcon,
         filled: false,
         bordered: true,
         filledColor: color,
@@ -192,9 +190,9 @@ class CButton extends StatelessWidget {
     return CButton._(
       key: key,
       onPressed: onPressed,
-      icon: icon,
-      suffixIcon: suffixIcon,
-      decoration: const CButtonDecoration(
+      decoration: CButtonDecoration(
+        icon: icon,
+        suffixIcon: suffixIcon,
         filled: false,
         bordered: false,
       ),
@@ -213,9 +211,9 @@ class CButton extends StatelessWidget {
     return CButton._(
       key: key,
       onPressed: onPressed,
-      icon: icon,
-      suffixIcon: suffixIcon,
-      decoration: const CButtonDecoration(
+      decoration: CButtonDecoration(
+        icon: icon,
+        suffixIcon: suffixIcon,
         filled: false,
         bordered: false,
         size: CButtonSize.small,
@@ -261,15 +259,15 @@ class CButton extends StatelessWidget {
             minHeight: (decoration.size).height,
           ), // min sizes for Material buttons
           alignment: Alignment.center,
-          child: icon == null && suffixIcon == null
+          child: decoration.icon == null && decoration.suffixIcon == null
               ? child
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if (suffixIcon != null) suffixIcon!,
+                    if (decoration.suffixIcon != null) decoration.suffixIcon!,
                     child,
-                    if (icon != null) icon!,
+                    if (decoration.icon != null) decoration.icon!,
                   ],
                 ),
         ),

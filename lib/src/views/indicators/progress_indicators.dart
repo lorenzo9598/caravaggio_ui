@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:caravaggio_ui/caravaggio.dart';
+import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
 /// Extension for creating primary and secondary LinearProgressIndicator widgets.

@@ -101,41 +101,6 @@ class CRadioController<T> {
   }
 }
 
-/// A custom radio button widget for displaying radio options.
-class CRadioButton<T> extends StatelessWidget {
-  /// The radio item to display.
-  final CRadioItem<T> item;
-
-  /// The currently selected item.
-  final T? itemSelected;
-
-  /// Callback function for when the radio button is changed.
-  final void Function(T?)? onChanged;
-
-  /// Creates a [CRadioButton] widget.
-  const CRadioButton({
-    Key? key,
-    required this.item,
-    this.itemSelected,
-    this.onChanged,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Radio<T>(
-          value: item.value,
-          groupValue: itemSelected,
-          onChanged: onChanged,
-        ),
-        Text(item.label),
-      ],
-    );
-  }
-}
-
 /// A group of radio buttons allowing selection from a list of values.
 class CRadioGroup<T> extends StatefulWidget {
   /// The list of radio items.
@@ -204,9 +169,9 @@ class _CRadioGroupState<T> extends State<CRadioGroup<T>> {
           );
   }
 
-  List<CRadioButton<T>> _buildRadioButtons() {
+  List<_CRadioButton<T>> _buildRadioButtons() {
     return widget.values.map((item) {
-      return CRadioButton<T>(
+      return _CRadioButton<T>(
         item: item,
         itemSelected: _selectedItem,
         onChanged: (T? value) {
@@ -219,5 +184,40 @@ class _CRadioGroupState<T> extends State<CRadioGroup<T>> {
         },
       );
     }).toList();
+  }
+}
+
+/// A custom radio button widget for displaying radio options.
+class _CRadioButton<T> extends StatelessWidget {
+  /// The radio item to display.
+  final CRadioItem<T> item;
+
+  /// The currently selected item.
+  final T? itemSelected;
+
+  /// Callback function for when the radio button is changed.
+  final void Function(T?)? onChanged;
+
+  /// Creates a [_CRadioButton] widget.
+  const _CRadioButton({
+    Key? key,
+    required this.item,
+    this.itemSelected,
+    this.onChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Radio<T>(
+          value: item.value,
+          groupValue: itemSelected,
+          onChanged: onChanged,
+        ),
+        Text(item.label),
+      ],
+    );
   }
 }

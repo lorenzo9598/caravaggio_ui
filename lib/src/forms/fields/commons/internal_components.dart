@@ -1,4 +1,4 @@
-import 'package:caravaggio_ui/caravaggio.dart';
+import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that displays a text form field with customizable decoration and style.
@@ -67,11 +67,7 @@ class FieldContent extends StatelessWidget {
     this.maxLines,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      initialValue: initialValue,
-      decoration: InputDecoration(
+  InputDecoration get inputDecoration => InputDecoration(
         prefixIcon: decoration.prefixIcon,
         suffixIcon: decoration.suffixIcon,
         hintText: decoration.hintText,
@@ -84,55 +80,32 @@ class FieldContent extends StatelessWidget {
           color: style.foregroundColor,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(decoration.borderRadius),
-          ),
-          borderSide: style.bordered
-              ? BorderSide(
-                  color: style.foregroundColor,
-                  width: 1,
-                )
-              : BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(decoration.borderRadius),
-          ),
-          borderSide: BorderSide(
-            color: style.foregroundColor,
-            width: 2,
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: BorderSide(color: style.foregroundColor, width: 2),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(decoration.borderRadius),
-          ),
-          borderSide: BorderSide(
-            color: Colors.red[900] ?? Colors.red,
-            width: 2,
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(decoration.borderRadius),
-          ),
-          borderSide: BorderSide(
-            color: Colors.red[900] ?? Colors.red,
-            width: 2,
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(decoration.borderRadius),
-          ),
-          borderSide: style.bordered
-              ? const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                )
-              : BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none,
         ),
-      ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      initialValue: initialValue,
+      decoration: inputDecoration,
       autocorrect: autocorrect ?? false,
       onChanged: onChanged,
       validator: validator,
@@ -174,7 +147,7 @@ class FieldContainer extends StatelessWidget {
         borderRadius: BorderRadius.all(
           Radius.circular(decoration.borderRadius),
         ),
-        gradient: style.filled ? style.gradient ?? CaravaggioGradient.primaryToSecondary.opacity(0.3) : null,
+        gradient: style.filled ? style.gradient ?? CGradient.primaryToSecondary.opacity(0.3) : null,
         color: style.filled ? style.backgroundColor : null,
       ),
       child: child,

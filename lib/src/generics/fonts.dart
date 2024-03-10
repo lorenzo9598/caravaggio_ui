@@ -2,7 +2,7 @@ import 'package:caravaggio_ui/src/theme.dart';
 import 'package:flutter/material.dart';
 
 /// Extension methods for [TextStyle] related to Caravaggio UI theme.
-extension CaravaggioText on TextStyle {
+extension CText on TextStyle {
   /// Default text style.
   static const TextStyle style = TextStyle();
 

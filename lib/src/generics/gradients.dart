@@ -1,4 +1,4 @@
-import 'package:caravaggio_ui/caravaggio.dart';
+import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
 /// Enumeration defining the type of gradient colors.
@@ -80,7 +80,7 @@ enum CGradientDirection {
 }
 
 /// Extension on [LinearGradient] providing utility methods for Caravaggio UI gradients.
-extension CaravaggioGradient on LinearGradient {
+extension CGradient on LinearGradient {
   /// Returns a primary light gradient.
   static LinearGradient get primaryLight => _generate(CGradientColorType.primaryLightToPrimary, CGradientDirection.topLeftToBottomRight);
 

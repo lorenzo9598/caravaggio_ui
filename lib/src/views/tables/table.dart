@@ -1,4 +1,4 @@
-import 'package:caravaggio_ui/src/generics/gradients/gradients.dart';
+import 'package:caravaggio_ui/src/generics/gradients.dart';
 import 'package:flutter/material.dart';
 
 /// Widget for displaying a table with a header and rows.
@@ -20,7 +20,7 @@ class CTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: CaravaggioGradient.primaryToSecondary.opacity(0.3),
+        gradient: CGradient.primaryToSecondary.opacity(0.3),
         borderRadius: const BorderRadius.all(
           Radius.circular(12),
         ),
@@ -30,7 +30,7 @@ class CTable extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
             decoration: BoxDecoration(
-              gradient: CaravaggioGradient.primaryToSecondary,
+              gradient: CGradient.primaryToSecondary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(12),
               ),

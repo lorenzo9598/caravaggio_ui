@@ -2,6 +2,8 @@ import 'package:caravaggio_ui/src/forms/fields/commons/internal_components.dart'
 import 'package:caravaggio_ui/src/forms/fields/commons/classes.dart';
 import 'package:flutter/material.dart';
 
+//TODO: dovrebbero tutte estendere da una stessa classe astratta o non per simple, filled, bordered ecc.
+
 /// A stylized text input field.
 class CTextField extends StatelessWidget {
   /// Style of the field.

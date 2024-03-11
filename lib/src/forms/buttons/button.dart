@@ -101,6 +101,8 @@ class CButton extends StatelessWidget {
         bordered: false,
         filledColor: color,
         gradient: gradient,
+        icon: icon,
+        suffixIcon: suffixIcon,
       ),
       child: child,
     );

@@ -23,11 +23,6 @@ A comprehensive UI package designed to streamline your Flutter app development p
 
 ## Getting started
 
-To ensure seamless integration and optimal performance of CarvaggioUI within your Flutter application, it's crucial to follow a simple initialization process. By initializing the library in the main function and setting the theme parameter of MaterialApp with the generated themeData from CarvaggioUI, you'll unlock its full potential and elevate the visual appeal of your app.
-
-Here's a step-by-step guide to integrating CarvaggioUI effectively:
-
-**Initialize CarvaggioUI in the Main Function:**
 Within your main.dart file, initiate CarvaggioUI to harness its capabilities. This initialization step is essential for accessing CarvaggioUI's rich set of features seamlessly.
 
 ```dart
@@ -40,7 +35,6 @@ void main() {
 }
 ```
 
-**Set Theme Parameter of MaterialApp:**
 After initialization, ensure that you set the theme parameter of MaterialApp with the themeData provided by CarvaggioUI. This step guarantees consistent visual styling across your entire application.
 
 ```dart
@@ -84,21 +78,11 @@ Color secondaryColorDark = CarvaggioUI.instance.secondaryColorDark;
 
 ### Generics
 
-_WIP: to translate_
-Per uniformità grafica carvaggio UI espone Ctext e cgradients. Due classi che cercano di fornire metodi facili, intuitivi e facilmente memorizzabili perché possano essere facilmente utilizzabili in qualsiasi momento durante lo sviluppo dell'app.
+For graphic uniformity, Caravaggio UI introduces CText and CGradients. These are two classes that aim to provide easy, intuitive, and easily memorable methods so they can be readily used at any point during app development.
 
 #### `CText`
 
-_WIP: to translate_
-CText è una estensione di TextStyle che aggiunge una serie di mettodi getter per aggiunger dimesione colore e stile.
-Invocando il getter CText.style non si fa altro che creare un nuovo TextStyle al cui è possibile dare una dimensione
-
-```dart
-CText.style.bodyMedium
-```
-
-_WIP: to translate_
-secondo la seguente tabella
+CText is an extension of TextStyle that adds a series of getter methods to include dimensions, colors, and styles. Invoking the CText.style getter simply creates a new TextStyle to which can be applied dimensions:
 
 | Name                                            | Size |
 | ----------------------------------------------- | ---- |
@@ -118,8 +102,7 @@ secondo la seguente tabella
 | <p style="font-size:12px">Label Medium </p>     | 12   |
 | <p style="font-size:11px">Label Small </p>      | 11   |
 
-_WIP: to translate_
-un colore
+colors
 
 ```dart
 CText.style.primary
@@ -130,35 +113,26 @@ CText.style.secondaryLight
 CText.style.secondaryDark
 ```
 
-_WIP: to translate_
-e uno stile
+and style
 
-```dart
-CText.style.italic
-CText.style.bold
-```
+_CText.style.italic_
+**CText.style.bold**
 
-_WIP: to translate_
-Dunque puoi decidere di unire tutti questi getter a tuo piacimento per formare lo stile che preferisci in maniera facile veloce ed intuitiva
+So, you can choose to combine all these getters as you prefer to form the style you prefer in an easy, quick, and intuitive way. For example:
 
-```dart
-CText.style.bodyMedium.primary.bold
-```
+![CText styles exemples](https://github.com/lorenzo9598/caravaggio_ui/blob/main/assets-for-api-docs/text_styles.png)
 
 #### `CGradients`
 
-_WIP: to translate_
-CGradientColorType è un enum con tutte coppie di colori presenti nel tema di caravaggio. Le combinazioni sono unilateriali poiché è previsto il metodo reverse che inverte la direzinoe del colore.
+CGradientColorType is an enum containing all color pairs present in the Caravaggio theme. The combinations are unilateral since the reverse method is provided to invert the color direction
 
-_WIP: add image_
+![CGradientColorType explanatory image](https://github.com/lorenzo9598/caravaggio_ui/blob/main/assets-for-api-docs/gradient_colors.png)
 
-_WIP: to translate_
-CGradientDirection è un enum che espone tutte le possibili direzioni del gradient. anche in questo caso si prende in considerazione da sinsitra a destra in quanto esiste il metodo reverse.
+CGradientDirection is an enum that exposes all possible gradient directions. Similarly, it considers left to right by default, as the reverse method is available
 
-_WIP: add image_
+![CGradientDirection explanatory image](https://github.com/lorenzo9598/caravaggio_ui/blob/main/assets-for-api-docs/gradient_directions.png)
 
-_WIP: to translate_
-CGradient è una estensione di LinearGradient. Espone alcuni getter per avere la maggior parte dei linear gradient a disposizione in maniera facile, veloce ed intuitiva. Di default la direzione è CGradientDirection.topLeftToBottomRight e i getter sono:
+CGradient is an extension of LinearGradient. It exposes several getters to provide most common linear gradients in an easy, quick, and intuitive manner. By default, the direction is CGradientDirection.topLeftToBottomRight and the getters are:
 
 ```dart
  /// Returns a primary light gradient.
@@ -189,90 +163,131 @@ CGradient è una estensione di LinearGradient. Espone alcuni getter per avere la
   static LinearGradient get primaryDarkToSecondaryDark => _generate(CGradientColorType.primaryDarkToSecondaryDark, CGradientDirection.topLeftToBottomRight);
 ```
 
-_WIP: to translate_
-Esistono tuttavia i metodi custom(CGradientColorType,CGradientDirection, {double}), get reverse e opacity(dobule)
+If the linear gradient you're looking for isn't exposed in any of these methods, you can create one using the `custom(CGradientCGradientColorType colors, CGradientDirection direction, double opacity = 1)` method with `reverse` getter.
+
+```dart
+LinearGradient customGradient = custom(
+    colors: CGradientColorType.primaryLightToSecondaryLight,
+    direction: CGradientDirection.topLeftToBottomRight,
+    opacity: 0.3).reverse;
+```
 
 ### Form
 
-_WIP: to translate_
-La sezione forms espone alcuni degli elementi di una form
-
 #### `CButtons`
 
-_WIP_
+The CButton class enables easy and fast creation of buttons according to the CaravaggioUI style. It features three types of buttons, each with its corresponding small version.
+
+1. Elevated `elevated`
+2. Elevated Small `elevated`
+3. Outlined `outlined`
+4. Outlined Small `outlinedSmall`
+5. Text `text`
+6. Text Small `textSmall`
 
 ```dart
-CButton.elevated
-CButton.outlined
-CButton.text
-CButton.elevatedSmall
-CButton.outlinedSmall
-CButton.textSmall
+CButton.elevated({
+    child: Text('Press me'),
+    icon: Icon(Icons.star),
+    suffixIcon: Icon(Icons.star),
+    gradient: CGradients.primaryToSecodnary,
+})
 ```
 
-#### `CTextField`
+![CButton explanatory image](https://github.com/lorenzo9598/caravaggio_ui/blob/main/assets-for-api-docs/buttons.png)
 
-_WIP_
+#### `CTextField`, `CAutocomplete`, `CDropdown`
+
+The available input fields in Caravaggio are `CTextField`, `CAutocomplete` and `CDropdown`. All three can be in the following forms:
+
+1. simple
+2. bordered
+3. filled
+4. borderedFilled
+
+![CButton explanatory image](https://github.com/lorenzo9598/caravaggio_ui/blob/main/assets-for-api-docs/text_field.png)
+
+##### `CTextField`
 
 ```dart
-CTextField.simple
-CTextField.bordered
-CTextField.filled
-CTextField.borderedFilled
+CTextField.simple(
+    decoration: CFieldDecoration(
+        labelText: "Label here",
+        hintText: "Write something here",
+        prefixIcon: Icon(Icons.star),
+        suffixIcon: Icon(Icons.star),
+    ),
+    onChanged: (_) => //...do stuff,
+),
 ```
 
-#### `CAutocomplete`
-
-_WIP_
+##### `CAutocomplete`
 
 ```dart
-CAutocomplete<T>.simple
-CAutocomplete<T>.bordered
-CAutocomplete<T>.filled
-CAutocomplete<T>.borderedFilled
+CAutocomplete<String>.simple(
+    options: ["Option 1", "Option 2", "Option 3"],
+    decoration: CFieldDecoration(
+        labelText: "Label here",
+        hintText: "Write something here",
+        prefixIcon: Icon(Icons.star),
+    ),
+    optionsValueToMatch: (value) => value.toLowerCase(),
+    displayStringForOption: (value) => value,
+    searchItems: () => //...do stuff
+),
 ```
 
-#### `CDropdown`
-
-_WIP_
+##### `CDropdown`
 
 ```dart
-CDropdown<T>.simple
-CDropdown<T>.bordered
-CDropdown<T>.filled
-CDropdown<T>.borderedFilled
+CDropdown<String>.simple(
+    items: [
+        CDropdownItemModel<String>(value: "item1", text: "Item 1"),
+        CDropdownItemModel<String>(value: "item2", text: "Item 2"),
+        CDropdownItemModel<String>(value: "item3", text: "Item 3"),
+    ],
+    decoration: CFieldDecoration(
+        labelText: "Label here",
+        hintText: "Write something here",
+        prefixIcon: Icon(Icons.star),
+    ),
+    onChanged: (_) => //...do stuff
+),
+
 ```
 
 #### `CCheckbox`
 
-_WIP_
-
 ```dart
-final CCheckboxController controller = CCheckboxController();
-    return CCheckbox(controller: controller, label: "Checkbox");
+CCheckbox(controller: CCheckboxController(), label: "Checkbox");
 ```
 
 #### `CRadioGroup`
 
-_WIP_
-
 ```dart
-final List<CRadioItem<String>> items = _options.map((value) => CRadioItem<String>(value: value, label: value)).toList();
-    final CRadioController<String> controller = CRadioController<String>(initialValue: _options.first);
-    return Column(
-      children: [
-        CRadioGroup<String>(values: items, controller: controller, orientation: CRadioGroupOrientation.vertical, crossAxisAlignment: CRadioCrossAxisAlignment.start),
-      ],
-    );
+final List<CRadioItem<String>> items = [
+    CRadioItem<String>(value: "option1", label: "Option 1"),
+    CRadioItem<String>(value: "option2", label: "Option 2"),
+    CRadioItem<String>(value: "option3", label: "Option 3"),
+];
+
+final CRadioController<String> controller = CRadioController<String>(initialValue: "option1");
+
+CRadioGroup<String>(
+    values: items,
+    controller: controller,
+    orientation: CRadioGroupOrientation.vertical,
+    crossAxisAlignment: CRadioCrossAxisAlignment.start,
+),
 ```
 
-### Components
+### Others
 
-_WIP_
+In addition to input fields, CaravaggioUI also includes various graphical elements for visualizing the app's state.
+
+![CButton explanatory image](https://github.com/lorenzo9598/caravaggio_ui/blob/main/assets-for-api-docs/components.png)
 
 #### `CTable`
-
-_WIP_
 
 ```dart
 final CTableHeader header = CTableHeader(titles: ["Header 1", "Header 2", "Header 3"]);
@@ -288,8 +303,6 @@ CTable(header: header, rows: rows);
 ```
 
 #### `Circular Indicator`
-
-_WIP_
 
 ```dart
 CCircularIndicator.single(
@@ -310,8 +323,6 @@ CCircularIndicator.double(
 
 #### `Progress Indicator`
 
-_WIP_
-
 ```dart
 //Circular Progress Indicators
 CCircularProgressIndicator.primary(),
@@ -324,4 +335,4 @@ CLinearProgressIndicator.secondary(),
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to contribute to the package, how to file issues, what response they can expect from the package authors, and more.
+_WIP_

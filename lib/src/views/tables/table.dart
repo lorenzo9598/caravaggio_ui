@@ -41,7 +41,10 @@ class CTable extends StatelessWidget {
                     .map(
                       (title) => Expanded(
                         child: Center(
-                          child: Text(title, textAlign: TextAlign.center, maxLines: 2, style: const TextStyle(color: Colors.white)),
+                          child: Text(title,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     )
@@ -57,7 +60,8 @@ class CTable extends StatelessWidget {
                   ...row.values
                       .map((value) => Expanded(
                             child: Center(
-                              child: Text(value, style: const TextStyle(color: Colors.black)),
+                              child: Text(value,
+                                  style: const TextStyle(color: Colors.black)),
                             ),
                           ))
                       .toList(),

@@ -77,7 +77,8 @@ class CRadioController<T> {
   final BehaviorSubject<T?> _controller;
 
   /// Constructs a [CRadioController] with an optional initial value.
-  CRadioController({T? initialValue}) : _controller = BehaviorSubject<T?>.seeded(initialValue);
+  CRadioController({T? initialValue})
+      : _controller = BehaviorSubject<T?>.seeded(initialValue);
 
   /// Retrieves the current value of the radio.
   T? get value => _controller.value;
@@ -130,7 +131,8 @@ class CRadioGroup<T> extends StatefulWidget {
     this.controller,
     this.orientation = CRadioGroupOrientation.vertical,
     this.crossAxisAlignment = CRadioCrossAxisAlignment.start,
-  })  : assert(initialValue != null || controller != null, 'initialValue or controller must be provided'),
+  })  : assert(initialValue != null || controller != null,
+            'initialValue or controller must be provided'),
         super(key: key);
 
   @override

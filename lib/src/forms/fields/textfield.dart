@@ -168,7 +168,10 @@ class CTextField extends StatelessWidget {
     String? initialValue,
   }) {
     return CTextField._(
-      style: CFieldStyle.filled(backgroundColor: backgroundColor, foregroundColor: foregroundColor, gradient: gradient),
+      style: CFieldStyle.filled(
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          gradient: gradient),
       decoration: decoration,
       validator: validator,
       onChanged: onChanged,

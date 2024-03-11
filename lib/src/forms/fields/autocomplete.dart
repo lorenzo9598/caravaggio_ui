@@ -119,7 +119,10 @@ class CAutocomplete<T extends Object> extends StatefulWidget {
     FocusNode? focusNode,
   }) {
     return CAutocomplete._(
-      style: CFieldStyle.filled(backgroundColor: backgroundColor, foregroundColor: foregroundColor, gradient: gradient),
+      style: CFieldStyle.filled(
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          gradient: gradient),
       decoration: decoration,
       options: options,
       optionsValueToMatch: optionsValueToMatch,
@@ -148,7 +151,10 @@ class CAutocomplete<T extends Object> extends StatefulWidget {
     FocusNode? focusNode,
   }) {
     return CAutocomplete._(
-      style: CFieldStyle.borderedFilled(backgroundColor: backgroundColor, foregroundColor: foregroundColor, gradient: gradient),
+      style: CFieldStyle.borderedFilled(
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          gradient: gradient),
       decoration: decoration,
       options: options,
       optionsValueToMatch: optionsValueToMatch,
@@ -180,7 +186,9 @@ class _CAutocompleteState<T extends Object> extends State<CAutocomplete<T>> {
           if (textEditingValue.text == '') {
             return Iterable<T>.empty();
           }
-          return widget.options.where((option) => widget.optionsValueToMatch.call(option).contains(textEditingValue.text.toLowerCase()));
+          return widget.options.where((option) => widget.optionsValueToMatch
+              .call(option)
+              .contains(textEditingValue.text.toLowerCase()));
         },
         onSelected: widget.onSelected,
         displayStringForOption: widget.displayStringForOption,
@@ -208,8 +216,13 @@ class _CAutocompleteState<T extends Object> extends State<CAutocomplete<T>> {
             ),
           ),
         ),
-        fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) => FieldContent(
-          decoration: widget.decoration.copyWith(suffixIcon: IconButton(onPressed: textEditingController.clear, icon: const Icon(Icons.close))),
+        fieldViewBuilder:
+            (context, textEditingController, focusNode, onFieldSubmitted) =>
+                FieldContent(
+          decoration: widget.decoration.copyWith(
+              suffixIcon: IconButton(
+                  onPressed: textEditingController.clear,
+                  icon: const Icon(Icons.close))),
           controller: textEditingController,
           style: widget.style,
           initialValue: widget.initialValue,

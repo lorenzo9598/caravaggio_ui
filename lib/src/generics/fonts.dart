@@ -97,22 +97,27 @@ extension CText on TextStyle {
   TextStyle get labelSmall => copyWith(fontSize: labelSmallSize);
 
   /// Applies primary light color to the current text style.
-  TextStyle get primaryLight => copyWith(color: CaravaggioUI.instance.primaryColorLight);
+  TextStyle get primaryLight =>
+      copyWith(color: CaravaggioUI.instance.primaryColorLight);
 
   /// Applies primary color to the current text style.
   TextStyle get primary => copyWith(color: CaravaggioUI.instance.primaryColor);
 
   /// Applies primary dark color to the current text style.
-  TextStyle get primaryDark => copyWith(color: CaravaggioUI.instance.primaryColorDark);
+  TextStyle get primaryDark =>
+      copyWith(color: CaravaggioUI.instance.primaryColorDark);
 
   /// Applies secondary color to the current text style.
-  TextStyle get secondary => copyWith(color: CaravaggioUI.instance.secondaryColor);
+  TextStyle get secondary =>
+      copyWith(color: CaravaggioUI.instance.secondaryColor);
 
   /// Applies secondary light color to the current text style.
-  TextStyle get secondaryLight => copyWith(color: CaravaggioUI.instance.secondaryColorLight);
+  TextStyle get secondaryLight =>
+      copyWith(color: CaravaggioUI.instance.secondaryColorLight);
 
   /// Applies secondary dark color to the current text style.
-  TextStyle get secondaryDark => copyWith(color: CaravaggioUI.instance.secondaryColorDark);
+  TextStyle get secondaryDark =>
+      copyWith(color: CaravaggioUI.instance.secondaryColorDark);
 
   /// Applies white color to the current text style.
   TextStyle get white => copyWith(color: Colors.white);

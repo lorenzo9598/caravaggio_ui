@@ -61,8 +61,10 @@ class CButtonDecoration {
     this.borderColor,
     this.gradient,
     this.radius = 15,
-  })  : assert(filledColor == null || gradient == null, "You can't use filledColor and gradient at the same time"),
-        assert(filled || filledColor == null, "You can't use filledColor without filled");
+  })  : assert(filledColor == null || gradient == null,
+            "You can't use filledColor and gradient at the same time"),
+        assert(filled || filledColor == null,
+            "You can't use filledColor without filled");
 }
 
 /// A stylized button widget.
@@ -239,21 +241,30 @@ class CButton extends StatelessWidget {
         ),
         side: decoration.bordered
             ? MaterialStateProperty.all(
-                BorderSide(width: 2.0, color: decoration.borderColor ?? CaravaggioUI.instance.primaryColor),
+                BorderSide(
+                    width: 2.0,
+                    color: decoration.borderColor ??
+                        CaravaggioUI.instance.primaryColor),
               )
             : null,
         backgroundColor: MaterialStateProperty.all(Colors.transparent),
         foregroundColor: MaterialStateProperty.all(
           decoration.filled ? Colors.white : CaravaggioUI.instance.primaryColor,
         ),
-        elevation: decoration.filled ? MaterialStateProperty.all(2) : MaterialStateProperty.all(0),
+        elevation: decoration.filled
+            ? MaterialStateProperty.all(2)
+            : MaterialStateProperty.all(0),
       ),
       child: Ink(
         decoration: decoration.filled
             ? BoxDecoration(
-                color: decoration.filledColor ?? (decoration.gradient == null ? CaravaggioUI.instance.primaryColor : null),
+                color: decoration.filledColor ??
+                    (decoration.gradient == null
+                        ? CaravaggioUI.instance.primaryColor
+                        : null),
                 gradient: decoration.gradient,
-                borderRadius: BorderRadius.all(Radius.circular(decoration.radius)),
+                borderRadius:
+                    BorderRadius.all(Radius.circular(decoration.radius)),
               )
             : null,
         child: Container(

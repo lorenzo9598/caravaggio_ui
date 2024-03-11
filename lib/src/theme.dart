@@ -27,8 +27,10 @@ class CaravaggioUI {
     Color secondaryColor = Colors.transparent,
     String? fontFamily,
   }) {
-    MaterialColor primaryMaterialColor = MaterialColorGenerator.from(primaryColor);
-    MaterialColor secondaryMaterialColor = MaterialColorGenerator.from(secondaryColor);
+    MaterialColor primaryMaterialColor =
+        MaterialColorGenerator.from(primaryColor);
+    MaterialColor secondaryMaterialColor =
+        MaterialColorGenerator.from(secondaryColor);
 
     _instance._materialPrimaryColor = primaryMaterialColor;
     _instance._materialSecondaryColor = secondaryMaterialColor;
@@ -40,7 +42,8 @@ class CaravaggioUI {
       primaryColor: primaryMaterialColor,
       primaryColorLight: primaryMaterialColor[200],
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(side: BorderSide(color: primaryMaterialColor, width: 1)),
+        style: OutlinedButton.styleFrom(
+            side: BorderSide(color: primaryMaterialColor, width: 1)),
       ),
       buttonTheme: ButtonThemeData(
         buttonColor: primaryMaterialColor,
@@ -57,7 +60,9 @@ class CaravaggioUI {
         ),
       ),
       appBarTheme: AppBarTheme(
-        foregroundColor: primaryMaterialColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+        foregroundColor: primaryMaterialColor.computeLuminance() > 0.5
+            ? Colors.black
+            : Colors.white,
         backgroundColor: primaryMaterialColor,
         elevation: 0,
         iconTheme: IconThemeData(color: secondaryMaterialColor),
@@ -88,17 +93,21 @@ class CaravaggioUI {
   Color get primaryColor => _materialPrimaryColor;
 
   /// Returns the light variant of primary color.
-  Color get primaryColorLight => _materialPrimaryColor[200] ?? _materialPrimaryColor;
+  Color get primaryColorLight =>
+      _materialPrimaryColor[200] ?? _materialPrimaryColor;
 
   /// Returns the dark variant of primary color.
-  Color get primaryColorDark => _materialPrimaryColor[800] ?? _materialPrimaryColor;
+  Color get primaryColorDark =>
+      _materialPrimaryColor[800] ?? _materialPrimaryColor;
 
   /// Returns the secondary color.
   Color get secondaryColor => _materialSecondaryColor;
 
   /// Returns the light variant of secondary color.
-  Color get secondaryColorLight => _materialSecondaryColor[200] ?? _materialSecondaryColor;
+  Color get secondaryColorLight =>
+      _materialSecondaryColor[200] ?? _materialSecondaryColor;
 
   /// Returns the dark variant of secondary color.
-  Color get secondaryColorDark => _materialSecondaryColor[800] ?? _materialSecondaryColor;
+  Color get secondaryColorDark =>
+      _materialSecondaryColor[800] ?? _materialSecondaryColor;
 }

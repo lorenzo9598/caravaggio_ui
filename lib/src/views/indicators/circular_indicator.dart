@@ -119,10 +119,18 @@ class CCircularIndicator extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (internalLabel != null && currentInternalValue != null)
-                _CLabelIndicator(label: internalLabel!, fontSize: isDense ? 12 : 14, value: currentInternalValue!, color: CaravaggioUI.instance.secondaryColor),
+                _CLabelIndicator(
+                    label: internalLabel!,
+                    fontSize: isDense ? 12 : 14,
+                    value: currentInternalValue!,
+                    color: CaravaggioUI.instance.secondaryColor),
               const SizedBox(height: 8),
               if (externalLabel != null)
-                _CLabelIndicator(label: externalLabel!, fontSize: isDense ? 12 : 14, value: currentExternalValue, color: CaravaggioUI.instance.primaryColor),
+                _CLabelIndicator(
+                    label: externalLabel!,
+                    fontSize: isDense ? 12 : 14,
+                    value: currentExternalValue,
+                    color: CaravaggioUI.instance.primaryColor),
             ],
           ),
       ],
@@ -206,7 +214,12 @@ class _CLabelIndicator extends StatelessWidget {
         RichText(
           text: TextSpan(
             style: TextStyle(color: Colors.black, fontSize: fontSize),
-            children: [TextSpan(text: "$label: "), TextSpan(text: "${value.round()}", style: const TextStyle(fontWeight: FontWeight.bold))],
+            children: [
+              TextSpan(text: "$label: "),
+              TextSpan(
+                  text: "${value.round()}",
+                  style: const TextStyle(fontWeight: FontWeight.bold))
+            ],
           ),
         ),
       ],

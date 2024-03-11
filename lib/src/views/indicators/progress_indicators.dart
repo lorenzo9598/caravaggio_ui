@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 extension CLinearProgressIndicator on LinearProgressIndicator {
   /// Creates a primary LinearProgressIndicator widget.
   static LinearProgressIndicator primary({Key? key}) {
-    return LinearProgressIndicator(key: key, color: CaravaggioUI.instance.primaryColor);
+    return LinearProgressIndicator(
+        key: key, color: CaravaggioUI.instance.primaryColor);
   }
 
   /// Creates a secondary LinearProgressIndicator widget.
   static LinearProgressIndicator secondary({Key? key}) {
-    return LinearProgressIndicator(key: key, color: CaravaggioUI.instance.secondaryColor);
+    return LinearProgressIndicator(
+        key: key, color: CaravaggioUI.instance.secondaryColor);
   }
 }
 
@@ -20,11 +22,13 @@ extension CLinearProgressIndicator on LinearProgressIndicator {
 extension CCircularProgressIndicator on CircularProgressIndicator {
   /// Creates a primary CircularProgressIndicator widget.
   static CircularProgressIndicator primary({Key? key}) {
-    return CircularProgressIndicator(key: key, color: CaravaggioUI.instance.primaryColor);
+    return CircularProgressIndicator(
+        key: key, color: CaravaggioUI.instance.primaryColor);
   }
 
   /// Creates a secondary CircularProgressIndicator widget.
   static CircularProgressIndicator secondary({Key? key}) {
-    return CircularProgressIndicator(key: key, color: CaravaggioUI.instance.secondaryColor);
+    return CircularProgressIndicator(
+        key: key, color: CaravaggioUI.instance.secondaryColor);
   }
 }

@@ -7,11 +7,15 @@ const SizedBox _spacer = SizedBox(height: 20);
 const SizedBox _spacerSmall = SizedBox(height: 10);
 const Icon _icon = Icon(Icons.star);
 const Icon _suffixIcon = Icon(Icons.star);
-const CFieldDecoration _decoration = CFieldDecoration(labelText: "Label here", hintText: "Write something here", prefixIcon: _icon);
+const CFieldDecoration _decoration = CFieldDecoration(
+    labelText: "Label here",
+    hintText: "Write something here",
+    prefixIcon: _icon);
 const Text _buttonText = Text("Click here");
 const List<String> _options = ["Option 1", "Option 2", "Option 3"];
 
-final CFieldDecoration _textFieldDecoration = _decoration.copyWith(suffixIcon: _suffixIcon);
+final CFieldDecoration _textFieldDecoration =
+    _decoration.copyWith(suffixIcon: _suffixIcon);
 final LinearGradient _gradient = CGradient.primaryToSecondary;
 final List<CDropdownItemModel<String>> _items = [
   CDropdownItemModel<String>(value: "item1", text: "Item 1"),
@@ -29,7 +33,9 @@ final List<List<String>> _rowsTexts = [
 enum Page { generics, forms, views }
 
 void main() {
-  CaravaggioUI.initialize(primaryColor: const Color(0xFF662D8C), secondaryColor: const Color(0xFFED1E79));
+  CaravaggioUI.initialize(
+      primaryColor: const Color(0xFF662D8C),
+      secondaryColor: const Color(0xFFED1E79));
   runApp(const MainApp());
 }
 
@@ -76,8 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Generics'),
-          BottomNavigationBarItem(icon: Icon(Icons.document_scanner), label: 'Forms'),
-          BottomNavigationBarItem(icon: Icon(Icons.view_comfortable_rounded), label: 'Views'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.document_scanner), label: 'Forms'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.view_comfortable_rounded), label: 'Views'),
         ],
         currentIndex: _selectedPage.index,
         onTap: (int index) {
@@ -97,11 +105,14 @@ class GenericsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _text("CText.style.bodyMedium", CText.style.bodyMedium),
-          _text("CText.style.bodyMedium.primary", CText.style.bodyMedium.primary),
-          _text("CText.style.bodyMedium.secondary", CText.style.bodyMedium.secondary),
+          _text(
+              "CText.style.bodyMedium.primary", CText.style.bodyMedium.primary),
+          _text("CText.style.bodyMedium.secondary",
+              CText.style.bodyMedium.secondary),
           _text("CText.style.bodyMedium.bold", CText.style.bodyMedium.bold),
           _text("CText.style.bodyMedium.italic", CText.style.bodyMedium.italic),
-          _text("CText.style.bodyMedium.primary.bold", CText.style.bodyMedium.primary.bold),
+          _text("CText.style.bodyMedium.primary.bold",
+              CText.style.bodyMedium.primary.bold),
         ],
       );
 
@@ -141,8 +152,10 @@ class GenericsSection extends StatelessWidget {
           _gradient("secondaryDark", CGradient.secondaryDark),
           _gradient("secondaryHighContrast", CGradient.secondaryHighContrast),
           _gradient("primaryToSecondary", CGradient.primaryToSecondary),
-          _gradient("primaryLightToSecondaryLight", CGradient.primaryLightToSecondaryLight),
-          _gradient("primaryDarkToSecondaryDark", CGradient.primaryDarkToSecondaryDark),
+          _gradient("primaryLightToSecondaryLight",
+              CGradient.primaryLightToSecondaryLight),
+          _gradient("primaryDarkToSecondaryDark",
+              CGradient.primaryDarkToSecondaryDark),
           _gradient("reverse", CGradient.primaryToSecondary.reverse),
           _gradient("opacity(0.5)", CGradient.primaryToSecondary.opacity(0.5)),
           _gradient(
@@ -189,7 +202,9 @@ class GenericsSection extends StatelessWidget {
   static Widget _gradient(String text, LinearGradient gradient) => Container(
         height: 100,
         decoration: BoxDecoration(gradient: gradient),
-        child: Center(child: Text(text, style: CText.style.white, textAlign: TextAlign.center)),
+        child: Center(
+            child: Text(text,
+                style: CText.style.white, textAlign: TextAlign.center)),
       );
 }
 
@@ -204,21 +219,55 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _buttons {
     return Column(
       children: [
-        CButton.elevated(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText),
+        CButton.elevated(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            onPressed: _onPressed,
+            child: _buttonText),
         _spacerSmall,
-        CButton.elevated(suffixIcon: _suffixIcon, icon: _icon, gradient: _gradient, onPressed: _onPressed, child: _buttonText),
+        CButton.elevated(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            gradient: _gradient,
+            onPressed: _onPressed,
+            child: _buttonText),
         _spacerSmall,
-        CButton.outlined(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText),
+        CButton.outlined(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            onPressed: _onPressed,
+            child: _buttonText),
         _spacerSmall,
-        CButton.text(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText),
+        CButton.text(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            onPressed: _onPressed,
+            child: _buttonText),
         _spacerSmall,
-        CButton.elevatedSmall(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText),
+        CButton.elevatedSmall(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            onPressed: _onPressed,
+            child: _buttonText),
         _spacerSmall,
-        CButton.elevatedSmall(suffixIcon: _suffixIcon, icon: _icon, gradient: _gradient, onPressed: _onPressed, child: _buttonText),
+        CButton.elevatedSmall(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            gradient: _gradient,
+            onPressed: _onPressed,
+            child: _buttonText),
         _spacerSmall,
-        CButton.outlinedSmall(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText),
+        CButton.outlinedSmall(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            onPressed: _onPressed,
+            child: _buttonText),
         _spacerSmall,
-        CButton.textSmall(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText),
+        CButton.textSmall(
+            suffixIcon: _suffixIcon,
+            icon: _icon,
+            onPressed: _onPressed,
+            child: _buttonText),
       ],
     );
   }
@@ -226,13 +275,17 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _textFields {
     return Column(
       children: [
-        CTextField.simple(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
+        CTextField.simple(
+            decoration: _textFieldDecoration, onChanged: _onFieldChanged),
         _spacerSmall,
-        CTextField.bordered(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
+        CTextField.bordered(
+            decoration: _textFieldDecoration, onChanged: _onFieldChanged),
         _spacerSmall,
-        CTextField.filled(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
+        CTextField.filled(
+            decoration: _textFieldDecoration, onChanged: _onFieldChanged),
         _spacerSmall,
-        CTextField.borderedFilled(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
+        CTextField.borderedFilled(
+            decoration: _textFieldDecoration, onChanged: _onFieldChanged),
       ],
     );
   }
@@ -240,13 +293,33 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _autocomplete {
     return Column(
       children: [
-        CAutocomplete<String>.simple(options: _options, decoration: _decoration, optionsValueToMatch: (value) => value.toLowerCase(), displayStringForOption: (value) => value, searchItems: () {}),
+        CAutocomplete<String>.simple(
+            options: _options,
+            decoration: _decoration,
+            optionsValueToMatch: (value) => value.toLowerCase(),
+            displayStringForOption: (value) => value,
+            searchItems: () {}),
         _spacerSmall,
-        CAutocomplete<String>.bordered(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
+        CAutocomplete<String>.bordered(
+            options: _options,
+            decoration: _decoration,
+            optionsValueToMatch: _optionsValueToMatch,
+            displayStringForOption: (value) => value,
+            searchItems: () {}),
         _spacerSmall,
-        CAutocomplete<String>.filled(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
+        CAutocomplete<String>.filled(
+            options: _options,
+            decoration: _decoration,
+            optionsValueToMatch: _optionsValueToMatch,
+            displayStringForOption: (value) => value,
+            searchItems: () {}),
         _spacerSmall,
-        CAutocomplete<String>.borderedFilled(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
+        CAutocomplete<String>.borderedFilled(
+            options: _options,
+            decoration: _decoration,
+            optionsValueToMatch: _optionsValueToMatch,
+            displayStringForOption: (value) => value,
+            searchItems: () {}),
       ],
     );
   }
@@ -254,13 +327,17 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _dropdowns {
     return Column(
       children: [
-        CDropdown<String>.simple(items: _items, decoration: _decoration, onChanged: _onChanged),
+        CDropdown<String>.simple(
+            items: _items, decoration: _decoration, onChanged: _onChanged),
         _spacerSmall,
-        CDropdown<String>.filled(items: _items, decoration: _decoration, onChanged: _onChanged),
+        CDropdown<String>.filled(
+            items: _items, decoration: _decoration, onChanged: _onChanged),
         _spacerSmall,
-        CDropdown<String>.bordered(items: _items, decoration: _decoration, onChanged: _onChanged),
+        CDropdown<String>.bordered(
+            items: _items, decoration: _decoration, onChanged: _onChanged),
         _spacerSmall,
-        CDropdown<String>.borderedFilled(items: _items, decoration: _decoration, onChanged: _onChanged),
+        CDropdown<String>.borderedFilled(
+            items: _items, decoration: _decoration, onChanged: _onChanged),
       ],
     );
   }
@@ -271,11 +348,18 @@ class _FormsSectionState extends State<FormsSection> {
   }
 
   Widget get _radiobuttons {
-    final List<CRadioItem<String>> items = _options.map((value) => CRadioItem<String>(value: value, label: value)).toList();
-    final CRadioController<String> controller = CRadioController<String>(initialValue: _options.first);
+    final List<CRadioItem<String>> items = _options
+        .map((value) => CRadioItem<String>(value: value, label: value))
+        .toList();
+    final CRadioController<String> controller =
+        CRadioController<String>(initialValue: _options.first);
     return Column(
       children: [
-        CRadioGroup<String>(values: items, controller: controller, orientation: CRadioGroupOrientation.vertical, crossAxisAlignment: CRadioCrossAxisAlignment.start),
+        CRadioGroup<String>(
+            values: items,
+            controller: controller,
+            orientation: CRadioGroupOrientation.vertical,
+            crossAxisAlignment: CRadioCrossAxisAlignment.start),
       ],
     );
   }
@@ -311,11 +395,13 @@ class _FormsSectionState extends State<FormsSection> {
   }
 
   void _onPressed() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Button pressed')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Button pressed')));
   }
 
   void _onChanged(String? value) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value ?? 'No value')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(value ?? 'No value')));
   }
 
   void _onFieldChanged(String value) {
@@ -348,9 +434,16 @@ class _ViewsSectionState extends State<ViewsSection> {
   Widget get _circularIndicators {
     return Column(
       children: [
-        CCircularIndicator.single(currentValue: 64, maxValue: 100, label: "Value 1"),
+        CCircularIndicator.single(
+            currentValue: 64, maxValue: 100, label: "Value 1"),
         _spacerSmall,
-        CCircularIndicator.double(currentExternalValue: 64, maxExternalValue: 100, currentInternalValue: 87, maxInternalValue: 100, internalLabel: "Value 1", externalLabel: "Value 2"),
+        CCircularIndicator.double(
+            currentExternalValue: 64,
+            maxExternalValue: 100,
+            currentInternalValue: 87,
+            maxInternalValue: 100,
+            internalLabel: "Value 1",
+            externalLabel: "Value 2"),
       ],
     );
   }

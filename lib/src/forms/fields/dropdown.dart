@@ -20,8 +20,7 @@ class CDropdownController<T> {
   final BehaviorSubject<T?> _controller;
 
   /// Constructs a [CDropdownController] with an optional initial value.
-  CDropdownController({T? initialValue})
-      : _controller = BehaviorSubject<T?>.seeded(initialValue);
+  CDropdownController({T? initialValue}) : _controller = BehaviorSubject<T?>.seeded(initialValue);
 
   /// Retrieves the current value of the dropdown.
   T? get value => _controller.value;
@@ -62,7 +61,8 @@ class CDropdownStyle extends CFieldStyle {
     this.itemsFilled,
   });
 
-  /// Creates a simple field style.
+  /// Creates a simple dropdown style.
+  @override
   factory CDropdownStyle.simple({
     Color? foregroundColor,
     TextStyle? itemsTextStyle,
@@ -77,7 +77,8 @@ class CDropdownStyle extends CFieldStyle {
     );
   }
 
-  /// Creates a filled field style.
+  /// Creates a filled dropdown style.
+  @override
   factory CDropdownStyle.filled({
     Color? backgroundColor,
     Color? foregroundColor,
@@ -97,7 +98,8 @@ class CDropdownStyle extends CFieldStyle {
     );
   }
 
-  /// Creates a bordered field style.
+  /// Creates a bordered dropdown style.
+  @override
   factory CDropdownStyle.bordered({
     Color? foregroundColor,
     TextStyle? itemsTextStyle,
@@ -113,7 +115,8 @@ class CDropdownStyle extends CFieldStyle {
     );
   }
 
-  /// Creates a bordered and filled field style.
+  /// Creates a bordered and filled dropdown style.
+  @override
   factory CDropdownStyle.borderedFilled({
     Color? backgroundColor,
     Color? foregroundColor,
@@ -325,36 +328,19 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
       hintText: widget.decoration.hintText,
       hintStyle: TextStyle(
         fontStyle: FontStyle.italic,
-        color: widget.disabled
-            ? Colors.grey[350] ?? Colors.grey
-            : CaravaggioUI.instance.primaryColorLight,
+        color: widget.disabled ? Colors.grey[350] ?? Colors.grey : CaravaggioUI.instance.primaryColorLight,
       ),
       labelText: widget.decoration.labelText,
       border: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
-        borderSide: widget.style.bordered
-            ? BorderSide(
-                color: widget.disabled
-                    ? Colors.grey[350] ?? Colors.grey
-                    : _borderColor,
-                width: 1)
-            : BorderSide.none,
+        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderSide: widget.style.bordered ? BorderSide(color: widget.disabled ? Colors.grey[350] ?? Colors.grey : _borderColor, width: 1) : BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
-        borderSide: widget.style.bordered
-            ? BorderSide(
-                color: widget.disabled
-                    ? Colors.grey[350] ?? Colors.grey
-                    : _borderColor,
-                width: 1)
-            : BorderSide.none,
+        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderSide: widget.style.bordered ? BorderSide(color: widget.disabled ? Colors.grey[350] ?? Colors.grey : _borderColor, width: 1) : BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
         borderSide: widget.style.bordered
             ? BorderSide(
                 color: _borderColor,
@@ -363,21 +349,16 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
             : BorderSide.none,
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
         borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
         borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
       ),
       disabledBorder: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
-        borderSide: widget.style.bordered
-            ? const BorderSide(color: Colors.grey, width: 2)
-            : BorderSide.none,
+        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderSide: widget.style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none,
       ),
       errorStyle: const TextStyle(height: 0));
 
@@ -385,11 +366,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
   Widget build(BuildContext context) {
     final items = widget.items
         .map(
-          (e) => DropdownMenuItem<T>(
-              value: e.value,
-              child: Text(e.text,
-                  overflow: TextOverflow.ellipsis,
-                  style: widget.style.itemsTextStyle)),
+          (e) => DropdownMenuItem<T>(value: e.value, child: Text(e.text, overflow: TextOverflow.ellipsis, style: widget.style.itemsTextStyle)),
         )
         .toList();
 
@@ -398,19 +375,14 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
         borderRadius: BorderRadius.all(
           Radius.circular(widget.decoration.borderRadius),
         ),
-        gradient: (widget.style.filled) && !widget.disabled
-            ? CGradient.primaryToSecondary.opacity(0.3)
-            : null,
+        gradient: (widget.style.filled) && !widget.disabled ? CGradient.primaryToSecondary.opacity(0.3) : null,
       ),
       child: DropdownButtonFormField<T>(
-        borderRadius:
-            BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
         value: selectedValue,
         validator: widget.validator,
         isExpanded: true,
-        hint: widget.decoration.hintText != null
-            ? Text(widget.decoration.hintText!)
-            : null,
+        hint: widget.decoration.hintText != null ? Text(widget.decoration.hintText!) : null,
         iconEnabledColor: CaravaggioUI.instance.primaryColor,
         icon: const Icon(Icons.keyboard_arrow_down_rounded),
         decoration: inputDecoration,

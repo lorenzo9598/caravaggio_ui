@@ -80,36 +80,26 @@ class FieldContent extends StatelessWidget {
           color: style.foregroundColor,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(decoration.borderRadius)),
-          borderSide: style.bordered
-              ? BorderSide(color: style.foregroundColor, width: 1)
-              : BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
           borderSide: BorderSide(color: style.foregroundColor, width: 2),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(decoration.borderRadius)),
-          borderSide:
-              BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(decoration.borderRadius)),
-          borderSide:
-              BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(decoration.borderRadius)),
-          borderSide: style.bordered
-              ? const BorderSide(color: Colors.grey, width: 2)
-              : BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderSide: style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none,
         ),
+        fillColor: style.filled ? style.backgroundColor ?? Colors.transparent : null,
       );
 
   @override
@@ -159,7 +149,9 @@ class FieldContainer extends StatelessWidget {
           Radius.circular(decoration.borderRadius),
         ),
         gradient: style.filled
-            ? style.gradient ?? CGradient.primaryToSecondary.opacity(0.3)
+            ? style.backgroundColor != null
+                ? null
+                : style.gradient ?? CGradient.primaryToSecondary.opacity(0.3)
             : null,
         color: style.filled ? style.backgroundColor : null,
       ),

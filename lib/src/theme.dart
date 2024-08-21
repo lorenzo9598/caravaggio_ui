@@ -26,14 +26,29 @@ class CaravaggioUI {
     required Color primaryColor,
     Color secondaryColor = Colors.transparent,
     String? fontFamily,
+    bool scaffoldBackgroundColor = false,
   }) {
-    MaterialColor primaryMaterialColor =
-        MaterialColorGenerator.from(primaryColor);
-    MaterialColor secondaryMaterialColor =
-        MaterialColorGenerator.from(secondaryColor);
+    final MaterialColor primaryMaterialColor = MaterialColorHelper.from(primaryColor);
+    final MaterialColor secondaryMaterialColor = MaterialColorHelper.from(secondaryColor);
 
     _instance._materialPrimaryColor = primaryMaterialColor;
     _instance._materialSecondaryColor = secondaryMaterialColor;
+
+    final ColorScheme colorScheme = ColorScheme(
+      brightness: Brightness.light,
+      primary: primaryColor,
+      onPrimary: primaryColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+      secondary: secondaryColor,
+      onSecondary: secondaryColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+      error: errorColor,
+      onError: Colors.white,
+      surface: Colors.white,
+      onSurface: Colors.black,
+    );
+
+    final IconThemeData iconTheme = IconThemeData(
+      color: primaryColor,
+    );
 
     _instance._themeData = ThemeData(
       useMaterial3: true,
@@ -42,8 +57,7 @@ class CaravaggioUI {
       primaryColor: primaryMaterialColor,
       primaryColorLight: primaryMaterialColor[200],
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-            side: BorderSide(color: primaryMaterialColor, width: 1)),
+        style: OutlinedButton.styleFrom(side: BorderSide(color: primaryMaterialColor, width: 1)),
       ),
       buttonTheme: ButtonThemeData(
         buttonColor: primaryMaterialColor,
@@ -58,11 +72,11 @@ class CaravaggioUI {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        filled: true,
+        fillColor: Colors.white,
       ),
       appBarTheme: AppBarTheme(
-        foregroundColor: primaryMaterialColor.computeLuminance() > 0.5
-            ? Colors.black
-            : Colors.white,
+        foregroundColor: primaryMaterialColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
         backgroundColor: primaryMaterialColor,
         elevation: 0,
         iconTheme: IconThemeData(color: secondaryMaterialColor),
@@ -76,6 +90,9 @@ class CaravaggioUI {
         circularTrackColor: primaryMaterialColor[200],
         color: primaryMaterialColor,
       ),
+      scaffoldBackgroundColor: scaffoldBackgroundColor ? primaryMaterialColor[50] : null,
+      colorScheme: colorScheme,
+      iconTheme: iconTheme,
     );
     return _instance;
   }
@@ -93,21 +110,23 @@ class CaravaggioUI {
   Color get primaryColor => _materialPrimaryColor;
 
   /// Returns the light variant of primary color.
-  Color get primaryColorLight =>
-      _materialPrimaryColor[200] ?? _materialPrimaryColor;
+  Color get primaryColorLight => _materialPrimaryColor[200] ?? _materialPrimaryColor;
 
   /// Returns the dark variant of primary color.
-  Color get primaryColorDark =>
-      _materialPrimaryColor[800] ?? _materialPrimaryColor;
+  Color get primaryColorDark => _materialPrimaryColor[800] ?? _materialPrimaryColor;
 
   /// Returns the secondary color.
   Color get secondaryColor => _materialSecondaryColor;
 
   /// Returns the light variant of secondary color.
-  Color get secondaryColorLight =>
-      _materialSecondaryColor[200] ?? _materialSecondaryColor;
+  Color get secondaryColorLight => _materialSecondaryColor[200] ?? _materialSecondaryColor;
 
   /// Returns the dark variant of secondary color.
-  Color get secondaryColorDark =>
-      _materialSecondaryColor[800] ?? _materialSecondaryColor;
+  Color get secondaryColorDark => _materialSecondaryColor[800] ?? _materialSecondaryColor;
+
+  /// Static colors
+  static const Color errorColor = Color(0xFFC91432);
+  static const Color successColor = Color(0xFF138636);
+  static const Color warningColor = Color(0xFFFFBC11);
+  static const Color infoColor = Color(0xFF4976BA);
 }

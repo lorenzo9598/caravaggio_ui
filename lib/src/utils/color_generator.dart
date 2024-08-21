@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 /// A utility class to generate MaterialColor from a given color.
-class MaterialColorGenerator {
+class MaterialColorHelper {
   /// Generates a MaterialColor from the provided color.
   static MaterialColor from(Color color) {
     return MaterialColor(color.value, {
@@ -21,24 +21,14 @@ class MaterialColorGenerator {
   }
 
   /// Calculates the tint value based on the given factor.
-  static int tintValue(int value, double factor) =>
-      max(0, min((value + ((255 - value) * factor)).round(), 255));
+  static int tintValue(int value, double factor) => max(0, min((value + ((255 - value) * factor)).round(), 255));
 
   /// Calculates the tint color based on the given factor.
-  static Color tintColor(Color color, double factor) => Color.fromRGBO(
-      tintValue(color.red, factor),
-      tintValue(color.green, factor),
-      tintValue(color.blue, factor),
-      1);
+  static Color tintColor(Color color, double factor) => Color.fromRGBO(tintValue(color.red, factor), tintValue(color.green, factor), tintValue(color.blue, factor), 1);
 
   /// Calculates the shade value based on the given factor.
-  static int shadeValue(int value, double factor) =>
-      max(0, min(value - (value * factor).round(), 255));
+  static int shadeValue(int value, double factor) => max(0, min(value - (value * factor).round(), 255));
 
   /// Calculates the shade color based on the given factor.
-  static Color shadeColor(Color color, double factor) => Color.fromRGBO(
-      shadeValue(color.red, factor),
-      shadeValue(color.green, factor),
-      shadeValue(color.blue, factor),
-      1);
+  static Color shadeColor(Color color, double factor) => Color.fromRGBO(shadeValue(color.red, factor), shadeValue(color.green, factor), shadeValue(color.blue, factor), 1);
 }

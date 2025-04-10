@@ -1,130 +1,353 @@
-import 'package:caravaggio_ui/src/theme.dart';
+import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
+enum TextType {
+  /// Display text type
+  display,
+
+  /// Headline text type
+  headline,
+
+  /// Title text type
+  title,
+
+  /// Body text type
+  body,
+
+  /// Label text type
+  label,
+}
+
+enum TextSize {
+  /// Small display size
+  small,
+
+  /// Medium display size
+  medium,
+
+  /// Large display size
+  large,
+}
+
 /// Extension methods for [TextStyle] related to Caravaggio UI theme.
-extension CText on TextStyle {
-  /// Default text style.
-  static const TextStyle style = TextStyle();
+class CText extends Text {
+  final TextType type;
+  final TextSize size;
+  const CText._(
+    super.data, {
+    this.type = TextType.body,
+    this.size = TextSize.medium,
+    super.key,
+    super.style,
+    super.textAlign,
+    super.textDirection,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.textScaleFactor,
+    super.maxLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.strutStyle,
+    super.textHeightBehavior,
+  });
 
-  /// Font size for display large text.
-  static const double displayLargeSize = 57;
+  factory CText.display(
+    String data, {
+    Key? key,
+    TextStyle? style,
+    TextSize? size,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    double? textScaleFactor,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    StrutStyle? strutStyle,
+    TextHeightBehavior? textHeightBehavior,
+  }) {
+    return CText._(
+      data,
+      key: key,
+      type: TextType.display,
+      size: size ?? TextSize.medium,
+      style: style,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      strutStyle: strutStyle,
+      textHeightBehavior: textHeightBehavior,
+    );
+  }
 
-  /// Font size for display medium text.
-  static const double displayMediumSize = 52;
+  factory CText.headline(
+    String data, {
+    Key? key,
+    TextStyle? style,
+    TextSize? size,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    double? textScaleFactor,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    StrutStyle? strutStyle,
+    TextHeightBehavior? textHeightBehavior,
+  }) {
+    return CText._(
+      data,
+      key: key,
+      type: TextType.headline,
+      size: size ?? TextSize.medium,
+      style: style,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      strutStyle: strutStyle,
+      textHeightBehavior: textHeightBehavior,
+    );
+  }
 
-  /// Font size for display small text.
-  static const double displaySmallSize = 44;
+  factory CText.title(
+    String data, {
+    Key? key,
+    TextStyle? style,
+    TextSize? size,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    double? textScaleFactor,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    StrutStyle? strutStyle,
+    TextHeightBehavior? textHeightBehavior,
+  }) {
+    return CText._(
+      data,
+      key: key,
+      type: TextType.title,
+      size: size ?? TextSize.medium,
+      style: style,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      strutStyle: strutStyle,
+      textHeightBehavior: textHeightBehavior,
+    );
+  }
 
-  /// Font size for headline large text.
-  static const double headlineLargeSize = 40;
+  factory CText.body(
+    String data, {
+    Key? key,
+    TextStyle? style,
+    TextSize? size,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    double? textScaleFactor,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    StrutStyle? strutStyle,
+    TextHeightBehavior? textHeightBehavior,
+  }) {
+    return CText._(
+      data,
+      key: key,
+      type: TextType.body,
+      size: size ?? TextSize.medium,
+      style: style,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      strutStyle: strutStyle,
+      textHeightBehavior: textHeightBehavior,
+    );
+  }
 
-  /// Font size for headline medium text.
-  static const double headlineMediumSize = 36;
-
-  /// Font size for headline small text.
-  static const double headlineSmallSize = 32;
-
-  /// Font size for title large text.
-  static const double titleLargeSize = 28;
-
-  /// Font size for title medium text.
-  static const double titleMediumSize = 24;
-
-  /// Font size for title small text.
-  static const double titleSmallSize = 20;
-
-  /// Font size for body large text.
-  static const double bodyLargeSize = 24;
-
-  /// Font size for body medium text.
-  static const double bodyMediumSize = 20;
-
-  /// Font size for body small text.
-  static const double bodySmallSize = 16;
-
-  /// Font size for label large text.
-  static const double labelLargeSize = 14;
-
-  /// Font size for label medium text.
-  static const double labelMediumSize = 12;
-
-  /// Font size for label small text.
-  static const double labelSmallSize = 11;
-
-  /// Applies display large text size to the current text style.
-  TextStyle get displayLarge => copyWith(fontSize: displayLargeSize);
-
-  /// Applies display medium text size to the current text style.
-  TextStyle get displayMedium => copyWith(fontSize: displayMediumSize);
-
-  /// Applies display small text size to the current text style.
-  TextStyle get displaySmall => copyWith(fontSize: displaySmallSize);
-
-  /// Applies headline large text size to the current text style.
-  TextStyle get headlineLarge => copyWith(fontSize: headlineLargeSize);
-
-  /// Applies headline medium text size to the current text style.
-  TextStyle get headlineMedium => copyWith(fontSize: headlineMediumSize);
-
-  /// Applies headline small text size to the current text style.
-  TextStyle get headlineSmall => copyWith(fontSize: headlineSmallSize);
-
-  /// Applies title large text size to the current text style.
-  TextStyle get titleLarge => copyWith(fontSize: titleLargeSize);
-
-  /// Applies title medium text size to the current text style.
-  TextStyle get titleMedium => copyWith(fontSize: titleMediumSize);
-
-  /// Applies title small text size to the current text style.
-  TextStyle get titleSmall => copyWith(fontSize: titleSmallSize);
-
-  /// Applies body large text size to the current text style.
-  TextStyle get bodyLarge => copyWith(fontSize: bodyLargeSize);
-
-  /// Applies body medium text size to the current text style.
-  TextStyle get bodyMedium => copyWith(fontSize: bodyMediumSize);
-
-  /// Applies body small text size to the current text style.
-  TextStyle get bodySmall => copyWith(fontSize: bodySmallSize);
-
-  /// Applies label large text size to the current text style.
-  TextStyle get labelLarge => copyWith(fontSize: labelLargeSize);
-
-  /// Applies label medium text size to the current text style.
-  TextStyle get labelMedium => copyWith(fontSize: labelMediumSize);
-
-  /// Applies label small text size to the current text style.
-  TextStyle get labelSmall => copyWith(fontSize: labelSmallSize);
+  factory CText.label(
+    String data, {
+    Key? key,
+    TextStyle? style,
+    TextSize? size,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    double? textScaleFactor,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    StrutStyle? strutStyle,
+    TextHeightBehavior? textHeightBehavior,
+  }) {
+    return CText._(
+      data,
+      key: key,
+      type: TextType.label,
+      size: size ?? TextSize.medium,
+      style: style,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      strutStyle: strutStyle,
+      textHeightBehavior: textHeightBehavior,
+    );
+  }
 
   /// Applies primary light color to the current text style.
-  TextStyle get primaryLight =>
-      copyWith(color: CaravaggioUI.instance.primaryColorLight);
+  CText get primaryLight => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColorLight) ?? TextStyle(color: CaravaggioUI.instance.primaryColorLight));
 
   /// Applies primary color to the current text style.
-  TextStyle get primary => copyWith(color: CaravaggioUI.instance.primaryColor);
+  CText get primary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColor) ?? TextStyle(color: CaravaggioUI.instance.primaryColor));
 
   /// Applies primary dark color to the current text style.
-  TextStyle get primaryDark =>
-      copyWith(color: CaravaggioUI.instance.primaryColorDark);
+  CText get primaryDark => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColorDark) ?? TextStyle(color: CaravaggioUI.instance.primaryColorDark));
 
   /// Applies secondary color to the current text style.
-  TextStyle get secondary =>
-      copyWith(color: CaravaggioUI.instance.secondaryColor);
+  CText get secondary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColor) ?? TextStyle(color: CaravaggioUI.instance.secondaryColor));
 
   /// Applies secondary light color to the current text style.
-  TextStyle get secondaryLight =>
-      copyWith(color: CaravaggioUI.instance.secondaryColorLight);
+  CText get secondaryLight => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColorLight) ?? TextStyle(color: CaravaggioUI.instance.secondaryColorLight));
 
   /// Applies secondary dark color to the current text style.
-  TextStyle get secondaryDark =>
-      copyWith(color: CaravaggioUI.instance.secondaryColorDark);
+  CText get secondaryDark => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColorDark) ?? TextStyle(color: CaravaggioUI.instance.secondaryColorDark));
 
   /// Applies white color to the current text style.
-  TextStyle get white => copyWith(color: Colors.white);
+  CText get white => copyWith(style: style?.copyWith(color: Colors.white) ?? const TextStyle(color: Colors.white));
 
   /// Applies bold font weight to the current text style.
-  TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
+  CText get bold => copyWith(style: style?.copyWith(fontWeight: FontWeight.bold) ?? const TextStyle(fontWeight: FontWeight.bold));
 
   /// Applies italic font style to the current text style.
-  TextStyle get italic => copyWith(fontStyle: FontStyle.italic);
+  CText get italic => copyWith(style: style?.copyWith(fontStyle: FontStyle.italic) ?? const TextStyle(fontStyle: FontStyle.italic));
+
+  /// Creates a copy of this text with the given fields replaced with the new values.
+  CText copyWith({
+    String? data,
+    TextStyle? style,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    double? textScaleFactor,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    StrutStyle? strutStyle,
+    TextHeightBehavior? textHeightBehavior,
+  }) {
+    return CText._(
+      data ?? this.data!,
+      key: key,
+      style: style ?? this.style,
+      textAlign: textAlign ?? this.textAlign,
+      textDirection: textDirection ?? this.textDirection,
+      locale: locale ?? this.locale,
+      softWrap: softWrap ?? this.softWrap,
+      overflow: overflow ?? this.overflow,
+      textScaleFactor: textScaleFactor ?? this.textScaleFactor,
+      maxLines: maxLines ?? this.maxLines,
+      semanticsLabel: semanticsLabel ?? this.semanticsLabel,
+      textWidthBasis: textWidthBasis ?? this.textWidthBasis,
+      strutStyle: strutStyle ?? this.strutStyle,
+      textHeightBehavior: textHeightBehavior ?? this.textHeightBehavior,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Usa ThemeData.light() per stili sicuri e coerenti con Material Design
+    final baseTheme = Theme.of(context).textTheme;
+
+    final TextStyle? baseStyle = switch (type) {
+      TextType.display => switch (size) {
+          TextSize.small => baseTheme.displaySmall,
+          TextSize.medium => baseTheme.displayMedium,
+          TextSize.large => baseTheme.displayLarge,
+        },
+      TextType.headline => switch (size) {
+          TextSize.small => baseTheme.titleSmall,
+          TextSize.medium => baseTheme.titleMedium,
+          TextSize.large => baseTheme.titleLarge,
+        },
+      TextType.title => switch (size) {
+          TextSize.small => baseTheme.titleSmall,
+          TextSize.medium => baseTheme.titleMedium,
+          TextSize.large => baseTheme.titleLarge,
+        },
+      TextType.body => switch (size) {
+          TextSize.small => baseTheme.titleSmall,
+          TextSize.medium => baseTheme.titleMedium,
+          TextSize.large => baseTheme.titleLarge,
+        },
+      TextType.label => switch (size) {
+          TextSize.small => baseTheme.titleSmall,
+          TextSize.medium => baseTheme.titleMedium,
+          TextSize.large => baseTheme.titleLarge,
+        },
+    };
+
+    // Unisce lo stile personalizzato (se presente) con quello base
+    final mergedStyle = baseStyle?.merge(style) ?? baseStyle;
+    return Text(
+      data!,
+      key: key,
+      style: mergedStyle,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      strutStyle: strutStyle,
+      textHeightBehavior: textHeightBehavior,
+    );
+  }
 }

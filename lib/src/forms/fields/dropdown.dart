@@ -45,9 +45,6 @@ class CDropdownController<T> {
 }
 
 class CDropdownStyle extends CFieldStyle {
-  final TextStyle? itemsTextStyle;
-  final TextStyle? textStyle;
-
   /// Indicates whether the dropdown items should be filled.
   final bool? itemsFilled;
   CDropdownStyle({
@@ -60,6 +57,9 @@ class CDropdownStyle extends CFieldStyle {
     this.textStyle,
     this.itemsFilled,
   });
+
+  final TextStyle? itemsTextStyle;
+  final TextStyle? textStyle;
 
   /// Creates a simple dropdown style.
   @override
@@ -140,6 +140,20 @@ class CDropdownStyle extends CFieldStyle {
 
 /// A stylized dropdown widget.
 class CDropdown<T> extends StatefulWidget {
+  /// Creates a [CDropdown] instance.
+  CDropdown({
+    Key? key,
+    CDropdownStyle? style,
+    required this.items,
+    this.controller,
+    this.validator,
+    this.disabled = false,
+    this.onChanged,
+    this.initialValue,
+    required this.decoration,
+  })  : style = style ?? CDropdownStyle.simple(),
+        super(key: key);
+
   /// The list of items in the dropdown.
   final List<CDropdownItemModel<T>> items;
 
@@ -155,21 +169,11 @@ class CDropdown<T> extends StatefulWidget {
   /// Function called when the selected item changes.
   final void Function(T?)? onChanged;
 
+  /// The initial value of the dropdown.
+  final T? initialValue;
+
   final CFieldDecoration decoration;
   final CDropdownStyle style;
-
-  /// Creates a [CDropdown] instance.
-  CDropdown({
-    Key? key,
-    CDropdownStyle? style,
-    required this.items,
-    this.controller,
-    this.validator,
-    this.disabled = false,
-    this.onChanged,
-    required this.decoration,
-  })  : style = style ?? CDropdownStyle.simple(),
-        super(key: key);
 
   /// Creates a simple [CDropdown] instance.
   factory CDropdown.simple({
@@ -214,6 +218,7 @@ class CDropdown<T> extends StatefulWidget {
     TextStyle? itemsTextStyle,
     TextStyle? textStyle,
     bool? itemsFilled,
+    T? initialValue,
   }) {
     return CDropdown(
       decoration: decoration,
@@ -228,6 +233,7 @@ class CDropdown<T> extends StatefulWidget {
       validator: validator,
       disabled: disabled,
       onChanged: onChanged,
+      initialValue: initialValue,
     );
   }
 
@@ -310,7 +316,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
   @override
   void initState() {
     super.initState();
-    selectedValue = widget.controller?.value;
+    selectedValue = widget.initialValue ?? widget.controller?.value;
     widget.controller?.listen((value) {
       if (mounted) {
         setState(() {
@@ -332,15 +338,15 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
         ),
         labelText: widget.decoration.labelText,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+          borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: widget.style.bordered ? BorderSide(color: widget.disabled ? Colors.grey[350] ?? Colors.grey : _borderColor, width: 1) : BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+          borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: widget.style.bordered ? BorderSide(color: widget.disabled ? Colors.grey[350] ?? Colors.grey : _borderColor, width: 1) : BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+          borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: widget.style.bordered
               ? BorderSide(
                   color: _borderColor,
@@ -349,15 +355,15 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
               : BorderSide.none,
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+          borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+          borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+          borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: widget.style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none,
         ),
         errorStyle: const TextStyle(height: 0),
@@ -375,7 +381,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(widget.decoration.borderRadius),
+          widget.decoration.radius,
         ),
         gradient: widget.style.filled
             ? widget.style.backgroundColor != null
@@ -385,7 +391,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
         color: widget.style.filled ? widget.style.backgroundColor : null,
       ),
       child: DropdownButtonFormField<T>(
-        borderRadius: BorderRadius.all(Radius.circular(widget.decoration.borderRadius)),
+        borderRadius: BorderRadius.all(widget.decoration.radius),
         value: selectedValue,
         validator: widget.validator,
         isExpanded: true,

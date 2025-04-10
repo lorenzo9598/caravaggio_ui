@@ -3,6 +3,25 @@ import 'package:flutter/material.dart';
 
 /// A widget that displays a text form field with customizable decoration and style.
 class FieldContent extends StatelessWidget {
+  const FieldContent({
+    Key? key,
+    required this.decoration,
+    required this.style,
+    this.initialValue,
+    this.autocorrect,
+    this.onChanged,
+    this.validator,
+    this.onTap,
+    this.obscureText,
+    this.readOnly,
+    this.keyboardType,
+    this.textInputAction,
+    this.focusNode,
+    this.controller,
+    this.enabled,
+    this.maxLines,
+  }) : super(key: key);
+
   /// The decoration properties for the field.
   final CFieldDecoration decoration;
 
@@ -48,25 +67,6 @@ class FieldContent extends StatelessWidget {
   /// The maximum number of lines for the field.
   final int? maxLines;
 
-  const FieldContent({
-    Key? key,
-    required this.decoration,
-    required this.style,
-    this.initialValue,
-    this.autocorrect,
-    this.onChanged,
-    this.validator,
-    this.onTap,
-    this.obscureText,
-    this.readOnly,
-    this.keyboardType,
-    this.textInputAction,
-    this.focusNode,
-    this.controller,
-    this.enabled,
-    this.maxLines,
-  }) : super(key: key);
-
   InputDecoration get inputDecoration => InputDecoration(
         prefixIcon: decoration.prefixIcon,
         suffixIcon: decoration.suffixIcon,
@@ -80,23 +80,23 @@ class FieldContent extends StatelessWidget {
           color: style.foregroundColor,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderRadius: BorderRadius.all(decoration.radius),
           borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderRadius: BorderRadius.all(decoration.radius),
           borderSide: BorderSide(color: style.foregroundColor, width: 2),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderRadius: BorderRadius.all(decoration.radius),
           borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderRadius: BorderRadius.all(decoration.radius),
           borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(decoration.borderRadius)),
+          borderRadius: BorderRadius.all(decoration.radius),
           borderSide: style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none,
         ),
         fillColor: style.filled ? style.backgroundColor ?? Colors.transparent : null,
@@ -146,7 +146,7 @@ class FieldContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(decoration.borderRadius),
+          decoration.radius,
         ),
         gradient: style.filled
             ? style.backgroundColor != null

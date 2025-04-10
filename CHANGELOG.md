@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.4
+
+Some bugs Fixed
+
 ## 0.0.3
 
 bugs fixed

@@ -1,4 +1,3 @@
-import 'package:caravaggio_ui/src/generics/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -9,8 +8,7 @@ class CCheckboxController {
   final BehaviorSubject<bool> _controller;
 
   /// Constructs a [CCheckboxController] with an optional initial value.
-  CCheckboxController({bool? initialValue})
-      : _controller = BehaviorSubject<bool>.seeded(initialValue ?? false);
+  CCheckboxController({bool? initialValue}) : _controller = BehaviorSubject<bool>.seeded(initialValue ?? false);
 
   /// Retrieves the current value of the checkbox.
   bool get value => _controller.value;
@@ -106,8 +104,7 @@ class _CCheckboxState extends State<CCheckbox> {
             widget.onChanged?.call(val);
           },
         ),
-        if (widget.label != null)
-          Text(widget.label!, style: CText.style.labelMedium),
+        if (widget.label != null) Text(widget.label!),
       ],
     );
   }

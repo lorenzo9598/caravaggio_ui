@@ -4,6 +4,21 @@ import 'package:flutter/material.dart';
 
 /// A widget that provides autocomplete functionality for a given list of options.
 class CAutocomplete<T extends Object> extends StatefulWidget {
+  /// Private constructor for [CAutocomplete].
+  const CAutocomplete._({
+    Key? key,
+    required this.style,
+    required this.decoration,
+    required this.options,
+    required this.optionsValueToMatch,
+    required this.searchItems,
+    this.onSelected,
+    this.initialValue,
+    required this.displayStringForOption,
+    this.validator,
+    this.focusNode,
+  }) : super(key: key);
+
   /// Style for the field.
   final CFieldStyle style;
 
@@ -33,21 +48,6 @@ class CAutocomplete<T extends Object> extends StatefulWidget {
 
   /// Focus node for the autocomplete field.
   final FocusNode? focusNode;
-
-  /// Private constructor for [CAutocomplete].
-  const CAutocomplete._({
-    Key? key,
-    required this.style,
-    required this.decoration,
-    required this.options,
-    required this.optionsValueToMatch,
-    required this.searchItems,
-    this.onSelected,
-    this.initialValue,
-    required this.displayStringForOption,
-    this.validator,
-    this.focusNode,
-  }) : super(key: key);
 
   /// Creates a simple autocomplete field.
   factory CAutocomplete.simple({
@@ -119,10 +119,7 @@ class CAutocomplete<T extends Object> extends StatefulWidget {
     FocusNode? focusNode,
   }) {
     return CAutocomplete._(
-      style: CFieldStyle.filled(
-          backgroundColor: backgroundColor,
-          foregroundColor: foregroundColor,
-          gradient: gradient),
+      style: CFieldStyle.filled(backgroundColor: backgroundColor, foregroundColor: foregroundColor, gradient: gradient),
       decoration: decoration,
       options: options,
       optionsValueToMatch: optionsValueToMatch,
@@ -151,10 +148,7 @@ class CAutocomplete<T extends Object> extends StatefulWidget {
     FocusNode? focusNode,
   }) {
     return CAutocomplete._(
-      style: CFieldStyle.borderedFilled(
-          backgroundColor: backgroundColor,
-          foregroundColor: foregroundColor,
-          gradient: gradient),
+      style: CFieldStyle.borderedFilled(backgroundColor: backgroundColor, foregroundColor: foregroundColor, gradient: gradient),
       decoration: decoration,
       options: options,
       optionsValueToMatch: optionsValueToMatch,
@@ -186,9 +180,7 @@ class _CAutocompleteState<T extends Object> extends State<CAutocomplete<T>> {
           if (textEditingValue.text == '') {
             return Iterable<T>.empty();
           }
-          return widget.options.where((option) => widget.optionsValueToMatch
-              .call(option)
-              .contains(textEditingValue.text.toLowerCase()));
+          return widget.options.where((option) => widget.optionsValueToMatch.call(option).contains(textEditingValue.text.toLowerCase()));
         },
         onSelected: widget.onSelected,
         displayStringForOption: widget.displayStringForOption,
@@ -216,13 +208,8 @@ class _CAutocompleteState<T extends Object> extends State<CAutocomplete<T>> {
             ),
           ),
         ),
-        fieldViewBuilder:
-            (context, textEditingController, focusNode, onFieldSubmitted) =>
-                FieldContent(
-          decoration: widget.decoration.copyWith(
-              suffixIcon: IconButton(
-                  onPressed: textEditingController.clear,
-                  icon: const Icon(Icons.close))),
+        fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) => FieldContent(
+          decoration: widget.decoration.copyWith(suffixIcon: IconButton(onPressed: textEditingController.clear, icon: const Icon(Icons.close))),
           controller: textEditingController,
           style: widget.style,
           initialValue: widget.initialValue,

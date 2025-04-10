@@ -1,6 +1,6 @@
 library caravaggio_ui;
 
-export 'src/theme.dart' show CaravaggioUI;
+export 'src/themes/theme.dart' show CaravaggioUI;
 
 export 'src/forms/buttons/button.dart' show CButton, CButtonDecoration, CButtonSize;
 
@@ -13,7 +13,7 @@ export 'src/forms/fields/textfield.dart' show CTextField;
 
 export 'src/forms/radios/radio.dart' show CRadioGroup, CRadioGroupOrientation, CRadioCrossAxisAlignment, CRadioItem, CRadioController;
 
-export 'src/generics/fonts.dart' show CText;
+export 'src/generics/fonts.dart' show CText, TextSize;
 export 'src/generics/gradients.dart' show CGradient, CGradientColorType, CGradientDirection;
 
 export 'src/views/indicators/circular_indicator.dart' show CCircularIndicator;

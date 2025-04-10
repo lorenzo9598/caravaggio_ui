@@ -1,6 +1,6 @@
 name: caravaggio_ui
 description: "A comprehensive UI package designed to streamline your Flutter app development process."
-version: 0.0.3
+version: 0.0.4
 homepage: "https://github.com/lorenzo9598/caravaggio_ui"
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   percent_indicator: ^4.2.3
-  rxdart: ^0.27.7
+  rxdart: ^0.28.0
 
 dev_dependencies:
   flutter_test:

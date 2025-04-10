@@ -4,6 +4,28 @@ import 'package:flutter/material.dart';
 
 /// A stylized text input field.
 class CTextField extends StatelessWidget {
+  /// Creates a [CTextField] instance.
+  CTextField._({
+    Key? key,
+    CFieldStyle? style,
+    required this.decoration,
+    this.validator,
+    this.onChanged,
+    this.onTap,
+    this.obscureText,
+    this.readOnly,
+    this.keyboardType,
+    this.autocorrect,
+    this.textInputAction,
+    this.focusNode,
+    this.controller,
+    this.enabled,
+    this.maxLines,
+    this.initialValue,
+  })  : assert(initialValue == null || controller == null),
+        style = style ?? CFieldStyle.simple(),
+        super(key: key);
+
   /// Style of the field.
   final CFieldStyle style;
 
@@ -48,28 +70,6 @@ class CTextField extends StatelessWidget {
 
   /// The initial value of the text field.
   final String? initialValue;
-
-  /// Creates a [CTextField] instance.
-  CTextField._({
-    Key? key,
-    CFieldStyle? style,
-    required this.decoration,
-    this.validator,
-    this.onChanged,
-    this.onTap,
-    this.obscureText,
-    this.readOnly,
-    this.keyboardType,
-    this.autocorrect,
-    this.textInputAction,
-    this.focusNode,
-    this.controller,
-    this.enabled,
-    this.maxLines,
-    this.initialValue,
-  })  : assert(initialValue == null || controller == null),
-        style = style ?? CFieldStyle.simple(),
-        super(key: key);
 
   /// Creates a simple styled text field.
   factory CTextField.simple({
@@ -166,10 +166,7 @@ class CTextField extends StatelessWidget {
     String? initialValue,
   }) {
     return CTextField._(
-      style: CFieldStyle.filled(
-          backgroundColor: backgroundColor,
-          foregroundColor: foregroundColor,
-          gradient: gradient),
+      style: CFieldStyle.filled(backgroundColor: backgroundColor, foregroundColor: foregroundColor, gradient: gradient),
       decoration: decoration,
       validator: validator,
       onChanged: onChanged,

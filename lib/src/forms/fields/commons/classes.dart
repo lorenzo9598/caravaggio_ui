@@ -1,10 +1,20 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui/src/utils/app_radius.dart';
 import 'package:flutter/material.dart';
 
 /// Decoration options for a form field.
 class CFieldDecoration {
+  /// Creates a [CFieldDecoration] instance.
+  const CFieldDecoration({
+    this.radius = AppRadius.s,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.hintText,
+    this.labelText,
+  });
+
   /// The border radius of the field decoration.
-  final double borderRadius;
+  final Radius radius;
 
   /// The prefix icon of the field decoration.
   final Widget? prefixIcon;
@@ -18,25 +28,16 @@ class CFieldDecoration {
   /// The label text of the field decoration.
   final String? labelText;
 
-  /// Creates a [CFieldDecoration] instance.
-  const CFieldDecoration({
-    this.borderRadius = 15,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.hintText,
-    this.labelText,
-  });
-
   /// Creates a copy of this decoration with the given fields replaced with the new values.
   CFieldDecoration copyWith({
-    double? borderRadius,
+    Radius? radius,
     Widget? prefixIcon,
     Widget? suffixIcon,
     String? hintText,
     String? labelText,
   }) {
     return CFieldDecoration(
-      borderRadius: borderRadius ?? this.borderRadius,
+      radius: radius ?? this.radius,
       prefixIcon: prefixIcon ?? this.prefixIcon,
       suffixIcon: suffixIcon ?? this.suffixIcon,
       hintText: hintText ?? this.hintText,

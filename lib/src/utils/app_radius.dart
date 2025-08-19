@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// A utility class that provides commonly used [Radius] values for consistent UI design.
 class AppRadius {
+  // Private constructor to prevent instantiation.
   AppRadius._();
 
   /// Radius of 0.
@@ -27,7 +29,7 @@ class AppRadius {
   /// Extra extra large radius of 30.
   static const xxl = Radius.circular(30);
 
-  /// Custom radius.
+  /// Returns a [Radius] with the given [radius] value.
   static Radius custom(double radius) {
     return Radius.circular(radius);
   }

@@ -1,4 +1,9 @@
+/// A utility class that defines standard spacing values for consistent UI layout.
+///
+/// This class provides named constants for commonly used spacing values.
+/// It cannot be instantiated.
 class AppSpacing {
+  // Private constructor to prevent instantiation.
   AppSpacing._();
 
   /// No spacing.

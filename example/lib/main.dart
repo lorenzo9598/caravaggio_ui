@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
 const SizedBox _spacer = SizedBox(height: 20);
@@ -30,7 +31,10 @@ enum Page { generics, forms, views }
 
 void main() {
   CaravaggioUI.initialize(primaryColor: const Color(0xFF662D8C), secondaryColor: const Color(0xFFED1E79));
-  runApp(const MainApp());
+  runApp(DevicePreview(
+    enabled: true,
+    builder: (context) => const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -38,6 +42,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Caravaggio UI',
       theme: CaravaggioUI.instance.themeData,
       home: const HomeScreen(),
@@ -53,7 +58,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Page _selectedPage = Page.forms;
+  Page _selectedPage = Page.generics;
 
   Widget get _page {
     switch (_selectedPage) {
@@ -96,11 +101,39 @@ class GenericsSection extends StatelessWidget {
   Widget get _textStyles => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CText.body("Default", size: TextSize.small),
+          CText.label("Label", size: TextSize.small),
+          CText.label("Label", size: TextSize.medium),
+          CText.label("Label", size: TextSize.large),
+          CText.body("Body", size: TextSize.small),
+          CText.body("Body", size: TextSize.medium),
+          CText.body("Body", size: TextSize.large),
+          CText.title("Title", size: TextSize.small),
+          CText.title("Title", size: TextSize.medium),
+          CText.title("Title", size: TextSize.large),
+          CText.headline("Headline", size: TextSize.small),
+          CText.headline("Headline", size: TextSize.medium),
+          CText.headline("Headline", size: TextSize.large),
+          CText.display("Display", size: TextSize.small),
+          CText.display("Display", size: TextSize.medium),
+          CText.display("Display", size: TextSize.large),
           CText.body("Primary", size: TextSize.small).primary,
+          CText.body("Primary", size: TextSize.medium).primary,
+          CText.body("Primary", size: TextSize.large).primary,
           CText.body("Secondary", size: TextSize.small).secondary,
+          CText.body("Secondary", size: TextSize.medium).secondary,
+          CText.body("Secondary", size: TextSize.large).secondary,
           CText.body("Bold", size: TextSize.small).bold,
+          CText.body("Bold", size: TextSize.medium).bold,
+          CText.body("Bold", size: TextSize.large).bold,
           CText.body("Italic", size: TextSize.small).italic,
+          CText.body("Italic", size: TextSize.medium).italic,
+          CText.body("Italic", size: TextSize.large).italic,
+          CText.body("Underline", size: TextSize.small).underline,
+          CText.body("Underline", size: TextSize.medium).underline,
+          CText.body("Underline", size: TextSize.large).underline,
+          CText.body("withColor", size: TextSize.large).withColor(Colors.blue),
+          CText.body("withSize", size: TextSize.large).withSize(11),
+          CText.body("withWeight", size: TextSize.large).withWeight(FontWeight.bold),
         ],
       );
 
@@ -128,6 +161,53 @@ class GenericsSection extends StatelessWidget {
         ],
       );
 
+  Widget _buildPalette({
+    required String title,
+    required Color primary,
+    required Color secondary,
+    required Color onPrimary,
+    required Color onSecondary,
+  }) {
+    return Column(
+      children: [
+        CText.body(title, size: TextSize.large),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: primary,
+              ),
+              width: 80,
+              height: 80,
+              child: Center(
+                child: Text(
+                  "Primary",
+                  style: TextStyle(color: onPrimary),
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: secondary,
+              ),
+              width: 80,
+              height: 80,
+              child: Center(
+                child: Text(
+                  "Secondary",
+                  style: TextStyle(color: onSecondary),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -136,7 +216,36 @@ class GenericsSection extends StatelessWidget {
         child: Column(
           children: [
             _spacer,
-            CText.title("Text Sizes", size: TextSize.large),
+            CText.title("Palette", size: TextSize.large),
+            Wrap(
+              children: [
+                _buildPalette(
+                  title: "Default",
+                  primary: CaravaggioUI.instance.primaryColor,
+                  secondary: CaravaggioUI.instance.secondaryColor,
+                  onPrimary: CaravaggioUI.instance.onPrimaryColor,
+                  onSecondary: CaravaggioUI.instance.onSecondaryColor,
+                ),
+                const SizedBox(width: 20),
+                _buildPalette(
+                  title: "Light",
+                  primary: CaravaggioUI.instance.primaryColorLight,
+                  secondary: CaravaggioUI.instance.secondaryColorLight,
+                  onPrimary: CaravaggioUI.instance.onPrimaryLightColor,
+                  onSecondary: CaravaggioUI.instance.onSecondaryLightColor,
+                ),
+                const SizedBox(width: 20),
+                _buildPalette(
+                  title: "Dark",
+                  primary: CaravaggioUI.instance.primaryColorDark,
+                  secondary: CaravaggioUI.instance.secondaryColorDark,
+                  onPrimary: CaravaggioUI.instance.onPrimaryDarkColor,
+                  onSecondary: CaravaggioUI.instance.onSecondaryDarkColor,
+                ),
+              ],
+            ),
+            _spacer,
+            CText.title("Text Sizes", size: TextSize.small).bold,
             _textStyles,
             _spacer,
             CText.title("Gradients", size: TextSize.large),
@@ -165,25 +274,25 @@ class _FormsSectionState extends State<FormsSection> {
 
     return Column(
       children: [
-        elevated,
-        _spacerSmall,
+        // elevated,
+        // _spacerSmall,
         CButton.elevated(suffixIcon: _suffixIcon, icon: _icon, gradient: _gradient, onPressed: _onPressed, child: _buttonText),
-        _spacerSmall,
-        outlined,
-        _spacerSmall,
-        text,
-        _spacerSmall,
-        elevated.xSmall,
-        _spacerSmall,
-        elevated.small,
-        _spacerSmall,
-        elevated.medium,
-        _spacerSmall,
-        elevated.large,
-        _spacerSmall,
-        elevated.xLarge,
-        _spacerSmall,
-        elevated.xxLarge,
+        // _spacerSmall,
+        // outlined,
+        // _spacerSmall,
+        // text,
+        // _spacerSmall,
+        // elevated.xSmall,
+        // _spacerSmall,
+        // elevated.small,
+        // _spacerSmall,
+        // elevated.medium,
+        // _spacerSmall,
+        // elevated.large,
+        // _spacerSmall,
+        // elevated.xLarge,
+        // _spacerSmall,
+        // elevated.xxLarge,
       ],
     );
   }
@@ -191,12 +300,12 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _textFields {
     return Column(
       children: [
-        CTextField.simple(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
-        _spacerSmall,
-        CTextField.bordered(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
-        _spacerSmall,
-        CTextField.filled(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
-        _spacerSmall,
+        // CTextField.simple(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
+        // _spacerSmall,
+        // CTextField.bordered(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
+        // _spacerSmall,
+        // CTextField.filled(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
+        // _spacerSmall,
         CTextField.borderedFilled(decoration: _textFieldDecoration, onChanged: _onFieldChanged),
       ],
     );
@@ -205,12 +314,12 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _autocomplete {
     return Column(
       children: [
-        CAutocomplete<String>.simple(options: _options, decoration: _decoration, optionsValueToMatch: (value) => value.toLowerCase(), displayStringForOption: (value) => value, searchItems: () {}),
-        _spacerSmall,
-        CAutocomplete<String>.bordered(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
-        _spacerSmall,
-        CAutocomplete<String>.filled(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
-        _spacerSmall,
+        // CAutocomplete<String>.simple(options: _options, decoration: _decoration, optionsValueToMatch: (value) => value.toLowerCase(), displayStringForOption: (value) => value, searchItems: () {}),
+        // _spacerSmall,
+        // CAutocomplete<String>.bordered(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
+        // _spacerSmall,
+        // CAutocomplete<String>.filled(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
+        // _spacerSmall,
         CAutocomplete<String>.borderedFilled(options: _options, decoration: _decoration, optionsValueToMatch: _optionsValueToMatch, displayStringForOption: (value) => value, searchItems: () {}),
       ],
     );
@@ -219,12 +328,12 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _dropdowns {
     return Column(
       children: [
-        CDropdown<String>.simple(items: _items, decoration: _decoration, onChanged: _onChanged),
-        _spacerSmall,
-        CDropdown<String>.filled(items: _items, decoration: _decoration, onChanged: _onChanged),
-        _spacerSmall,
-        CDropdown<String>.bordered(items: _items, decoration: _decoration, onChanged: _onChanged),
-        _spacerSmall,
+        // CDropdown<String>.simple(items: _items, decoration: _decoration, onChanged: _onChanged),
+        // _spacerSmall,
+        // CDropdown<String>.filled(items: _items, decoration: _decoration, onChanged: _onChanged),
+        // _spacerSmall,
+        // CDropdown<String>.bordered(items: _items, decoration: _decoration, onChanged: _onChanged),
+        // _spacerSmall,
         CDropdown<String>.borderedFilled(items: _items, decoration: _decoration, onChanged: _onChanged),
       ],
     );
@@ -251,24 +360,39 @@ class _FormsSectionState extends State<FormsSection> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Buttons", style: TextStyle(fontSize: 24)),
-            _buttons,
             _spacer,
-            const Text("Text Fields", style: TextStyle(fontSize: 20)),
             _textFields,
-            _spacer,
-            const Text("Autocomplete", style: TextStyle(fontSize: 20)),
+            _spacerSmall,
             _autocomplete,
-            _spacer,
-            const Text("Dropdowns", style: TextStyle(fontSize: 20)),
+            _spacerSmall,
             _dropdowns,
-            _spacer,
+            _spacerSmall,
             const Text("Checkboxes", style: TextStyle(fontSize: 20)),
             _checkboxes,
-            _spacer,
+            _spacerSmall,
             const Text("Radio buttons", style: TextStyle(fontSize: 20)),
             _radiobuttons,
+            _spacer,
+            _buttons,
+            // const Text("Buttons", style: TextStyle(fontSize: 24)),
+            // _buttons,
+            // _spacer,
+            // const Text("Text Fields", style: TextStyle(fontSize: 20)),
+            // _textFields,
+            // _spacer,
+            // const Text("Autocomplete", style: TextStyle(fontSize: 20)),
+            // _autocomplete,
+            // _spacer,
+            // const Text("Dropdowns", style: TextStyle(fontSize: 20)),
+            // _dropdowns,
+            // _spacer,
+            // const Text("Checkboxes", style: TextStyle(fontSize: 20)),
+            // _checkboxes,
+            // _spacer,
+            // const Text("Radio buttons", style: TextStyle(fontSize: 20)),
+            // _radiobuttons,
           ],
         ),
       ),

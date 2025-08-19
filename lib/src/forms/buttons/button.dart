@@ -137,6 +137,7 @@ class CButton extends StatelessWidget {
     Widget? suffixIcon,
     Color? color,
     LinearGradient? gradient,
+    Radius? radius,
   }) {
     return CButton._(
       key: key,
@@ -148,6 +149,7 @@ class CButton extends StatelessWidget {
         gradient: gradient,
         icon: icon,
         suffixIcon: suffixIcon,
+        radius: radius ?? AppRadius.m,
       ),
       child: child,
     );
@@ -162,6 +164,7 @@ class CButton extends StatelessWidget {
     Widget? suffixIcon,
     Color? color,
     Color? fillColor,
+    Radius? radius,
   }) {
     return CButton._(
       key: key,
@@ -173,6 +176,7 @@ class CButton extends StatelessWidget {
         bordered: true,
         borderColor: color,
         filledColor: fillColor,
+        radius: radius ?? AppRadius.m,
       ),
       child: child,
     );

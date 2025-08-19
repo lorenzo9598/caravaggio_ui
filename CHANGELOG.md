@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.0.5
+
+- Button radius bug fixed
+- AppRadius exposed
+- CText size bug fixed
+- Added underline getter to CText class and withColor, withSize and withWeight setter
+
 ## 0.0.4
 
 Some bugs Fixed

@@ -2,6 +2,11 @@ library caravaggio_ui;
 
 export 'src/themes/theme.dart' show CaravaggioUI;
 
+export 'src/utils/app_colors.dart' show AppColors;
+export 'src/utils/app_radius.dart' show AppRadius;
+export 'src/utils/app_shadow.dart' show AppShadow;
+export 'src/utils/app_spacing.dart' show AppSpacing;
+
 export 'src/forms/buttons/button.dart' show CButton, CButtonDecoration, CButtonSize;
 
 export 'src/forms/checkboxes/checkbox.dart' show CCheckbox, CCheckboxController;

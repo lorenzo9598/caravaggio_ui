@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A utility class that provides predefined shadow styles for the app.
 class AppShadow {
   AppShadow._();
 

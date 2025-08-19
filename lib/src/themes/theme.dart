@@ -9,6 +9,13 @@ class CaravaggioUI {
   late MaterialColor _materialPrimaryColor;
   late MaterialColor _materialSecondaryColor;
 
+  late MaterialColor _onPrimaryMaterialColor;
+  late MaterialColor _onSecondaryMaterialColor;
+  late MaterialColor _onPrimaryLightMaterialColor;
+  late MaterialColor _onSecondaryLightMaterialColor;
+  late MaterialColor _onPrimaryDarkMaterialColor;
+  late MaterialColor _onSecondaryDarkMaterialColor;
+
   /// Private constructor for singleton pattern.
   CaravaggioUI._();
 
@@ -35,11 +42,31 @@ class CaravaggioUI {
     // Create a MaterialColor from the secondary color
     final MaterialColor secondaryMaterialColor = AppColors.from(secondaryColor);
 
+    final MaterialColor onPrimaryMaterialColor = AppColors.onFrom(primaryColor);
+
+    final MaterialColor onSecondaryMaterialColor = AppColors.onFrom(secondaryColor);
+
+    final MaterialColor onPrimaryLightMaterialColor = AppColors.onFrom(primaryMaterialColor[200] ?? primaryMaterialColor);
+
+    final MaterialColor onSecondaryLightMaterialColor = AppColors.onFrom(secondaryMaterialColor[200] ?? secondaryMaterialColor);
+
+    final MaterialColor onPrimaryDarkMaterialColor = AppColors.onFrom(primaryMaterialColor[800] ?? primaryMaterialColor);
+
+    final MaterialColor onSecondaryDarkMaterialColor = AppColors.onFrom(secondaryMaterialColor[800] ?? secondaryMaterialColor);
+
     // Set the primary MaterialColor in the singleton instance
     _instance._materialPrimaryColor = primaryMaterialColor;
 
     // Set the secondary MaterialColor in the singleton instance
     _instance._materialSecondaryColor = secondaryMaterialColor;
+
+    // Set the onPrimary and onSecondary MaterialColors in the singleton instance
+    _instance._onPrimaryMaterialColor = onPrimaryMaterialColor;
+    _instance._onSecondaryMaterialColor = onSecondaryMaterialColor;
+    _instance._onPrimaryLightMaterialColor = onPrimaryLightMaterialColor;
+    _instance._onSecondaryLightMaterialColor = onSecondaryLightMaterialColor;
+    _instance._onPrimaryDarkMaterialColor = onPrimaryDarkMaterialColor;
+    _instance._onSecondaryDarkMaterialColor = onSecondaryDarkMaterialColor;
 
     // Initialize ThemeHelper with the primary and secondary MaterialColors
     final ThemeHelper themeHelper = ThemeHelper(
@@ -97,4 +124,22 @@ class CaravaggioUI {
 
   /// Returns the dark variant of secondary color.
   Color get secondaryColorDark => _materialSecondaryColor[800] ?? _materialSecondaryColor;
+
+  /// Returns the onPrimary color.
+  Color get onPrimaryColor => _onPrimaryMaterialColor;
+
+  /// Returns the onSecondary color.
+  Color get onSecondaryColor => _onSecondaryMaterialColor;
+
+  /// Returns the onPrimary light variant color.
+  Color get onPrimaryLightColor => _onPrimaryLightMaterialColor;
+
+  /// Returns the onSecondary light variant color.
+  Color get onSecondaryLightColor => _onSecondaryLightMaterialColor;
+
+  /// Returns the onPrimary dark variant color.
+  Color get onPrimaryDarkColor => _onPrimaryDarkMaterialColor;
+
+  /// Returns the onSecondary dark variant color.
+  Color get onSecondaryDarkColor => _onSecondaryDarkMaterialColor;
 }

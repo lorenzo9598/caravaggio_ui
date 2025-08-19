@@ -30,27 +30,46 @@ enum TextSize {
 }
 
 /// Extension methods for [TextStyle] related to Caravaggio UI theme.
-class CText extends Text {
+class CText extends StatelessWidget {
+  final String? data;
+  final Key? key;
   final TextType type;
   final TextSize size;
+  final TextStyle? style;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final Locale? locale;
+  final bool? softWrap;
+  final TextOverflow? overflow;
+  final double? textScaleFactor;
+  final int? maxLines;
+  final String? semanticsLabel;
+  final TextWidthBasis? textWidthBasis;
+  final StrutStyle? strutStyle;
+  final TextHeightBehavior? textHeightBehavior;
+
+  // Deltas applicati *dopo* il merge con il tema
+  final List<TextStyle> _overrides;
+
   const CText._(
-    super.data, {
+    this.data, {
+    List<TextStyle>? overrides,
+    this.key,
     this.type = TextType.body,
     this.size = TextSize.medium,
-    super.key,
-    super.style,
-    super.textAlign,
-    super.textDirection,
-    super.locale,
-    super.softWrap,
-    super.overflow,
-    super.textScaleFactor,
-    super.maxLines,
-    super.semanticsLabel,
-    super.textWidthBasis,
-    super.strutStyle,
-    super.textHeightBehavior,
-  });
+    this.style,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaleFactor,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.strutStyle,
+    this.textHeightBehavior,
+  }) : _overrides = overrides ?? const [];
 
   factory CText.display(
     String data, {
@@ -238,16 +257,18 @@ class CText extends Text {
   }
 
   /// Applies primary light color to the current text style.
-  CText get primaryLight => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColorLight) ?? TextStyle(color: CaravaggioUI.instance.primaryColorLight));
+  CText get primaryLight => _withOverride(TextStyle(color: CaravaggioUI.instance.primaryColorLight));
 
   /// Applies primary color to the current text style.
-  CText get primary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColor) ?? TextStyle(color: CaravaggioUI.instance.primaryColor));
+  // CText get primary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColor) ?? TextStyle(color: CaravaggioUI.instance.primaryColor));
+  CText get primary => _withOverride(TextStyle(color: CaravaggioUI.instance.primary));
 
   /// Applies primary dark color to the current text style.
   CText get primaryDark => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColorDark) ?? TextStyle(color: CaravaggioUI.instance.primaryColorDark));
 
   /// Applies secondary color to the current text style.
-  CText get secondary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColor) ?? TextStyle(color: CaravaggioUI.instance.secondaryColor));
+  // CText get secondary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColor) ?? TextStyle(color: CaravaggioUI.instance.secondaryColor));
+  CText get secondary => _withOverride(TextStyle(color: CaravaggioUI.instance.secondaryColor));
 
   /// Applies secondary light color to the current text style.
   CText get secondaryLight => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColorLight) ?? TextStyle(color: CaravaggioUI.instance.secondaryColorLight));
@@ -258,11 +279,48 @@ class CText extends Text {
   /// Applies white color to the current text style.
   CText get white => copyWith(style: style?.copyWith(color: Colors.white) ?? const TextStyle(color: Colors.white));
 
-  /// Applies bold font weight to the current text style.
-  CText get bold => copyWith(style: style?.copyWith(fontWeight: FontWeight.bold) ?? const TextStyle(fontWeight: FontWeight.bold));
-
   /// Applies italic font style to the current text style.
-  CText get italic => copyWith(style: style?.copyWith(fontStyle: FontStyle.italic) ?? const TextStyle(fontStyle: FontStyle.italic));
+  CText get italic => _withOverride(const TextStyle(fontStyle: FontStyle.italic));
+
+  /// Applies bold font weight to the current text style.
+  CText get bold => _withOverride(const TextStyle(fontWeight: FontWeight.bold));
+
+  /// Applies underline decoration to the current text style.
+  CText get underline => _withOverride(const TextStyle(decoration: TextDecoration.underline));
+
+  // Quick setters (chaining)
+
+  /// Sets the color of the text.
+  CText withColor(Color c) => _withOverride(TextStyle(color: c));
+
+  /// Sets the font size of the text.
+  CText withSize(double s) => _withOverride(TextStyle(fontSize: s));
+
+  /// Sets the font weight of the text.
+  CText withWeight(FontWeight w) => _withOverride(TextStyle(fontWeight: w));
+
+  // Duplica il widget aggiungendo un override in coda (l’ultimo vince)
+  CText _withOverride(TextStyle delta) {
+    return CText._(
+      data,
+      size: size,
+      type: type,
+      style: style,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      strutStyle: strutStyle,
+      textHeightBehavior: textHeightBehavior,
+      overrides: [..._overrides, delta],
+      key: key,
+    );
+  }
 
   /// Creates a copy of this text with the given fields replaced with the new values.
   CText copyWith({
@@ -298,9 +356,7 @@ class CText extends Text {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Usa ThemeData.light() per stili sicuri e coerenti con Material Design
+  TextStyle? mergedStyle(context) {
     final baseTheme = Theme.of(context).textTheme;
 
     final TextStyle? baseStyle = switch (type) {
@@ -332,11 +388,25 @@ class CText extends Text {
     };
 
     // Unisce lo stile personalizzato (se presente) con quello base
-    final mergedStyle = baseStyle?.merge(style) ?? baseStyle;
+    TextStyle? mergedStyle = baseStyle?.merge(style) ?? baseStyle;
+
+    for (final delta in _overrides) {
+      mergedStyle = mergedStyle?.merge(delta);
+    }
+
+    return mergedStyle;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Usa ThemeData.light() per stili sicuri e coerenti con Material Design
+
+    final _style = mergedStyle(context);
+
     return Text(
       data!,
       key: key,
-      style: mergedStyle,
+      style: _style,
       textAlign: textAlign,
       textDirection: textDirection,
       locale: locale,

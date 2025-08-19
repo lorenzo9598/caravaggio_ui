@@ -32,7 +32,6 @@ enum TextSize {
 /// Extension methods for [TextStyle] related to Caravaggio UI theme.
 class CText extends StatelessWidget {
   final String? data;
-  final Key? key;
   final TextType type;
   final TextSize size;
   final TextStyle? style;
@@ -41,7 +40,6 @@ class CText extends StatelessWidget {
   final Locale? locale;
   final bool? softWrap;
   final TextOverflow? overflow;
-  final double? textScaleFactor;
   final int? maxLines;
   final String? semanticsLabel;
   final TextWidthBasis? textWidthBasis;
@@ -54,7 +52,7 @@ class CText extends StatelessWidget {
   const CText._(
     this.data, {
     List<TextStyle>? overrides,
-    this.key,
+    super.key,
     this.type = TextType.body,
     this.size = TextSize.medium,
     this.style,
@@ -63,7 +61,6 @@ class CText extends StatelessWidget {
     this.locale,
     this.softWrap,
     this.overflow,
-    this.textScaleFactor,
     this.maxLines,
     this.semanticsLabel,
     this.textWidthBasis,
@@ -81,7 +78,6 @@ class CText extends StatelessWidget {
     Locale? locale,
     bool? softWrap,
     TextOverflow? overflow,
-    double? textScaleFactor,
     int? maxLines,
     String? semanticsLabel,
     TextWidthBasis? textWidthBasis,
@@ -99,7 +95,6 @@ class CText extends StatelessWidget {
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       textWidthBasis: textWidthBasis,
@@ -118,7 +113,6 @@ class CText extends StatelessWidget {
     Locale? locale,
     bool? softWrap,
     TextOverflow? overflow,
-    double? textScaleFactor,
     int? maxLines,
     String? semanticsLabel,
     TextWidthBasis? textWidthBasis,
@@ -136,7 +130,6 @@ class CText extends StatelessWidget {
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       textWidthBasis: textWidthBasis,
@@ -155,7 +148,6 @@ class CText extends StatelessWidget {
     Locale? locale,
     bool? softWrap,
     TextOverflow? overflow,
-    double? textScaleFactor,
     int? maxLines,
     String? semanticsLabel,
     TextWidthBasis? textWidthBasis,
@@ -173,7 +165,6 @@ class CText extends StatelessWidget {
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       textWidthBasis: textWidthBasis,
@@ -192,7 +183,6 @@ class CText extends StatelessWidget {
     Locale? locale,
     bool? softWrap,
     TextOverflow? overflow,
-    double? textScaleFactor,
     int? maxLines,
     String? semanticsLabel,
     TextWidthBasis? textWidthBasis,
@@ -210,7 +200,6 @@ class CText extends StatelessWidget {
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       textWidthBasis: textWidthBasis,
@@ -229,7 +218,6 @@ class CText extends StatelessWidget {
     Locale? locale,
     bool? softWrap,
     TextOverflow? overflow,
-    double? textScaleFactor,
     int? maxLines,
     String? semanticsLabel,
     TextWidthBasis? textWidthBasis,
@@ -247,7 +235,6 @@ class CText extends StatelessWidget {
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       textWidthBasis: textWidthBasis,
@@ -311,7 +298,6 @@ class CText extends StatelessWidget {
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       textWidthBasis: textWidthBasis,
@@ -331,7 +317,6 @@ class CText extends StatelessWidget {
     Locale? locale,
     bool? softWrap,
     TextOverflow? overflow,
-    double? textScaleFactor,
     int? maxLines,
     String? semanticsLabel,
     TextWidthBasis? textWidthBasis,
@@ -347,7 +332,6 @@ class CText extends StatelessWidget {
       locale: locale ?? this.locale,
       softWrap: softWrap ?? this.softWrap,
       overflow: overflow ?? this.overflow,
-      textScaleFactor: textScaleFactor ?? this.textScaleFactor,
       maxLines: maxLines ?? this.maxLines,
       semanticsLabel: semanticsLabel ?? this.semanticsLabel,
       textWidthBasis: textWidthBasis ?? this.textWidthBasis,
@@ -401,18 +385,15 @@ class CText extends StatelessWidget {
   Widget build(BuildContext context) {
     // Usa ThemeData.light() per stili sicuri e coerenti con Material Design
 
-    final _style = mergedStyle(context);
-
     return Text(
       data!,
       key: key,
-      style: _style,
+      style: mergedStyle(context),
       textAlign: textAlign,
       textDirection: textDirection,
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       textWidthBasis: textWidthBasis,

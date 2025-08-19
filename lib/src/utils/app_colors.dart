@@ -109,7 +109,7 @@ class AppColors {
 
   static Color _contrastColorSmall(Color color) => _getAccessibleContrastColor(color, color, 7.0);
 
-  static Color _contrastColorLarge(Color color) => _getAccessibleContrastColor(color, color, 4.5);
+  // static Color _contrastColorLarge(Color color) => _getAccessibleContrastColor(color, color, 4.5);
 
   static Color _getAccessibleContrastColor(Color baseColor, Color targetColor, double ratio) {
     if (_isCloseToBlack(targetColor, ratio) && _isDarkerOrSame(baseColor, targetColor)) {

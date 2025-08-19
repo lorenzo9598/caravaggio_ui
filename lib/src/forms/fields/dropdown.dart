@@ -188,6 +188,7 @@ class CDropdown<T> extends StatefulWidget {
     TextStyle? itemsTextStyle,
     TextStyle? textStyle,
     bool? itemsFilled,
+    T? initialValue,
   }) {
     return CDropdown(
       items: items,
@@ -202,6 +203,7 @@ class CDropdown<T> extends StatefulWidget {
         textStyle: textStyle,
         itemsFilled: itemsFilled,
       ),
+      initialValue: initialValue,
     );
   }
 
@@ -252,6 +254,7 @@ class CDropdown<T> extends StatefulWidget {
     TextStyle? itemsTextStyle,
     TextStyle? textStyle,
     bool? itemsFilled,
+    T? initialValue,
   }) {
     return CDropdown(
       items: items,
@@ -268,6 +271,7 @@ class CDropdown<T> extends StatefulWidget {
       validator: validator,
       disabled: disabled,
       onChanged: onChanged,
+      initialValue: initialValue,
     );
   }
 
@@ -286,6 +290,7 @@ class CDropdown<T> extends StatefulWidget {
     TextStyle? itemsTextStyle,
     TextStyle? textStyle,
     bool? itemsFilled,
+    T? initialValue,
   }) {
     return CDropdown(
       items: items,
@@ -302,6 +307,7 @@ class CDropdown<T> extends StatefulWidget {
       validator: validator,
       disabled: disabled,
       onChanged: onChanged,
+      initialValue: initialValue,
     );
   }
 

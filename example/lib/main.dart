@@ -58,7 +58,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Page _selectedPage = Page.generics;
+  Page _selectedPage = Page.views;
 
   Widget get _page {
     switch (_selectedPage) {
@@ -334,7 +334,12 @@ class _FormsSectionState extends State<FormsSection> {
         // _spacerSmall,
         // CDropdown<String>.bordered(items: _items, decoration: _decoration, onChanged: _onChanged),
         // _spacerSmall,
-        CDropdown<String>.borderedFilled(items: _items, decoration: _decoration, onChanged: _onChanged),
+        CDropdown<String>.borderedFilled(
+          items: _items,
+          decoration: _decoration,
+          onChanged: _onChanged,
+          initialValue: "item1",
+        ),
       ],
     );
   }
@@ -437,9 +442,21 @@ class _ViewsSectionState extends State<ViewsSection> {
   Widget get _circularIndicators {
     return Column(
       children: [
-        CCircularIndicator.single(currentValue: 64, maxValue: 100, label: "Value 1"),
+        CCircularIndicator.single(value: CircularValue(currentValue: 64, maxValue: 100), label: "Value 1"),
         _spacerSmall,
-        CCircularIndicator.double(currentExternalValue: 64, maxExternalValue: 100, currentInternalValue: 87, maxInternalValue: 100, internalLabel: "Value 1", externalLabel: "Value 2"),
+        CCircularIndicator.double(
+          externalValue: CircularValue(currentValue: 64, maxValue: 100),
+          internalValue: CircularValue(currentValue: 87, maxValue: 100),
+          internalLabel: "Value 1",
+          externalLabel: "Value 2",
+        ),
+        _spacerSmall,
+        CCircularIndicator.percent(
+          value: CircularValue(currentValue: 64, maxValue: 100),
+          currentLabel: "Current",
+          maxLabel: "Max",
+          isDense: true,
+        ),
       ],
     );
   }

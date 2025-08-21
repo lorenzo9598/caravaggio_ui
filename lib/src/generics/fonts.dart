@@ -29,6 +29,73 @@ enum TextSize {
   large,
 }
 
+class CTextStyle {
+  final TextType type;
+  final TextSize size;
+
+  const CTextStyle._(this.type, this.size);
+
+  const CTextStyle.displayLarge()
+      : type = TextType.display,
+        size = TextSize.large;
+
+  const CTextStyle.displayMedium()
+      : type = TextType.display,
+        size = TextSize.medium;
+
+  const CTextStyle.displaySmall()
+      : type = TextType.display,
+        size = TextSize.small;
+
+  const CTextStyle.headlineLarge()
+      : type = TextType.headline,
+        size = TextSize.large;
+
+  const CTextStyle.headlineMedium()
+      : type = TextType.headline,
+        size = TextSize.medium;
+
+  const CTextStyle.headlineSmall()
+      : type = TextType.headline,
+        size = TextSize.small;
+
+  const CTextStyle.titleLarge()
+      : type = TextType.title,
+        size = TextSize.large;
+
+  const CTextStyle.titleMedium()
+      : type = TextType.title,
+        size = TextSize.medium;
+
+  const CTextStyle.titleSmall()
+      : type = TextType.title,
+        size = TextSize.small;
+
+  const CTextStyle.bodyLarge()
+      : type = TextType.body,
+        size = TextSize.large;
+
+  const CTextStyle.bodyMedium()
+      : type = TextType.body,
+        size = TextSize.medium;
+
+  const CTextStyle.bodySmall()
+      : type = TextType.body,
+        size = TextSize.small;
+
+  const CTextStyle.labelLarge()
+      : type = TextType.label,
+        size = TextSize.large;
+
+  const CTextStyle.labelMedium()
+      : type = TextType.label,
+        size = TextSize.medium;
+
+  const CTextStyle.labelSmall()
+      : type = TextType.label,
+        size = TextSize.small;
+}
+
 /// Extension methods for [TextStyle] related to Caravaggio UI theme.
 class CText extends StatelessWidget {
   final String? data;

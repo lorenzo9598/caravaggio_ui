@@ -18,9 +18,9 @@ export 'src/forms/fields/textfield.dart' show CTextField;
 
 export 'src/forms/radios/radio.dart' show CRadioGroup, CRadioGroupOrientation, CRadioCrossAxisAlignment, CRadioItem, CRadioController;
 
-export 'src/generics/fonts.dart' show CText, TextSize;
+export 'src/generics/fonts.dart' show CText, TextSize, TextType, CTextStyle;
 export 'src/generics/gradients.dart' show CGradient, CGradientColorType, CGradientDirection;
 
-export 'src/views/indicators/circular_indicator.dart' show CCircularIndicator;
+export 'src/views/indicators/circular_indicator.dart' show CCircularIndicator, CircularValue, CLabelIndicator;
 export 'src/views/indicators/progress_indicators.dart' show CLinearProgressIndicator, CCircularProgressIndicator;
 export 'src/views/tables/table.dart' show CTable, CTableHeader, CTableRow;

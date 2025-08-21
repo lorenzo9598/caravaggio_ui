@@ -177,6 +177,7 @@ class CDropdown<T> extends StatefulWidget {
 
   /// Creates a simple [CDropdown] instance.
   factory CDropdown.simple({
+    Key? key,
     required List<CDropdownItemModel<T>> items,
     CDropdownController<T>? controller,
     String? Function(T?)? validator,
@@ -191,6 +192,7 @@ class CDropdown<T> extends StatefulWidget {
     T? initialValue,
   }) {
     return CDropdown(
+      key: key,
       items: items,
       controller: controller,
       validator: validator,
@@ -209,6 +211,7 @@ class CDropdown<T> extends StatefulWidget {
 
   /// Creates a bordered [CDropdown] instance.
   factory CDropdown.bordered({
+    Key? key,
     required List<CDropdownItemModel<T>> items,
     CDropdownController<T>? controller,
     String? Function(T?)? validator,
@@ -223,6 +226,7 @@ class CDropdown<T> extends StatefulWidget {
     T? initialValue,
   }) {
     return CDropdown(
+      key: key,
       decoration: decoration,
       style: CDropdownStyle.bordered(
         foregroundColor: foregroundColor,
@@ -241,6 +245,7 @@ class CDropdown<T> extends StatefulWidget {
 
   /// Creates a filled [CDropdown] instance.
   factory CDropdown.filled({
+    Key? key,
     required List<CDropdownItemModel<T>> items,
     CDropdownController<T>? controller,
     String? Function(T?)? validator,
@@ -257,6 +262,7 @@ class CDropdown<T> extends StatefulWidget {
     T? initialValue,
   }) {
     return CDropdown(
+      key: key,
       items: items,
       decoration: decoration,
       style: CDropdownStyle.filled(
@@ -277,6 +283,7 @@ class CDropdown<T> extends StatefulWidget {
 
   /// Creates a bordered and filled [CDropdown] instance.
   factory CDropdown.borderedFilled({
+    Key? key,
     required List<CDropdownItemModel<T>> items,
     CDropdownController<T>? controller,
     String? Function(T?)? validator,
@@ -293,6 +300,7 @@ class CDropdown<T> extends StatefulWidget {
     T? initialValue,
   }) {
     return CDropdown(
+      key: key,
       items: items,
       decoration: decoration,
       style: CDropdownStyle.borderedFilled(

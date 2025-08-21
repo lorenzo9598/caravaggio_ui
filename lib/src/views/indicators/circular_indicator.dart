@@ -3,88 +3,167 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 /// Constant representing the default line width for circular progress indicators.
-const double lineWidth = 8.0;
+const double _kLineWidth = 8.0;
 
 /// Constant representing the default space between circular progress indicators.
-const double space = 1.0;
+const double _kSpace = 1.0;
 
 /// Constant representing the default radius for circular progress indicators.
-const double radius = 77 / 2;
+const double _kRadius = 77 / 2;
+
+/// A class representing a value for a circular indicator, including the current and maximum values.
+class CircularValue {
+  /// The maximum value of the indicator.
+  final double maxValue;
+
+  /// The current value of the indicator.
+  final double currentValue;
+
+  /// Constructs a [CircularValue] with the given [maxValue] and [currentValue].
+  CircularValue({
+    required this.maxValue,
+    required this.currentValue,
+  });
+
+  /// Returns the percentage (between 0 and 1) of the current value relative to the maximum value.
+  double get percent => currentValue / maxValue;
+}
 
 /// A widget that displays circular progress indicators along with labels.
 class CCircularIndicator extends StatelessWidget {
-  /// Maximum value for the external progress indicator.
-  final double maxExternalValue;
-
-  /// Current value for the external progress indicator.
-  final double currentExternalValue;
-
   /// Flag indicating whether the widget should be dense or not.
   final bool isDense;
 
-  /// Maximum value for the internal progress indicator.
-  final double? maxInternalValue;
+  /// The value for the external (outer) circular indicator.
+  final CircularValue externalValue;
 
-  /// Current value for the internal progress indicator.
-  final double? currentInternalValue;
+  /// The value for the internal (inner) circular indicator, if present.
+  final CircularValue? internalValue;
 
-  /// Label for the internal progress indicator.
-  final String? internalLabel;
+  /// The list of label indicators to display next to the circular indicator.
+  final List<CLabelIndicator> labels;
 
-  /// Label for the external progress indicator.
-  final String? externalLabel;
+  /// The widget to display at the center of the circular indicator.
+  final Widget? center;
 
   /// Constructs a CCircularIndicator widget.
   const CCircularIndicator._({
     Key? key,
-    required this.maxExternalValue,
-    required this.currentExternalValue,
-    this.externalLabel,
-    this.maxInternalValue,
-    this.currentInternalValue,
-    this.internalLabel,
+    required this.externalValue,
+    this.internalValue,
+    required this.labels,
     this.isDense = false,
+    this.center,
   }) : super(key: key);
 
   /// Constructs a CCircularIndicator widget with a single progress indicator.
   factory CCircularIndicator.single({
-    required double maxValue,
-    required double currentValue,
+    required CircularValue value,
     String? label,
     bool isDense = false,
+    Widget? center,
   }) {
+    final List<CLabelIndicator> labels = [];
+    if (label != null) {
+      labels.add(
+        CLabelIndicator(
+          label: label,
+          color: CaravaggioUI.instance.primaryColor,
+          value: value.currentValue,
+          fontSize: isDense ? 12 : 14,
+        ),
+      );
+    }
+
     return CCircularIndicator._(
-      maxExternalValue: maxValue,
-      currentExternalValue: currentValue,
-      externalLabel: label,
+      externalValue: value,
+      labels: labels,
       isDense: isDense,
+      center: center,
     );
   }
 
   /// Constructs a CCircularIndicator widget with two progress indicators.
   factory CCircularIndicator.double({
-    required double maxExternalValue,
-    required double currentExternalValue,
-    required double maxInternalValue,
-    required double currentInternalValue,
+    required CircularValue externalValue,
+    required CircularValue internalValue,
     String? externalLabel,
     String? internalLabel,
     bool isDense = false,
+    Widget? center,
   }) {
+    final List<CLabelIndicator> labels = [];
+    if (externalLabel != null) {
+      labels.add(CLabelIndicator(
+        label: externalLabel,
+        color: CaravaggioUI.instance.primaryColor,
+        value: externalValue.currentValue,
+        fontSize: isDense ? 12 : 14,
+      ));
+    }
+    if (internalLabel != null) {
+      labels.add(CLabelIndicator(
+        label: internalLabel,
+        color: CaravaggioUI.instance.secondaryColor,
+        value: internalValue.currentValue,
+        fontSize: isDense ? 12 : 14,
+      ));
+    }
+
     return CCircularIndicator._(
-      maxExternalValue: maxExternalValue,
-      currentExternalValue: currentExternalValue,
-      maxInternalValue: maxInternalValue,
-      currentInternalValue: currentInternalValue,
-      externalLabel: externalLabel,
-      internalLabel: internalLabel,
+      externalValue: externalValue,
+      internalValue: internalValue,
+      labels: labels,
       isDense: isDense,
+      center: center,
+    );
+  }
+
+  factory CCircularIndicator.percent({
+    required CircularValue value,
+    String? maxLabel,
+    String? currentLabel,
+    bool isDense = false,
+    Widget? center,
+  }) {
+    final List<CLabelIndicator> labels = [];
+    if (currentLabel != null) {
+      labels.add(
+        CLabelIndicator(
+          label: currentLabel,
+          color: CaravaggioUI.instance.primaryColor,
+          value: value.currentValue,
+          fontSize: isDense ? 12 : 14,
+        ),
+      );
+      if (maxLabel != null) {
+        labels.add(
+          CLabelIndicator(
+            label: maxLabel,
+            color: CaravaggioUI.instance.secondaryColor,
+            value: value.maxValue,
+            fontSize: isDense ? 12 : 14,
+          ),
+        );
+      }
+    }
+
+    final Widget centerWidget = center ??
+        CText.label(
+          "${(value.percent * 100).toStringAsFixed(1)}%",
+        ).bold;
+
+    return CCircularIndicator._(
+      externalValue: value,
+      labels: labels,
+      isDense: isDense,
+      center: centerWidget,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool hasLabels = internalLabel != null || externalLabel != null;
+    final bool hasLabels = labels.isNotEmpty;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -95,19 +174,20 @@ class CCircularIndicator extends StatelessWidget {
           children: [
             Center(
               child: _CProgressIndicator(
-                radius: radius,
-                percent: currentExternalValue / maxExternalValue,
+                radius: _kRadius,
+                percent: externalValue.percent,
                 gradient: CGradient.primaryDarkToSecondaryDark,
-                lineWidth: lineWidth,
+                lineWidth: _kLineWidth,
+                center: center,
               ),
             ),
-            if (currentInternalValue != null && maxInternalValue != null)
+            if (internalValue != null)
               Center(
                 child: _CProgressIndicator(
-                  radius: radius - lineWidth - space,
-                  percent: currentInternalValue! / maxInternalValue!,
+                  radius: _kRadius - _kLineWidth - _kSpace,
+                  percent: internalValue!.percent,
                   gradient: CGradient.primaryLightToSecondaryLight,
-                  lineWidth: lineWidth,
+                  lineWidth: _kLineWidth,
                 ),
               ),
           ],
@@ -118,19 +198,10 @@ class CCircularIndicator extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (internalLabel != null && currentInternalValue != null)
-                _CLabelIndicator(
-                    label: internalLabel!,
-                    fontSize: isDense ? 12 : 14,
-                    value: currentInternalValue!,
-                    color: CaravaggioUI.instance.secondaryColor),
-              const SizedBox(height: 8),
-              if (externalLabel != null)
-                _CLabelIndicator(
-                    label: externalLabel!,
-                    fontSize: isDense ? 12 : 14,
-                    value: currentExternalValue,
-                    color: CaravaggioUI.instance.primaryColor),
+              for (var i = 0; i < labels.length; i++) ...[
+                labels[i],
+                if (i < labels.length - 1) const SizedBox(height: 8),
+              ],
             ],
           ),
       ],
@@ -152,6 +223,9 @@ class _CProgressIndicator extends StatelessWidget {
   /// Width of the progress indicator line.
   final double lineWidth;
 
+  /// Widget to display at the center of the circular progress indicator.
+  final Widget? center;
+
   /// Constructs a _CProgressIndicator widget.
   const _CProgressIndicator({
     Key? key,
@@ -159,6 +233,7 @@ class _CProgressIndicator extends StatelessWidget {
     required this.percent,
     this.gradient,
     required this.lineWidth,
+    this.center,
   }) : super(key: key);
 
   @override
@@ -171,12 +246,13 @@ class _CProgressIndicator extends StatelessWidget {
       startAngle: 180,
       fillColor: Colors.transparent,
       linearGradient: gradient,
+      center: center,
     );
   }
 }
 
 /// A private widget representing a label indicator.
-class _CLabelIndicator extends StatelessWidget {
+class CLabelIndicator extends StatelessWidget {
   /// Text label for the indicator.
   final String label;
 
@@ -190,7 +266,7 @@ class _CLabelIndicator extends StatelessWidget {
   final double fontSize;
 
   /// Constructs a _CLabelIndicator widget.
-  const _CLabelIndicator({
+  const CLabelIndicator({
     Key? key,
     required this.label,
     required this.value,
@@ -214,12 +290,7 @@ class _CLabelIndicator extends StatelessWidget {
         RichText(
           text: TextSpan(
             style: TextStyle(color: Colors.black, fontSize: fontSize),
-            children: [
-              TextSpan(text: "$label: "),
-              TextSpan(
-                  text: "${value.round()}",
-                  style: const TextStyle(fontWeight: FontWeight.bold))
-            ],
+            children: [TextSpan(text: "$label: "), TextSpan(text: "${value.round()}", style: const TextStyle(fontWeight: FontWeight.bold))],
           ),
         ),
       ],

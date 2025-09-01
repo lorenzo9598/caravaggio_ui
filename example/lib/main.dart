@@ -430,8 +430,8 @@ class ViewsSection extends StatefulWidget {
 
 class _ViewsSectionState extends State<ViewsSection> {
   Widget get _tables {
-    final header = CTableHeader(titles: _headerTexts);
-    final rows = _rowsTexts.map((row) => CTableRow(values: row)).toList();
+    final header = CTableHeader(titles: _headerTexts.map((title) => CTableCell(text: title)).toList());
+    final rows = _rowsTexts.map((row) => CTableRow(values: row.map((cell) => CTableCell(text: cell)).toList())).toList();
 
     return CTable(
       header: header,

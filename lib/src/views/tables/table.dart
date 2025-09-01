@@ -39,12 +39,10 @@ class CTable extends StatelessWidget {
               children: [
                 ...header.titles
                     .map(
-                      (title) => Expanded(
+                      (CTableCell title) => Expanded(
+                        flex: title.flex,
                         child: Center(
-                          child: Text(title,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              style: const TextStyle(color: Colors.white)),
+                          child: title.text != null ? Text(title.text!, textAlign: TextAlign.center, maxLines: 2, style: const TextStyle(color: Colors.white)) : title.child!,
                         ),
                       ),
                     )
@@ -59,9 +57,9 @@ class CTable extends StatelessWidget {
                 children: [
                   ...row.values
                       .map((value) => Expanded(
+                            flex: value.flex,
                             child: Center(
-                              child: Text(value,
-                                  style: const TextStyle(color: Colors.black)),
+                              child: value.text != null ? Text(value.text!, style: const TextStyle(color: Colors.black)) : value.child!,
                             ),
                           ))
                       .toList(),
@@ -78,7 +76,7 @@ class CTable extends StatelessWidget {
 /// Class representing the header of the table.
 class CTableHeader {
   /// The titles of the table header.
-  final List<String> titles;
+  final List<CTableCell> titles;
 
   /// Constructs a [CTableHeader] object.
   const CTableHeader({
@@ -89,10 +87,23 @@ class CTableHeader {
 /// Class representing a row in the table.
 class CTableRow {
   /// The values of the row.
-  final List<String> values;
+  final List<CTableCell> values;
 
   /// Constructs a [CTableRow] object.
   const CTableRow({
     required this.values,
   });
+}
+
+/// Class representing a cell in the table.
+class CTableCell {
+  final String? text;
+  final Widget? child;
+  final int flex;
+
+  const CTableCell({
+    this.child,
+    this.text,
+    this.flex = 1,
+  }) : assert(text != null || child != null, 'Either text or child must be provided.');
 }

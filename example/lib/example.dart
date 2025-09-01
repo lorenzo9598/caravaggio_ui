@@ -301,8 +301,8 @@ class ViewsSection extends StatefulWidget {
 
 class _ViewsSectionState extends State<ViewsSection> {
   Widget get _tables {
-    final header = CTableHeader(titles: _headerTexts);
-    final rows = _rowsTexts.map((row) => CTableRow(values: row)).toList();
+    final header = CTableHeader(titles: _headerTexts.map((title) => CTableCell(text: title)).toList());
+    final rows = _rowsTexts.map((row) => CTableRow(values: row.map((cell) => CTableCell(text: cell)).toList())).toList();
 
     return CTable(
       header: header,
@@ -313,9 +313,9 @@ class _ViewsSectionState extends State<ViewsSection> {
   Widget get _circularIndicators {
     return Column(
       children: [
-        CCircularIndicator.single(currentValue: 64, maxValue: 100, label: "Value 1"),
+        CCircularIndicator.single(value: CircularValue(maxValue: 100, currentValue: 64), label: "Value 1"),
         _spacerSmall,
-        CCircularIndicator.double(currentExternalValue: 64, maxExternalValue: 100, currentInternalValue: 87, maxInternalValue: 100, internalLabel: "Value 1", externalLabel: "Value 2"),
+        CCircularIndicator.double(externalValue: CircularValue(maxValue: 100, currentValue: 64), internalValue: CircularValue(maxValue: 100, currentValue: 87), internalLabel: "Value 1", externalLabel: "Value 2"),
       ],
     );
   }

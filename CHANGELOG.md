@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.0.11
+
+- Added `flex` parameter to `CTableCell`.
+- In `CTableHeader`, the `values` property is now a list of `CTableCell` instead of a list of `String`.
+
+## 0.0.10
+
+- In the `CTableRow` class, the `values` property is now a list of `CTableCell` instead of a list of `String`. Each `CTableCell` can have either a `child` (Widget) or `text` (String).
+
 ## 0.0.9
 
 - Refactored `CircularIndicator` to use the new `CircularValue` class for value representation.

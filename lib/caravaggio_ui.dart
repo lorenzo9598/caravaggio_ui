@@ -23,4 +23,4 @@ export 'src/generics/gradients.dart' show CGradient, CGradientColorType, CGradie
 
 export 'src/views/indicators/circular_indicator.dart' show CCircularIndicator, CircularValue, CLabelIndicator;
 export 'src/views/indicators/progress_indicators.dart' show CLinearProgressIndicator, CCircularProgressIndicator;
-export 'src/views/tables/table.dart' show CTable, CTableHeader, CTableRow;
+export 'src/views/tables/table.dart' show CTable, CTableHeader, CTableRow, CTableCell;

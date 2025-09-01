@@ -58,7 +58,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Page _selectedPage = Page.views;
+  Page _selectedPage = Page.generics;
 
   Widget get _page {
     switch (_selectedPage) {
@@ -73,6 +73,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final baseTheme = Theme.of(context).textTheme;
+
+    print(baseTheme.displayLarge?.fontSize);
+    print(baseTheme.displayMedium?.fontSize);
+    print(baseTheme.displaySmall?.fontSize);
+
+    print(baseTheme.headlineLarge?.fontSize);
+    print(baseTheme.headlineMedium?.fontSize);
+    print(baseTheme.headlineSmall?.fontSize);
+
+    print(baseTheme.titleLarge?.fontSize);
+    print(baseTheme.titleMedium?.fontSize);
+    print(baseTheme.titleSmall?.fontSize);
+
+    print(baseTheme.bodyLarge?.fontSize);
+    print(baseTheme.bodyMedium?.fontSize);
+    print(baseTheme.bodySmall?.fontSize);
+
+    print(baseTheme.labelLarge?.fontSize);
+    print(baseTheme.labelMedium?.fontSize);
+    print(baseTheme.labelSmall?.fontSize);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Caravaggio UI'),

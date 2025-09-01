@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.12
+
+- `CText` bugfix
+
 ## 0.0.11
 
 - Added `flex` parameter to `CTableCell`.

@@ -417,9 +417,9 @@ class CText extends StatelessWidget {
           TextSize.large => baseTheme.displayLarge,
         },
       TextType.headline => switch (size) {
-          TextSize.small => baseTheme.titleSmall,
-          TextSize.medium => baseTheme.titleMedium,
-          TextSize.large => baseTheme.titleLarge,
+          TextSize.small => baseTheme.headlineSmall,
+          TextSize.medium => baseTheme.headlineMedium,
+          TextSize.large => baseTheme.headlineLarge,
         },
       TextType.title => switch (size) {
           TextSize.small => baseTheme.titleSmall,
@@ -427,14 +427,14 @@ class CText extends StatelessWidget {
           TextSize.large => baseTheme.titleLarge,
         },
       TextType.body => switch (size) {
-          TextSize.small => baseTheme.titleSmall,
-          TextSize.medium => baseTheme.titleMedium,
-          TextSize.large => baseTheme.titleLarge,
+          TextSize.small => baseTheme.bodySmall,
+          TextSize.medium => baseTheme.bodyMedium,
+          TextSize.large => baseTheme.bodyLarge,
         },
       TextType.label => switch (size) {
-          TextSize.small => baseTheme.titleSmall,
-          TextSize.medium => baseTheme.titleMedium,
-          TextSize.large => baseTheme.titleLarge,
+          TextSize.small => baseTheme.labelSmall,
+          TextSize.medium => baseTheme.labelMedium,
+          TextSize.large => baseTheme.labelLarge,
         },
     };
 

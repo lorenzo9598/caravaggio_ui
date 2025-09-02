@@ -11,9 +11,7 @@ A comprehensive UI package designed to streamline your Flutter app development p
 <br />
 
 <p align="center"> 
-    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/example_2.png" alt="descrizione" width="150"  style="vertical-align: middle; border-top: 12px solid black;border-bottom: 10px solid black; border-left: 5px solid black; border-right: 5px solid black; border-radius: 16px;" >
-    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/example_3.png" alt="descrizione" width="150" style="vertical-align: middle; border-top: 12px solid black;border-bottom: 10px solid black; border-left: 5px solid black; border-right: 5px solid black; border-radius: 16px;">
-    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/example_1.png" alt="descrizione" width="150" style="vertical-align: middle; border-top: 12px solid black;border-bottom: 10px solid black; border-left: 5px solid black; border-right: 5px solid black; border-radius: 16px;" >
+    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/example_app.png" alt="descrizione" width="450">
 </p>
 
 ## Getting started

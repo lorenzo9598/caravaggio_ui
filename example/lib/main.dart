@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Caravaggio UI',
-      theme: CaravaggioUI.instance.themeData,
+      theme: CUI.themeData,
       home: const HomeScreen(),
     );
   }

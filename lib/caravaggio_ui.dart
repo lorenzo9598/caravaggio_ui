@@ -1,6 +1,6 @@
 library caravaggio_ui;
 
-export 'src/themes/theme.dart' show CaravaggioUI;
+export 'src/themes/theme.dart' show CaravaggioUI, CUI, CColors;
 
 export 'src/utils/app_colors.dart' show AppColors;
 export 'src/utils/app_radius.dart' show AppRadius;

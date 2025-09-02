@@ -1,7 +1,7 @@
 # CaravaggioUI
 
 <div align="center"> 
-    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png" alt="descrizione" width="300">
+    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png" alt="Caravaggio UI logo" width="300">
 </div>
 
 <br />
@@ -11,7 +11,7 @@ A comprehensive UI package designed to streamline your Flutter app development p
 <br />
 
 <p align="center"> 
-    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/example_app.png" alt="descrizione" width="450">
+    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/example_app.png" alt="example of an app with Caravaggio UI design screenshots" width="450">
 </p>
 
 ## Getting started
@@ -66,7 +66,7 @@ you'll ulock the core theme data of your application and a default color Palette
 
 ### Colors
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_1.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_1.png" alt="screenshot of Caravaggio UI generated colors" width="200">
 
 
 ```dart
@@ -95,7 +95,7 @@ For graphic uniformity, Caravaggio UI introduces CText and CGradients. These are
 
 CText is an extension of Text widget that adds a series of factory constructors and getter methods to include dimensions, colors, and styles.
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_2.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_2.png" alt="screenshot of Caravaggio UI generated text sizes" width="200">
 
 ```dart
 
@@ -121,7 +121,7 @@ Overrides such as `italic`, `bold`, `withColor()`, etc. are applied after mergin
 
 Chaining (e.g., `CText("hello").italic.bold.size(18)`) respects the order: the last override takes precedence over previous properties.
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_3.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_3.png" alt="screenshot of Caravaggio UI generated text getters" width="200">
 
 
 ```dart
@@ -141,7 +141,7 @@ CText.body("withWeight", size: TextSize.medium).withWeight(FontWeight.bold),
 
 With the CGradient class you can quickly get gradients that match your app's theme
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_4.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_4.png" alt="screenshot of Caravaggio UI generated gradients" width="200">
 
 ```dart
 
@@ -182,7 +182,7 @@ CGradient.custom(
 
 CGradientDirection is an enum that exposes all possible gradient directions. Similarly, it considers left to right by default, as the reverse method is available
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/gradient_directions.png" alt="descrizione" width="500">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/gradient_directions.png" alt="Caravaggio UI gradient direction enum attribute for custom gradient generator" width="500">
 
 ### Form
 
@@ -197,7 +197,7 @@ The CButton class enables easy and fast creation of buttons according to the Car
 3. Text `text`
 
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_8.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_8.png" alt="screenshot of Caravaggio UI CButton class" width="200">
 
 ```dart
 
@@ -212,7 +212,7 @@ final CButton button = CButton.elevated({
 
 You can also create a sized button with size getter :
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_9.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_9.png" alt="screenshot of Caravaggio UI CButton size gettrs" width="200">
 
 ```dart
 
@@ -239,8 +239,8 @@ The available input fields in Caravaggio are `CTextField`, `CAutocomplete` and `
 
 and each of them can have different radius size:
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_6.png" alt="descrizione" width="200">
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_5.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_6.png" alt="screenshot of Caravaggio UI CTextField class" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_5.png" alt="screenshot of Caravaggio UI CTextField class AppRadius attribute" width="200">
 
 ```dart
 
@@ -261,7 +261,7 @@ CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.xxl)),
 
 `CTextField`, `CAutocomplete` and `CDropdown` looks like:
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_7.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_7.png" alt="screenshot of Caravaggio UI CTextField, CAutocomplete and CDropdown classes compared" width="200">
 
 ##### `CTextField`
 
@@ -323,7 +323,7 @@ CDropdown<String>.simple(
 
 For data representation the library adds graphical elements such as tables, circular indicators and progress indicators.
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_10.png" alt="descrizione" width="200">
+<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_10.png" alt="screenshot of Caravaggio UI view elements classes" width="200">
 
 
 #### `CTable`

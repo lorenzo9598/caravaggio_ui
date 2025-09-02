@@ -42,9 +42,18 @@ class AppColors {
     },
   );
 
+  static int _argbFromColor(Color c) {
+    final a = (c.a * 255).round();
+    final r = (c.r * 255).round();
+    final g = (c.g * 255).round();
+    final b = (c.b * 255).round();
+
+    return (a << 24) | (r << 16) | (g << 8) | b;
+  }
+
   /// Generates a MaterialColor from the provided color.
   static MaterialColor from(Color color) {
-    return MaterialColor(color.value, {
+    return MaterialColor(_argbFromColor(color), {
       50: tintColor(color, 0.9),
       100: tintColor(color, 0.8),
       200: tintColor(color, 0.6),
@@ -60,7 +69,7 @@ class AppColors {
 
   static MaterialColor onFrom(Color color) {
     final Color contrastColor = _contrastColorSmall(color);
-    return MaterialColor(contrastColor.value, {
+    return MaterialColor(_argbFromColor(contrastColor), {
       50: tintColor(contrastColor, 0.9),
       100: tintColor(contrastColor, 0.8),
       200: tintColor(contrastColor, 0.6),
@@ -75,16 +84,16 @@ class AppColors {
   }
 
   /// Calculates the tint value based on the given factor.
-  static int tintValue(int value, double factor) => max(0, min((value + ((255 - value) * factor)).round(), 255));
+  static int tintValue(double value, double factor) => max(0, min(((value * 255) + ((255 - (value * 255)) * factor)).round(), 255));
 
   /// Calculates the tint color based on the given factor.
-  static Color tintColor(Color color, double factor) => Color.fromRGBO(tintValue(color.red, factor), tintValue(color.green, factor), tintValue(color.blue, factor), 1);
+  static Color tintColor(Color color, double factor) => Color.fromRGBO(tintValue(color.r, factor), tintValue(color.g, factor), tintValue(color.b, factor), 1);
 
   /// Calculates the shade value based on the given factor.
-  static int shadeValue(int value, double factor) => max(0, min(value - (value * factor).round(), 255));
+  static int shadeValue(double value, double factor) => max(0, min(((value * 255) - ((value * 255) * factor)).round(), 255));
 
   /// Calculates the shade color based on the given factor.
-  static Color shadeColor(Color color, double factor) => Color.fromRGBO(shadeValue(color.red, factor), shadeValue(color.green, factor), shadeValue(color.blue, factor), 1);
+  static Color shadeColor(Color color, double factor) => Color.fromRGBO(shadeValue(color.r, factor), shadeValue(color.g, factor), shadeValue(color.b, factor), 1);
 
   /// Error color used for error messages and indicators
   static const Color errorColor = Color(0xFFC91432);
@@ -124,9 +133,9 @@ class AppColors {
   }
 
   static double _relativeLuminance(Color color) {
-    final r = _linearize(color.red / 255.0);
-    final g = _linearize(color.green / 255.0);
-    final b = _linearize(color.blue / 255.0);
+    final r = _linearize((color.r * 255) / 255.0);
+    final g = _linearize((color.g * 255) / 255.0);
+    final b = _linearize((color.b * 255) / 255.0);
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   }
 

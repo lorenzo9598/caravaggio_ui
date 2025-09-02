@@ -113,11 +113,11 @@ class CButtonDecoration {
 /// A stylized button widget.
 class CButton extends StatelessWidget {
   const CButton._({
-    Key? key,
+    super.key,
     this.onPressed,
     required this.child,
     this.decoration = const CButtonDecoration(),
-  }) : super(key: key);
+  });
 
   /// Function called when the button is pressed.
   final void Function()? onPressed;

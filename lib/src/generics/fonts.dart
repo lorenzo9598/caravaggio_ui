@@ -33,7 +33,7 @@ class CTextStyle {
   final TextType type;
   final TextSize size;
 
-  const CTextStyle._(this.type, this.size);
+  // const CTextStyle._(this.type, this.size);
 
   const CTextStyle.displayLarge()
       : type = TextType.display,

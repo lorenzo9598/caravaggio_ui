@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// A widget that displays a text form field with customizable decoration and style.
 class FieldContent extends StatelessWidget {
   const FieldContent({
-    Key? key,
+    super.key,
     required this.decoration,
     required this.style,
     this.initialValue,
@@ -20,7 +20,7 @@ class FieldContent extends StatelessWidget {
     this.controller,
     this.enabled,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   /// The decoration properties for the field.
   final CFieldDecoration decoration;
@@ -72,7 +72,7 @@ class FieldContent extends StatelessWidget {
         suffixIcon: decoration.suffixIcon,
         hintText: decoration.hintText,
         hintStyle: TextStyle(
-          color: style.foregroundColor.withOpacity(0.5),
+          color: style.foregroundColor.withValues(alpha: .5),
           fontStyle: FontStyle.italic,
         ),
         labelText: decoration.labelText,
@@ -135,11 +135,11 @@ class FieldContainer extends StatelessWidget {
   final Widget child;
 
   const FieldContainer({
-    Key? key,
+    super.key,
     required this.decoration,
     required this.style,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

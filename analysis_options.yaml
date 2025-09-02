@@ -1,4 +1,31 @@
+# Usa le regole ufficiali di Flutter
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  exclude:
+    # Escludi eventuali file generati che non vuoi analizzare
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "build/**"
+
+linter:
+  rules:
+    # ---- Consigliati per passare su pub.dev ----
+    avoid_print: true                # vieta l'uso di print()
+    avoid_relative_lib_imports: true # preferisci import assoluti
+    prefer_const_constructors: true  # usa const dove possibile
+    prefer_const_literals_to_create_immutables: true
+    always_use_package_imports: true # evita import relativi in test/example
+    unnecessary_this: true           # evita l'uso inutile di this
+    sort_child_properties_last: true # ordine corretto nelle widget tree
+
+    # ---- Qualità del codice ----
+    require_trailing_commas: true    # migliora la leggibilità
+    unnecessary_lambdas: true
+    avoid_unnecessary_containers: true
+
+    # ---- Buone pratiche ----
+    prefer_final_fields: true
+    prefer_final_locals: true
+    prefer_single_quotes: true
+    curly_braces_in_flow_control_structures: true

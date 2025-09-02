@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.13
+
+Static analysis fixes
+
 ## 0.0.12
 
 - `CText` bugfix

@@ -142,7 +142,7 @@ class CDropdownStyle extends CFieldStyle {
 class CDropdown<T> extends StatefulWidget {
   /// Creates a [CDropdown] instance.
   CDropdown({
-    Key? key,
+    super.key,
     CDropdownStyle? style,
     required this.items,
     this.controller,
@@ -151,8 +151,7 @@ class CDropdown<T> extends StatefulWidget {
     this.onChanged,
     this.initialValue,
     required this.decoration,
-  })  : style = style ?? CDropdownStyle.simple(),
-        super(key: key);
+  }) : style = style ?? CDropdownStyle.simple();
 
   /// The list of items in the dropdown.
   final List<CDropdownItemModel<T>> items;

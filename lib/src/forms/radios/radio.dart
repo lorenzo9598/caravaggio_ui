@@ -77,8 +77,7 @@ class CRadioController<T> {
   final BehaviorSubject<T?> _controller;
 
   /// Constructs a [CRadioController] with an optional initial value.
-  CRadioController({T? initialValue})
-      : _controller = BehaviorSubject<T?>.seeded(initialValue);
+  CRadioController({T? initialValue}) : _controller = BehaviorSubject<T?>.seeded(initialValue);
 
   /// Retrieves the current value of the radio.
   T? get value => _controller.value;
@@ -124,16 +123,17 @@ class CRadioGroup<T> extends StatefulWidget {
 
   /// Creates a [CRadioGroup] widget.
   const CRadioGroup({
-    Key? key,
+    super.key,
     required this.values,
     this.onChanged,
     this.initialValue,
     this.controller,
     this.orientation = CRadioGroupOrientation.vertical,
     this.crossAxisAlignment = CRadioCrossAxisAlignment.start,
-  })  : assert(initialValue != null || controller != null,
-            'initialValue or controller must be provided'),
-        super(key: key);
+  }) : assert(
+          initialValue != null || controller != null,
+          'initialValue or controller must be provided',
+        );
 
   @override
   State<CRadioGroup> createState() => _CRadioGroupState<T>();
@@ -202,11 +202,11 @@ class _CRadioButton<T> extends StatelessWidget {
 
   /// Creates a [_CRadioButton] widget.
   const _CRadioButton({
-    Key? key,
+    super.key,
     required this.item,
     this.itemSelected,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

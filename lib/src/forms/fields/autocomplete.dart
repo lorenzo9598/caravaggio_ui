@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class CAutocomplete<T extends Object> extends StatefulWidget {
   /// Private constructor for [CAutocomplete].
   const CAutocomplete._({
-    Key? key,
+    super.key,
     required this.style,
     required this.decoration,
     required this.options,
@@ -17,7 +17,7 @@ class CAutocomplete<T extends Object> extends StatefulWidget {
     required this.displayStringForOption,
     this.validator,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   /// Style for the field.
   final CFieldStyle style;
@@ -173,7 +173,7 @@ class _CAutocompleteState<T extends Object> extends State<CAutocomplete<T>> {
       decoration: widget.decoration,
       style: widget.style,
       child: Autocomplete<T>(
-        initialValue: TextEditingValue(text: widget.initialValue ?? ""),
+        initialValue: TextEditingValue(text: widget.initialValue ?? ''),
         optionsBuilder: (textEditingValue) {
           widget.searchItems.call();
 

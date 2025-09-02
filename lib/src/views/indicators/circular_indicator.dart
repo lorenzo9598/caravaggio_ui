@@ -48,13 +48,12 @@ class CCircularIndicator extends StatelessWidget {
 
   /// Constructs a CCircularIndicator widget.
   const CCircularIndicator._({
-    Key? key,
     required this.externalValue,
     this.internalValue,
     required this.labels,
     this.isDense = false,
     this.center,
-  }) : super(key: key);
+  });
 
   /// Constructs a CCircularIndicator widget with a single progress indicator.
   factory CCircularIndicator.single({
@@ -94,20 +93,24 @@ class CCircularIndicator extends StatelessWidget {
   }) {
     final List<CLabelIndicator> labels = [];
     if (externalLabel != null) {
-      labels.add(CLabelIndicator(
-        label: externalLabel,
-        color: CaravaggioUI.instance.primaryColor,
-        value: externalValue.currentValue,
-        fontSize: isDense ? 12 : 14,
-      ));
+      labels.add(
+        CLabelIndicator(
+          label: externalLabel,
+          color: CaravaggioUI.instance.primaryColor,
+          value: externalValue.currentValue,
+          fontSize: isDense ? 12 : 14,
+        ),
+      );
     }
     if (internalLabel != null) {
-      labels.add(CLabelIndicator(
-        label: internalLabel,
-        color: CaravaggioUI.instance.secondaryColor,
-        value: internalValue.currentValue,
-        fontSize: isDense ? 12 : 14,
-      ));
+      labels.add(
+        CLabelIndicator(
+          label: internalLabel,
+          color: CaravaggioUI.instance.secondaryColor,
+          value: internalValue.currentValue,
+          fontSize: isDense ? 12 : 14,
+        ),
+      );
     }
 
     return CCircularIndicator._(
@@ -150,7 +153,7 @@ class CCircularIndicator extends StatelessWidget {
 
     final Widget centerWidget = center ??
         CText.label(
-          "${(value.percent * 100).toStringAsFixed(1)}%",
+          '${(value.percent * 100).toStringAsFixed(1)}%',
         ).bold;
 
     return CCircularIndicator._(
@@ -228,13 +231,12 @@ class _CProgressIndicator extends StatelessWidget {
 
   /// Constructs a _CProgressIndicator widget.
   const _CProgressIndicator({
-    Key? key,
     required this.radius,
     required this.percent,
     this.gradient,
     required this.lineWidth,
     this.center,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -267,12 +269,12 @@ class CLabelIndicator extends StatelessWidget {
 
   /// Constructs a _CLabelIndicator widget.
   const CLabelIndicator({
-    Key? key,
+    super.key,
     required this.label,
     required this.value,
     required this.color,
     required this.fontSize,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +292,7 @@ class CLabelIndicator extends StatelessWidget {
         RichText(
           text: TextSpan(
             style: TextStyle(color: Colors.black, fontSize: fontSize),
-            children: [TextSpan(text: "$label: "), TextSpan(text: "${value.round()}", style: const TextStyle(fontWeight: FontWeight.bold))],
+            children: [TextSpan(text: '$label: '), TextSpan(text: '${value.round()}', style: const TextStyle(fontWeight: FontWeight.bold))],
           ),
         ),
       ],

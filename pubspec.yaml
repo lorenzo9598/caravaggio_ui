@@ -1,11 +1,11 @@
 name: caravaggio_ui
 description: "A comprehensive UI package designed to streamline your Flutter app development process."
-version: 0.0.12
+version: 0.0.13
 homepage: "https://github.com/lorenzo9598/caravaggio_ui"
 
 environment:
-  sdk: ">=3.2.2 <4.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.22.0"
 
 dependencies:
   flutter:
@@ -16,7 +16,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
 
 platforms:
   android:

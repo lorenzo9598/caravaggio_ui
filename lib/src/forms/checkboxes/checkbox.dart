@@ -48,13 +48,12 @@ class CCheckbox extends StatefulWidget {
 
   /// Creates a [CCheckbox] instance.
   const CCheckbox({
-    Key? key,
+    super.key,
     this.initialValue,
     this.controller,
     this.onChanged,
     this.label,
-  })  : assert(initialValue == null || controller == null),
-        super(key: key);
+  }) : assert(initialValue == null || controller == null);
 
   @override
   State<CCheckbox> createState() => _CCheckboxState();

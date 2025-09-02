@@ -11,10 +11,10 @@ class CTable extends StatelessWidget {
 
   /// Constructs a [CTable] widget.
   const CTable({
-    Key? key,
+    super.key,
     required this.header,
     required this.rows,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +37,14 @@ class CTable extends StatelessWidget {
             ),
             child: Row(
               children: [
-                ...header.titles
-                    .map(
-                      (CTableCell title) => Expanded(
-                        flex: title.flex,
-                        child: Center(
-                          child: title.text != null ? Text(title.text!, textAlign: TextAlign.center, maxLines: 2, style: const TextStyle(color: Colors.white)) : title.child!,
-                        ),
-                      ),
-                    )
-                    .toList(),
+                ...header.titles.map(
+                  (CTableCell title) => Expanded(
+                    flex: title.flex,
+                    child: Center(
+                      child: title.text != null ? Text(title.text!, textAlign: TextAlign.center, maxLines: 2, style: const TextStyle(color: Colors.white)) : title.child!,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -55,18 +53,18 @@ class CTable extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
               child: Row(
                 children: [
-                  ...row.values
-                      .map((value) => Expanded(
-                            flex: value.flex,
-                            child: Center(
-                              child: value.text != null ? Text(value.text!, style: const TextStyle(color: Colors.black)) : value.child!,
-                            ),
-                          ))
-                      .toList(),
+                  ...row.values.map(
+                    (value) => Expanded(
+                      flex: value.flex,
+                      child: Center(
+                        child: value.text != null ? Text(value.text!, style: const TextStyle(color: Colors.black)) : value.child!,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
-          })
+          }),
         ],
       ),
     );

@@ -1,5 +1,7 @@
 # CaravaggioUI
 
+![CGradientColorType explanatory image](https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png)
+
 A comprehensive UI package designed to streamline your Flutter app development process. Built with flexibility and customization in mind, CaravaggioUI offers a wide range of beautifully crafted UI components to help you create stunning user interfaces with ease.
 
 ## Getting started

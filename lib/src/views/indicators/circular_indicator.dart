@@ -67,7 +67,7 @@ class CCircularIndicator extends StatelessWidget {
       labels.add(
         CLabelIndicator(
           label: label,
-          color: CaravaggioUI.instance.primaryColor,
+          color: CColors.primaryColor,
           value: value.currentValue,
           fontSize: isDense ? 12 : 14,
         ),
@@ -96,7 +96,7 @@ class CCircularIndicator extends StatelessWidget {
       labels.add(
         CLabelIndicator(
           label: externalLabel,
-          color: CaravaggioUI.instance.primaryColor,
+          color: CColors.primaryColor,
           value: externalValue.currentValue,
           fontSize: isDense ? 12 : 14,
         ),
@@ -106,7 +106,7 @@ class CCircularIndicator extends StatelessWidget {
       labels.add(
         CLabelIndicator(
           label: internalLabel,
-          color: CaravaggioUI.instance.secondaryColor,
+          color: CColors.secondaryColor,
           value: internalValue.currentValue,
           fontSize: isDense ? 12 : 14,
         ),
@@ -134,7 +134,7 @@ class CCircularIndicator extends StatelessWidget {
       labels.add(
         CLabelIndicator(
           label: currentLabel,
-          color: CaravaggioUI.instance.primaryColor,
+          color: CColors.primaryColor,
           value: value.currentValue,
           fontSize: isDense ? 12 : 14,
         ),
@@ -143,7 +143,7 @@ class CCircularIndicator extends StatelessWidget {
         labels.add(
           CLabelIndicator(
             label: maxLabel,
-            color: CaravaggioUI.instance.secondaryColor,
+            color: CColors.secondaryColor,
             value: value.maxValue,
             fontSize: isDense ? 12 : 14,
           ),

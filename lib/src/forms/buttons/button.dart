@@ -54,7 +54,7 @@ class CButtonDecoration {
     this.filledColor,
     this.borderColor,
     this.gradient,
-    this.radius = AppRadius.m,
+    this.radius = AppRadius.s,
   })  : assert(filledColor == null || gradient == null, "You can't use filledColor and gradient at the same time"),
         assert(filled || filledColor == null, "You can't use filledColor without filled");
 
@@ -149,7 +149,7 @@ class CButton extends StatelessWidget {
         gradient: gradient,
         icon: icon,
         suffixIcon: suffixIcon,
-        radius: radius ?? AppRadius.m,
+        radius: radius ?? AppRadius.s,
       ),
       child: child,
     );
@@ -176,7 +176,7 @@ class CButton extends StatelessWidget {
         bordered: true,
         borderColor: color,
         filledColor: fillColor,
-        radius: radius ?? AppRadius.m,
+        radius: radius ?? AppRadius.s,
       ),
       child: child,
     );
@@ -237,6 +237,12 @@ class CButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Determine the appropriate text color based on the filled color's brightness
+    final brightness = decoration.filled
+        ? decoration.filledColor?.computeLuminance() ?? (decoration.gradient == null ? CColors.primaryColor.computeLuminance() : getContrastColorForGradient(decoration.gradient!.colors).computeLuminance())
+        : Colors.white.computeLuminance();
+    final contrastColor = brightness > 0.5 ? CColors.primary : Colors.white;
+
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
@@ -250,12 +256,12 @@ class CButton extends StatelessWidget {
         ),
         side: decoration.bordered
             ? WidgetStateProperty.all(
-                BorderSide(width: 2.0, color: decoration.borderColor ?? CaravaggioUI.instance.primaryColor),
+                BorderSide(width: 2.0, color: decoration.borderColor ?? CColors.primaryColor),
               )
             : null,
         backgroundColor: WidgetStateProperty.all(Colors.transparent),
         foregroundColor: WidgetStateProperty.all(
-          decoration.filled ? Colors.white : CaravaggioUI.instance.primaryColor,
+          decoration.filled ? Colors.white : CColors.primaryColor,
         ),
         elevation: decoration.filled
             ? WidgetStateProperty.resolveWith<double>(
@@ -274,29 +280,40 @@ class CButton extends StatelessWidget {
       child: Ink(
         decoration: decoration.filled
             ? BoxDecoration(
-                color: decoration.filledColor ?? (decoration.gradient == null ? CaravaggioUI.instance.primaryColor : null),
+                color: decoration.filledColor ?? (decoration.gradient == null ? CColors.primaryColor : null),
                 gradient: decoration.gradient,
                 borderRadius: BorderRadius.all(decoration.radius),
               )
             : null,
-        child: Container(
-          constraints: BoxConstraints(
-            minHeight: (decoration.size).height,
-          ), // min sizes for Material buttons
-          alignment: Alignment.center,
-          child: decoration.icon == null && decoration.suffixIcon == null
-              ? child
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (decoration.suffixIcon != null) decoration.suffixIcon!,
-                    child,
-                    if (decoration.icon != null) decoration.icon!,
-                  ],
-                ),
+        child: DefaultTextStyle.merge(
+          style: TextStyle(color: contrastColor),
+          child: IconTheme(
+            data: IconThemeData(color: contrastColor),
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: (decoration.size).height,
+              ), // min sizes for Material buttons
+              alignment: Alignment.center,
+              child: decoration.icon == null && decoration.suffixIcon == null
+                  ? child
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if (decoration.suffixIcon != null) decoration.suffixIcon!,
+                        child,
+                        if (decoration.icon != null) decoration.icon!,
+                      ],
+                    ),
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  Color getContrastColorForGradient(List<Color> colors) {
+    final avgLuminance = colors.map((c) => c.computeLuminance()).reduce((a, b) => a + b) / colors.length;
+    return avgLuminance > 0.5 ? Colors.black : Colors.white;
   }
 }

@@ -176,49 +176,49 @@ extension CGradient on LinearGradient {
     late List<Color> colors;
     switch (type) {
       case CGradientColorType.primaryLightToPrimary:
-        colors = [CaravaggioUI.instance.primaryColorLight, CaravaggioUI.instance.primaryColor];
+        colors = [CColors.primaryColorLight, CColors.primaryColor];
         break;
       case CGradientColorType.primaryLightToPrimaryDark:
-        colors = [CaravaggioUI.instance.primaryColorLight, CaravaggioUI.instance.primaryColorDark];
+        colors = [CColors.primaryColorLight, CColors.primaryColorDark];
         break;
       case CGradientColorType.primaryLightToSecondaryLight:
-        colors = [CaravaggioUI.instance.primaryColorLight, CaravaggioUI.instance.secondaryColorLight];
+        colors = [CColors.primaryColorLight, CColors.secondaryColorLight];
         break;
       case CGradientColorType.primaryLightToSecondary:
-        colors = [CaravaggioUI.instance.primaryColorLight, CaravaggioUI.instance.secondaryColor];
+        colors = [CColors.primaryColorLight, CColors.secondaryColor];
         break;
       case CGradientColorType.primaryLightToSecondaryDark:
-        colors = [CaravaggioUI.instance.primaryColorLight, CaravaggioUI.instance.secondaryColorDark];
+        colors = [CColors.primaryColorLight, CColors.secondaryColorDark];
         break;
       case CGradientColorType.primaryToPrimaryDark:
-        colors = [CaravaggioUI.instance.primaryColor, CaravaggioUI.instance.primaryColorDark];
+        colors = [CColors.primaryColor, CColors.primaryColorDark];
         break;
       case CGradientColorType.primaryToSecondaryLight:
-        colors = [CaravaggioUI.instance.primaryColor, CaravaggioUI.instance.secondaryColorLight];
+        colors = [CColors.primaryColor, CColors.secondaryColorLight];
         break;
       case CGradientColorType.primaryToSecondary:
-        colors = [CaravaggioUI.instance.primaryColor, CaravaggioUI.instance.secondaryColor];
+        colors = [CColors.primaryColor, CColors.secondaryColor];
         break;
       case CGradientColorType.primaryToSecondaryDark:
-        colors = [CaravaggioUI.instance.primaryColor, CaravaggioUI.instance.secondaryColorDark];
+        colors = [CColors.primaryColor, CColors.secondaryColorDark];
         break;
       case CGradientColorType.primaryDarkToSecondaryLight:
-        colors = [CaravaggioUI.instance.primaryColorDark, CaravaggioUI.instance.secondaryColorLight];
+        colors = [CColors.primaryColorDark, CColors.secondaryColorLight];
         break;
       case CGradientColorType.primaryDarkToSecondary:
-        colors = [CaravaggioUI.instance.primaryColorDark, CaravaggioUI.instance.secondaryColor];
+        colors = [CColors.primaryColorDark, CColors.secondaryColor];
         break;
       case CGradientColorType.primaryDarkToSecondaryDark:
-        colors = [CaravaggioUI.instance.primaryColorDark, CaravaggioUI.instance.secondaryColorDark];
+        colors = [CColors.primaryColorDark, CColors.secondaryColorDark];
         break;
       case CGradientColorType.secondaryLightToSecondary:
-        colors = [CaravaggioUI.instance.secondaryColorLight, CaravaggioUI.instance.secondaryColor];
+        colors = [CColors.secondaryColorLight, CColors.secondaryColor];
         break;
       case CGradientColorType.secondaryLightToSecondaryDark:
-        colors = [CaravaggioUI.instance.secondaryColorLight, CaravaggioUI.instance.secondaryColorDark];
+        colors = [CColors.secondaryColorLight, CColors.secondaryColorDark];
         break;
       case CGradientColorType.secondaryToSecondaryDark:
-        colors = [CaravaggioUI.instance.secondaryColor, CaravaggioUI.instance.secondaryColorDark];
+        colors = [CColors.secondaryColor, CColors.secondaryColorDark];
         break;
     }
     return colors.map((color) => color.withValues(alpha: opacity)).toList();

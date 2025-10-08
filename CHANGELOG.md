@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.0.1]
+
+- minor fixes
+
 ## [1.0.0] - 2025-09-02
 First stable release of the **Caravaggio UI** package.  
 Includes significant updates compared to `0.0.13`:

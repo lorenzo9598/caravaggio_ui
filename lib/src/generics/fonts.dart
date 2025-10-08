@@ -311,24 +311,24 @@ class CText extends StatelessWidget {
   }
 
   /// Applies primary light color to the current text style.
-  CText get primaryLight => _withOverride(TextStyle(color: CaravaggioUI.instance.primaryColorLight));
+  CText get primaryLight => _withOverride(TextStyle(color: CColors.primaryColorLight));
 
   /// Applies primary color to the current text style.
-  // CText get primary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColor) ?? TextStyle(color: CaravaggioUI.instance.primaryColor));
-  CText get primary => _withOverride(TextStyle(color: CaravaggioUI.instance.primary));
+  // CText get primary => copyWith(style: style?.copyWith(color: CColors.primaryColor) ?? TextStyle(color: CColors.primaryColor));
+  CText get primary => _withOverride(TextStyle(color: CColors.primary));
 
   /// Applies primary dark color to the current text style.
-  CText get primaryDark => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.primaryColorDark) ?? TextStyle(color: CaravaggioUI.instance.primaryColorDark));
+  CText get primaryDark => copyWith(style: style?.copyWith(color: CColors.primaryColorDark) ?? TextStyle(color: CColors.primaryColorDark));
 
   /// Applies secondary color to the current text style.
-  // CText get secondary => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColor) ?? TextStyle(color: CaravaggioUI.instance.secondaryColor));
-  CText get secondary => _withOverride(TextStyle(color: CaravaggioUI.instance.secondaryColor));
+  // CText get secondary => copyWith(style: style?.copyWith(color: CColors.secondaryColor) ?? TextStyle(color: CColors.secondaryColor));
+  CText get secondary => _withOverride(TextStyle(color: CColors.secondaryColor));
 
   /// Applies secondary light color to the current text style.
-  CText get secondaryLight => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColorLight) ?? TextStyle(color: CaravaggioUI.instance.secondaryColorLight));
+  CText get secondaryLight => copyWith(style: style?.copyWith(color: CColors.secondaryColorLight) ?? TextStyle(color: CColors.secondaryColorLight));
 
   /// Applies secondary dark color to the current text style.
-  CText get secondaryDark => copyWith(style: style?.copyWith(color: CaravaggioUI.instance.secondaryColorDark) ?? TextStyle(color: CaravaggioUI.instance.secondaryColorDark));
+  CText get secondaryDark => copyWith(style: style?.copyWith(color: CColors.secondaryColorDark) ?? TextStyle(color: CColors.secondaryColorDark));
 
   /// Applies white color to the current text style.
   CText get white => copyWith(style: style?.copyWith(color: Colors.white) ?? const TextStyle(color: Colors.white));

@@ -199,26 +199,26 @@ class GenericsSection extends StatelessWidget {
               children: [
                 _buildPalette(
                   title: "Default",
-                  primary: CaravaggioUI.instance.primaryColor,
-                  secondary: CaravaggioUI.instance.secondaryColor,
-                  onPrimary: CaravaggioUI.instance.onPrimaryColor,
-                  onSecondary: CaravaggioUI.instance.onSecondaryColor,
+                  primary: CColors.primaryColor,
+                  secondary: CColors.secondaryColor,
+                  onPrimary: CColors.onPrimaryColor,
+                  onSecondary: CColors.onSecondaryColor,
                 ),
                 const SizedBox(width: 3),
                 _buildPalette(
                   title: "Light",
-                  primary: CaravaggioUI.instance.primaryColorLight,
-                  secondary: CaravaggioUI.instance.secondaryColorLight,
-                  onPrimary: CaravaggioUI.instance.onPrimaryLightColor,
-                  onSecondary: CaravaggioUI.instance.onSecondaryLightColor,
+                  primary: CColors.primaryColor,
+                  secondary: CColors.secondaryColorLight,
+                  onPrimary: CColors.onPrimaryLightColor,
+                  onSecondary: CColors.onSecondaryLightColor,
                 ),
                 const SizedBox(width: 3),
                 _buildPalette(
                   title: "Dark",
-                  primary: CaravaggioUI.instance.primaryColorDark,
-                  secondary: CaravaggioUI.instance.secondaryColorDark,
-                  onPrimary: CaravaggioUI.instance.onPrimaryDarkColor,
-                  onSecondary: CaravaggioUI.instance.onSecondaryDarkColor,
+                  primary: CColors.primaryColorDark,
+                  secondary: CColors.secondaryColorDark,
+                  onPrimary: CColors.onPrimaryDarkColor,
+                  onSecondary: CColors.onSecondaryDarkColor,
                 ),
               ],
             ),
@@ -258,7 +258,12 @@ class _FormsSectionState extends State<FormsSection> {
   Widget get _buttons {
     final CButton elevated = CButton.elevated(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText);
     final CButton outlined = CButton.outlined(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText);
-    final CButton text = CButton.text(suffixIcon: _suffixIcon, icon: _icon, onPressed: _onPressed, child: _buttonText);
+    final CButton text = CButton.text(
+      suffixIcon: _suffixIcon,
+      icon: _icon,
+      onPressed: _onPressed,
+      child: _buttonText,
+    );
 
     return Column(
       children: [
@@ -331,20 +336,20 @@ class _FormsSectionState extends State<FormsSection> {
     );
   }
 
-  Widget get _checkboxes {
-    final CCheckboxController controller = CCheckboxController();
-    return CCheckbox(controller: controller, label: "Checkbox");
-  }
+  // Widget get _checkboxes {
+  //   final CCheckboxController controller = CCheckboxController();
+  //   return CCheckbox(controller: controller, label: "Checkbox");
+  // }
 
-  Widget get _radiobuttons {
-    final List<CRadioItem<String>> items = _options.map((value) => CRadioItem<String>(value: value, label: value)).toList();
-    final CRadioController<String> controller = CRadioController<String>(initialValue: _options.first);
-    return Column(
-      children: [
-        CRadioGroup<String>(values: items, controller: controller, orientation: CRadioGroupOrientation.vertical, crossAxisAlignment: CRadioCrossAxisAlignment.start),
-      ],
-    );
-  }
+  // Widget get _radiobuttons {
+  //   final List<CRadioItem<String>> items = _options.map((value) => CRadioItem<String>(value: value, label: value)).toList();
+  //   final CRadioController<String> controller = CRadioController<String>(initialValue: _options.first);
+  //   return Column(
+  //     children: [
+  //       CRadioGroup<String>(values: items, controller: controller, orientation: CRadioGroupOrientation.vertical, crossAxisAlignment: CRadioCrossAxisAlignment.start),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

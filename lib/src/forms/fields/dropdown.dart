@@ -339,7 +339,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
     });
   }
 
-  static final Color _borderColor = CaravaggioUI.instance.primaryColor;
+  static final Color _borderColor = CColors.primaryColor;
 
   InputDecoration get inputDecoration => InputDecoration(
         prefixIcon: widget.decoration.prefixIcon,
@@ -347,7 +347,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
         hintText: widget.decoration.hintText,
         hintStyle: TextStyle(
           fontStyle: FontStyle.italic,
-          color: widget.disabled ? Colors.grey[350] ?? Colors.grey : CaravaggioUI.instance.primaryColorLight,
+          color: widget.disabled ? Colors.grey[350] ?? Colors.grey : CColors.primaryColorLight,
         ),
         labelText: widget.decoration.labelText,
         border: OutlineInputBorder(
@@ -409,7 +409,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
         validator: widget.validator,
         isExpanded: true,
         hint: widget.decoration.hintText != null ? Text(widget.decoration.hintText!) : null,
-        iconEnabledColor: CaravaggioUI.instance.primaryColor,
+        iconEnabledColor: CColors.primaryColor,
         icon: const Icon(Icons.keyboard_arrow_down_rounded),
         decoration: inputDecoration,
         items: items,

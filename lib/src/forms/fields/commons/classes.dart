@@ -69,7 +69,7 @@ class CFieldStyle {
     this.gradient,
     this.filled = false,
     this.bordered = false,
-  }) : foregroundColor = foregroundColor ?? CaravaggioUI.instance.primaryColor;
+  }) : foregroundColor = foregroundColor ?? CColors.primaryColor;
 
   /// Creates a simple field style.
   factory CFieldStyle.simple({

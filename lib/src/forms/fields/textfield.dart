@@ -72,6 +72,7 @@ class CTextField extends StatelessWidget {
 
   /// Creates a simple styled text field.
   factory CTextField.simple({
+    Key? key,
     Color? foregroundColor,
     CFieldDecoration decoration = const CFieldDecoration(),
     String? Function(String?)? validator,
@@ -89,6 +90,7 @@ class CTextField extends StatelessWidget {
     int? maxLines,
   }) {
     return CTextField._(
+      key: key,
       style: CFieldStyle.simple(foregroundColor: foregroundColor),
       decoration: decoration,
       validator: validator,
@@ -109,6 +111,7 @@ class CTextField extends StatelessWidget {
 
   /// Creates a bordered styled text field.
   factory CTextField.bordered({
+    Key? key,
     Color? foregroundColor,
     CFieldDecoration decoration = const CFieldDecoration(),
     String? Function(String?)? validator,
@@ -126,6 +129,7 @@ class CTextField extends StatelessWidget {
     int? maxLines,
   }) {
     return CTextField._(
+      key: key,
       style: CFieldStyle.bordered(foregroundColor: foregroundColor),
       decoration: decoration,
       validator: validator,
@@ -146,6 +150,7 @@ class CTextField extends StatelessWidget {
 
   /// Creates a filled styled text field.
   factory CTextField.filled({
+    Key? key,
     Color? backgroundColor,
     Color? foregroundColor,
     LinearGradient? gradient,
@@ -165,6 +170,7 @@ class CTextField extends StatelessWidget {
     String? initialValue,
   }) {
     return CTextField._(
+      key: key,
       style: CFieldStyle.filled(backgroundColor: backgroundColor, foregroundColor: foregroundColor, gradient: gradient),
       decoration: decoration,
       validator: validator,
@@ -185,6 +191,7 @@ class CTextField extends StatelessWidget {
 
   /// Creates a bordered and filled styled text field.
   factory CTextField.borderedFilled({
+    Key? key,
     Color? backgroundColor,
     Color? foregroundColor,
     LinearGradient? gradient,
@@ -204,6 +211,7 @@ class CTextField extends StatelessWidget {
     String? initialValue,
   }) {
     return CTextField._(
+      key: key,
       style: CFieldStyle.borderedFilled(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,

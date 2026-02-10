@@ -182,7 +182,7 @@ MaterialColor _buildMaterialColor(
   Color? lightVariant,
   Color? darkVariant,
 }) {
-  return MaterialColor(color.value, {
+  return MaterialColor(color.toARGB32(), {
     50: AppColors.tintColor(color, 0.9),
     100: AppColors.tintColor(color, 0.8),
     200: lightVariant ?? AppColors.tintColor(color, 0.6),

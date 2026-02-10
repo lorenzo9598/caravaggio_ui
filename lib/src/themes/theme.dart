@@ -28,19 +28,35 @@ class CaravaggioUI {
   /// Initializes the Caravaggio UI theme.
   ///
   /// [primaryColor] is the primary color of the theme.
+  /// [primaryColorLight] is the light variant of the primary color (overrides the auto-generated one).
+  /// [primaryColorDark] is the dark variant of the primary color (overrides the auto-generated one).
   /// [secondaryColor] is the secondary color of the theme (defaults [Colors.transparent]).
+  /// [secondaryColorLight] is the light variant of the secondary color (overrides the auto-generated one).
+  /// [secondaryColorDark] is the dark variant of the secondary color (overrides the auto-generated one).
   /// [fontFamily] is the optional font family for the theme.
   factory CaravaggioUI.initialize({
     required Color primaryColor,
+    Color? primaryColorLight,
+    Color? primaryColorDark,
     Color secondaryColor = Colors.transparent,
+    Color? secondaryColorLight,
+    Color? secondaryColorDark,
     String? fontFamily,
     bool scaffoldBackgroundColor = false,
   }) {
-    // Create a MaterialColor from the primary color
-    final MaterialColor primaryMaterialColor = AppColors.from(primaryColor);
+    // Create a MaterialColor from the primary color and its optional light/dark variants
+    final MaterialColor primaryMaterialColor = _buildMaterialColor(
+      primaryColor,
+      lightVariant: primaryColorLight,
+      darkVariant: primaryColorDark,
+    );
 
-    // Create a MaterialColor from the secondary color
-    final MaterialColor secondaryMaterialColor = AppColors.from(secondaryColor);
+    // Create a MaterialColor from the secondary color and its optional light/dark variants
+    final MaterialColor secondaryMaterialColor = _buildMaterialColor(
+      secondaryColor,
+      lightVariant: secondaryColorLight,
+      darkVariant: secondaryColorDark,
+    );
 
     final MaterialColor onPrimaryMaterialColor = AppColors.onFrom(primaryColor);
 
@@ -157,6 +173,27 @@ class CaravaggioUI {
   /// Returns the onSecondary dark variant color.
   @Deprecated('CaravaggioUI.instance.onSecondaryDarkColor is deprecated. Use CColors.onSecondaryDarkColor instead.')
   Color get onSecondaryDarkColor => _onSecondaryDarkMaterialColor;
+}
+
+/// Builds a [MaterialColor] from a base [color], optionally overriding
+/// the automatically generated light ([200]) and dark ([800]) variants.
+MaterialColor _buildMaterialColor(
+  Color color, {
+  Color? lightVariant,
+  Color? darkVariant,
+}) {
+  return MaterialColor(color.value, {
+    50: AppColors.tintColor(color, 0.9),
+    100: AppColors.tintColor(color, 0.8),
+    200: lightVariant ?? AppColors.tintColor(color, 0.6),
+    300: AppColors.tintColor(color, 0.4),
+    400: AppColors.tintColor(color, 0.2),
+    500: color,
+    600: AppColors.shadeColor(color, 0.1),
+    700: AppColors.shadeColor(color, 0.2),
+    800: darkVariant ?? AppColors.shadeColor(color, 0.3),
+    900: AppColors.shadeColor(color, 0.4),
+  });
 }
 
 class CUI {

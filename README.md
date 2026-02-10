@@ -20,14 +20,17 @@ Within your main.dart file, initiate CarvaggioUI to harness its capabilities. Th
 
 ```dart
 
-void  main() {
+void main() {
+  CaravaggioUI.initialize(
+    primaryColor: const Color(0xFF662D8C),
+    primaryColorLight: const Color(0xFFB58AD6), // optional
+    primaryColorDark: const Color(0xFF3F145A),  // optional
+    secondaryColor: const Color(0xFFED1E79),
+    secondaryColorLight: const Color(0xFFFF7BB5), // optional
+    secondaryColorDark: const Color(0xFFB3004C),  // optional
+  );
 
-    CaravaggioUI.initialize(
-        primaryColor: const  Color(0xFF662D8C),
-        secondaryColor: const  Color(0xFFED1E79),
-    );
-
-    runApp(const  MainApp());
+  runApp(const MainApp());
 }
 
 ```
@@ -315,7 +318,27 @@ CDropdown<String>.simple(
     onChanged: (_) => //...do stuff
 ),
 
+```
 
+#### `CDatePicker` and `CTimePicker`
+
+Caravaggio UI also provides ready-to-use date and time pickers with support for single or multiple selection.
+
+```dart
+
+CDatePicker(
+  mode: CustomDatePickerMode.single,
+  onChanged: (dates) {
+    // Handle selected dates
+  },
+);
+
+CTimePicker(
+  mode: CustomTimePickerMode.single,
+  onChanged: (times) {
+    // Handle selected times
+  },
+);
 
 ```
 

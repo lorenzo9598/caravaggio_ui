@@ -2,9 +2,15 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.0.2]
+
+- Added support to explicitly set light and dark variants for primary and secondary colors in `CaravaggioUI.initialize`.
+- Improved `MaterialColor` generation to respect custom light/dark overrides when provided.
+- Added `DatePicker` and `TimePicker` components to the library.
+
 ## [1.0.1]
 
-- minor fixes
+- Minor fixes.
 
 ## [1.0.0] - 2025-09-02
 First stable release of the **Caravaggio UI** package.  

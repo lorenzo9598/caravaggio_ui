@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class CTextField extends StatelessWidget {
   /// Creates a [CTextField] instance.
   CTextField._({
+    super.key,
     CFieldStyle? style,
     required this.decoration,
     this.validator,
@@ -228,8 +229,10 @@ class CTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FieldContainer(
+      key: key,
       decoration: decoration,
       style: style,
+      maxLines: maxLines,
       child: FieldContent(
         decoration: decoration,
         style: style,

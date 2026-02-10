@@ -2,6 +2,9 @@ import 'package:caravaggio_ui/src/themes/theme.dart';
 import 'package:caravaggio_ui/src/utils/app_radius.dart';
 import 'package:flutter/material.dart';
 
+/// Default radius for buttons
+const Radius defaultRadius = AppRadius.xl;
+
 /// [CButtonSize.small] set the button's height to 32.0.
 /// Enumeration defining the size of a [CButton].
 /// [CButtonSize.normal] set the button's height to 52.0.
@@ -30,33 +33,39 @@ enum CButtonSize {
       case CButtonSize.xSmall:
         return 24.0; // Example value for xSmall
       case CButtonSize.small:
-        return 32.0;
+        return 34.0;
       case CButtonSize.medium:
-        return 52.0;
+        return 44.0;
       case CButtonSize.large:
-        return 72.0; // Example value for large
+        return 54.0; // Example value for large
       case CButtonSize.xlarge:
-        return 92.0; // Example value for xlarge
+        return 66.0; // Example value for xlarge
       case CButtonSize.xxLarge:
-        return 112.0; // Example value for xxLarge
+        return 76.0; // Example value for xxLarge
     }
   }
 }
+
+/// Default elevation for elevated buttons (Material default is 1).
+const double defaultButtonElevation = 1.0;
+
+/// Default padding between icon and text in buttons.
+const double defaultIconPadding = 8.0;
 
 /// Class defining the decoration properties for a [CButton].
 class CButtonDecoration {
   const CButtonDecoration({
     this.icon,
     this.suffixIcon,
-    this.filled = false,
-    this.bordered = false,
     this.size = CButtonSize.medium,
+    this.iconPadding = defaultIconPadding,
+    this.suffixIconPadding = defaultIconPadding,
     this.filledColor,
     this.borderColor,
     this.gradient,
-    this.radius = AppRadius.s,
-  })  : assert(filledColor == null || gradient == null, "You can't use filledColor and gradient at the same time"),
-        assert(filled || filledColor == null, "You can't use filledColor without filled");
+    this.radius = defaultRadius,
+    this.elevation,
+  }) : assert(filledColor == null || gradient == null, "You can't use filledColor and gradient at the same time");
 
   /// An optional icon to display before the child widget.
   final Widget? icon;
@@ -64,14 +73,14 @@ class CButtonDecoration {
   /// An optional icon to display after the child widget.
   final Widget? suffixIcon;
 
-  /// Indicates whether the button is filled with color or not.
-  final bool filled;
-
-  /// Indicates whether the button has a border or not.
-  final bool bordered;
-
   /// Defines the size of the button.
   final CButtonSize size;
+
+  /// Padding between the leading icon and the text.
+  final double iconPadding;
+
+  /// Padding between the text and the suffix icon.
+  final double suffixIconPadding;
 
   /// The color to fill the button with.
   final Color? filledColor;
@@ -85,27 +94,32 @@ class CButtonDecoration {
   /// The radius of the button's corners.
   final Radius radius;
 
+  /// Elevation (shadow) of the button. When null, uses [defaultButtonElevation].
+  final double? elevation;
+
   CButtonDecoration copyWith({
     Widget? icon,
     Widget? suffixIcon,
-    bool? filled,
-    bool? bordered,
     CButtonSize? size,
+    double? iconPadding,
+    double? suffixIconPadding,
     Color? filledColor,
     Color? borderColor,
     LinearGradient? gradient,
     Radius? radius,
+    double? elevation,
   }) {
     return CButtonDecoration(
       icon: icon ?? this.icon,
       suffixIcon: suffixIcon ?? this.suffixIcon,
-      filled: filled ?? this.filled,
-      bordered: bordered ?? this.bordered,
       size: size ?? this.size,
+      iconPadding: iconPadding ?? this.iconPadding,
+      suffixIconPadding: suffixIconPadding ?? this.suffixIconPadding,
       filledColor: filledColor ?? this.filledColor,
       borderColor: borderColor ?? this.borderColor,
       gradient: gradient ?? this.gradient,
       radius: radius ?? this.radius,
+      elevation: elevation ?? this.elevation,
     );
   }
 }
@@ -135,21 +149,25 @@ class CButton extends StatelessWidget {
     required Widget child,
     Widget? icon,
     Widget? suffixIcon,
+    double iconPadding = defaultIconPadding,
+    double suffixIconPadding = defaultIconPadding,
     Color? color,
     LinearGradient? gradient,
-    Radius? radius,
+    Radius radius = defaultRadius,
+    double? elevation,
   }) {
     return CButton._(
       key: key,
       onPressed: onPressed,
       decoration: CButtonDecoration(
-        filled: true,
-        bordered: false,
         filledColor: color,
         gradient: gradient,
         icon: icon,
         suffixIcon: suffixIcon,
-        radius: radius ?? AppRadius.s,
+        iconPadding: iconPadding,
+        suffixIconPadding: suffixIconPadding,
+        radius: radius,
+        elevation: elevation,
       ),
       child: child,
     );
@@ -162,9 +180,12 @@ class CButton extends StatelessWidget {
     required Widget child,
     Widget? icon,
     Widget? suffixIcon,
+    double iconPadding = defaultIconPadding,
+    double suffixIconPadding = defaultIconPadding,
     Color? color,
     Color? fillColor,
-    Radius? radius,
+    Radius radius = defaultRadius,
+    double? elevation,
   }) {
     return CButton._(
       key: key,
@@ -172,11 +193,12 @@ class CButton extends StatelessWidget {
       decoration: CButtonDecoration(
         icon: icon,
         suffixIcon: suffixIcon,
-        filled: fillColor != null,
-        bordered: true,
-        borderColor: color,
-        filledColor: fillColor,
-        radius: radius ?? AppRadius.s,
+        iconPadding: iconPadding,
+        suffixIconPadding: suffixIconPadding,
+        borderColor: color ?? CColors.primaryColor,
+        filledColor: fillColor ?? Colors.white,
+        radius: radius,
+        elevation: elevation,
       ),
       child: child,
     );
@@ -189,6 +211,8 @@ class CButton extends StatelessWidget {
     required Widget child,
     Widget? icon,
     Widget? suffixIcon,
+    double iconPadding = defaultIconPadding,
+    double suffixIconPadding = defaultIconPadding,
   }) {
     return CButton._(
       key: key,
@@ -196,8 +220,11 @@ class CButton extends StatelessWidget {
       decoration: CButtonDecoration(
         icon: icon,
         suffixIcon: suffixIcon,
-        filled: false,
-        bordered: false,
+        iconPadding: iconPadding,
+        suffixIconPadding: suffixIconPadding,
+        filledColor: Colors.transparent,
+        radius: defaultRadius,
+        elevation: 0,
       ),
       child: child,
     );
@@ -237,79 +264,84 @@ class CButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Determine the appropriate text color based on the filled color's brightness
-    final brightness = decoration.filled
-        ? decoration.filledColor?.computeLuminance() ?? (decoration.gradient == null ? CColors.primaryColor.computeLuminance() : getContrastColorForGradient(decoration.gradient!.colors).computeLuminance())
-        : Colors.white.computeLuminance();
-    final contrastColor = brightness > 0.5 ? CColors.primary : Colors.white;
+    // Default text color from button background brightness (contrast color); child can override.
+    final fillColor = decoration.filledColor ?? (decoration.gradient == null ? CColors.primaryColor : null);
+    final luminance = fillColor != null && fillColor != Colors.transparent
+        ? fillColor.computeLuminance()
+        : (decoration.gradient != null ? decoration.gradient!.colors.map((c) => c.computeLuminance()).reduce((a, b) => a + b) / decoration.gradient!.colors.length : Colors.white.computeLuminance());
+    final defaultTextColor = luminance > 0.5 ? CColors.primary : Colors.white;
 
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(decoration.radius),
-          ),
-        ),
-        padding: WidgetStateProperty.all(
-          const EdgeInsets.all(0.0),
-        ),
-        side: decoration.bordered
-            ? WidgetStateProperty.all(
-                BorderSide(width: 2.0, color: decoration.borderColor ?? CColors.primaryColor),
-              )
-            : null,
-        backgroundColor: WidgetStateProperty.all(Colors.transparent),
-        foregroundColor: WidgetStateProperty.all(
-          decoration.filled ? Colors.white : CColors.primaryColor,
-        ),
-        elevation: decoration.filled
-            ? WidgetStateProperty.resolveWith<double>(
-                (Set<WidgetState> states) {
-                  if (states.contains(WidgetState.pressed)) {
-                    return 8.0; // Elevation when the button is pressed
-                  }
-                  return decoration.size.height / 10; // Dynamic elevation based on button height
-                },
-              )
-            : WidgetStateProperty.all(0),
-        minimumSize: WidgetStateProperty.all(
-          Size(double.infinity, decoration.size.height),
-        ),
-      ),
-      child: Ink(
-        decoration: decoration.filled
-            ? BoxDecoration(
-                color: decoration.filledColor ?? (decoration.gradient == null ? CColors.primaryColor : null),
-                gradient: decoration.gradient,
-                borderRadius: BorderRadius.all(decoration.radius),
-              )
-            : null,
-        child: DefaultTextStyle.merge(
-          style: TextStyle(color: contrastColor),
-          child: IconTheme(
-            data: IconThemeData(color: contrastColor),
-            child: Container(
-              constraints: BoxConstraints(
-                minHeight: (decoration.size).height,
-              ), // min sizes for Material buttons
-              alignment: Alignment.center,
-              child: decoration.icon == null && decoration.suffixIcon == null
-                  ? child
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        if (decoration.suffixIcon != null) decoration.suffixIcon!,
-                        child,
-                        if (decoration.icon != null) decoration.icon!,
-                      ],
-                    ),
-            ),
-          ),
+    final hasGradient = decoration.gradient != null;
+
+    final rowChildren = <Widget>[
+      if (decoration.icon != null) decoration.icon!,
+      if (decoration.icon != null) SizedBox(width: decoration.iconPadding),
+      child,
+      if (decoration.suffixIcon != null) SizedBox(width: decoration.suffixIconPadding),
+      if (decoration.suffixIcon != null) decoration.suffixIcon!,
+    ];
+    final content = IconTheme(
+      data: IconThemeData(color: defaultTextColor),
+      child: DefaultTextStyle.merge(
+        style: TextStyle(color: defaultTextColor),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: rowChildren,
         ),
       ),
     );
+
+    final effectiveElevation = decoration.elevation ?? defaultButtonElevation;
+
+    final button = hasGradient
+        ? Material(
+            elevation: effectiveElevation,
+            borderRadius: BorderRadius.all(decoration.radius),
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onPressed,
+              borderRadius: BorderRadius.all(decoration.radius),
+              child: Ink(
+                decoration: BoxDecoration(
+                  gradient: decoration.gradient,
+                  borderRadius: BorderRadius.all(decoration.radius),
+                ),
+                height: decoration.size.height,
+                padding: const EdgeInsetsGeometry.symmetric(horizontal: 24),
+                child: content,
+              ),
+            ),
+          )
+        : ElevatedButton(
+            onPressed: onPressed,
+            style: ButtonStyle(
+              elevation: WidgetStateProperty.all(effectiveElevation),
+              shadowColor: WidgetStateProperty.all(Colors.black),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(decoration.radius),
+                ),
+              ),
+              overlayColor: WidgetStateProperty.all(
+                CColors.primaryColorLight.withValues(alpha: 0.2),
+              ),
+              backgroundColor: WidgetStateProperty.all(
+                decoration.filledColor ?? CColors.primaryColor,
+              ),
+              side: decoration.borderColor != null
+                  ? WidgetStateProperty.all(
+                      BorderSide(width: 2.0, color: decoration.borderColor ?? CColors.primaryColor),
+                    )
+                  : null,
+              minimumSize: WidgetStateProperty.all(
+                Size(0, decoration.size.height),
+              ),
+            ),
+            child: content,
+          );
+
+    return button;
   }
 
   Color getContrastColorForGradient(List<Color> colors) {

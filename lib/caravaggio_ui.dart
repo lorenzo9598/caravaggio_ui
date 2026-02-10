@@ -7,7 +7,7 @@ export 'src/utils/app_radius.dart' show AppRadius;
 export 'src/utils/app_shadow.dart' show AppShadow;
 export 'src/utils/app_spacing.dart' show AppSpacing;
 
-export 'src/forms/buttons/button.dart' show CButton, CButtonDecoration, CButtonSize;
+export 'src/forms/buttons/button.dart' show CButton, CButtonDecoration, CButtonSize, defaultIconPadding;
 
 export 'src/forms/checkboxes/checkbox.dart' show CCheckbox, CCheckboxController;
 

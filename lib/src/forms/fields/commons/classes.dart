@@ -5,12 +5,18 @@ import 'package:flutter/material.dart';
 class CFieldDecoration {
   /// Creates a [CFieldDecoration] instance.
   const CFieldDecoration({
-    this.radius = AppRadius.s,
+    this.radius = AppRadius.m,
     this.prefixIcon,
     this.suffixIcon,
     this.hintText,
     this.labelText,
-  });
+    this.label,
+    this.labelIcon,
+    this.required = false,
+  }) : assert(
+          labelText == null || label == null,
+          'labelText and label are mutually exclusive. Use only one of them.',
+        );
 
   /// The border radius of the field decoration.
   final Radius radius;
@@ -24,8 +30,19 @@ class CFieldDecoration {
   /// The hint text of the field decoration.
   final String? hintText;
 
-  /// The label text of the field decoration.
+  /// The label text of the field decoration (displayed above the field).
+  /// Mutually exclusive with [label].
   final String? labelText;
+
+  /// The label widget of the field decoration (displayed above the field).
+  /// Mutually exclusive with [labelText].
+  final Widget? label;
+
+  /// The icon displayed before the label text or label widget.
+  final Widget? labelIcon;
+
+  /// Whether the field is required (shows a red asterisk).
+  final bool required;
 
   /// Creates a copy of this decoration with the given fields replaced with the new values.
   CFieldDecoration copyWith({
@@ -34,6 +51,9 @@ class CFieldDecoration {
     Widget? suffixIcon,
     String? hintText,
     String? labelText,
+    Widget? label,
+    Widget? labelIcon,
+    bool? required,
   }) {
     return CFieldDecoration(
       radius: radius ?? this.radius,
@@ -41,6 +61,9 @@ class CFieldDecoration {
       suffixIcon: suffixIcon ?? this.suffixIcon,
       hintText: hintText ?? this.hintText,
       labelText: labelText ?? this.labelText,
+      label: label ?? this.label,
+      labelIcon: labelIcon ?? this.labelIcon,
+      required: required ?? this.required,
     );
   }
 }

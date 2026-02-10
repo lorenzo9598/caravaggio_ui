@@ -1,6 +1,72 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
+/// A widget that displays a label above a field (with optional icon and required indicator).
+class FieldLabel extends StatelessWidget {
+  const FieldLabel({
+    super.key,
+    required this.decoration,
+    required this.style,
+  });
+
+  /// The decoration properties for the label.
+  final CFieldDecoration decoration;
+
+  /// The style properties for the label.
+  final CFieldStyle style;
+
+  @override
+  Widget build(BuildContext context) {
+    // Check if we have either labelText or label
+    final hasLabel = decoration.labelText != null || decoration.label != null;
+    if (!hasLabel) {
+      return const SizedBox.shrink();
+    }
+
+    Widget labelWidget;
+    if (decoration.label != null) {
+      // Use the custom label widget
+      labelWidget = decoration.label!;
+    } else {
+      // Use the labelText with CText
+      labelWidget = CText.label(
+        decoration.labelText!,
+        size: TextSize.small,
+        style: TextStyle(
+          color: style.foregroundColor,
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (decoration.labelIcon != null) ...[
+            decoration.labelIcon!,
+            const SizedBox(width: 6),
+          ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: labelWidget,
+          ),
+          if (decoration.required) ...[
+            const SizedBox(width: 4),
+            CText.label(
+              '*',
+              size: TextSize.small,
+              style: const TextStyle(
+                color: Colors.red,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
 /// A widget that displays a text form field with customizable decoration and style.
 class FieldContent extends StatelessWidget {
   const FieldContent({
@@ -71,14 +137,7 @@ class FieldContent extends StatelessWidget {
         prefixIcon: decoration.prefixIcon,
         suffixIcon: decoration.suffixIcon,
         hintText: decoration.hintText,
-        hintStyle: TextStyle(
-          color: style.foregroundColor.withValues(alpha: .5),
-          fontStyle: FontStyle.italic,
-        ),
-        labelText: decoration.labelText,
-        labelStyle: TextStyle(
-          color: style.foregroundColor,
-        ),
+        hintStyle: TextStyle(color: style.foregroundColor.withValues(alpha: .7)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(decoration.radius),
           borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
@@ -125,37 +184,71 @@ class FieldContent extends StatelessWidget {
 
 /// A container widget that wraps its child with customizable decoration and style.
 class FieldContainer extends StatelessWidget {
+  const FieldContainer({
+    super.key,
+    required this.decoration,
+    required this.style,
+    required this.child,
+    this.maxLines,
+  });
+
   /// The decoration properties for the container.
   final CFieldDecoration decoration;
 
   /// The style properties for the container.
   final CFieldStyle style;
 
+  /// The maximum number of lines for the container.
+  final int? maxLines;
+
   /// The widget to be displayed inside the container.
   final Widget child;
 
-  const FieldContainer({
-    super.key,
-    required this.decoration,
-    required this.style,
-    required this.child,
-  });
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          decoration.radius,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FieldLabel(
+          decoration: decoration,
+          style: style,
         ),
-        gradient: style.filled
-            ? style.backgroundColor != null
-                ? null
-                : style.gradient ?? CGradient.primaryToSecondary.opacity(0.3)
-            : null,
-        color: style.filled ? style.backgroundColor : null,
-      ),
-      child: child,
+        Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  decoration.radius,
+                ),
+                gradient: style.filled
+                    ? style.backgroundColor != null
+                        ? null
+                        : style.gradient ?? CGradient.primaryToSecondary.opacity(0.3)
+                    : null,
+                color: style.filled ? style.backgroundColor : null,
+              ),
+              child: TextField(
+                enabled: false,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(decoration.radius),
+                    borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
+                  ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(decoration.radius),
+                    borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
+                  ),
+                  fillColor: Colors.transparent,
+                ),
+                maxLines: maxLines ?? 1,
+              ),
+            ),
+            child,
+          ],
+        ),
+      ],
     );
   }
 }

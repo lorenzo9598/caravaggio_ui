@@ -1,4 +1,5 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui/src/forms/fields/commons/internal_components.dart';
 import 'package:flutter/material.dart';
 
 import 'package:rxdart/subjects.dart';
@@ -349,7 +350,8 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
           fontStyle: FontStyle.italic,
           color: widget.disabled ? Colors.grey[350] ?? Colors.grey : CColors.primaryColorLight,
         ),
-        labelText: widget.decoration.labelText,
+        // labelText is now displayed above the field, not as floating label
+        labelText: null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: widget.style.bordered ? BorderSide(color: widget.disabled ? Colors.grey[350] ?? Colors.grey : _borderColor, width: 1) : BorderSide.none,
@@ -391,18 +393,9 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
         )
         .toList();
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          widget.decoration.radius,
-        ),
-        gradient: widget.style.filled
-            ? widget.style.backgroundColor != null
-                ? null
-                : widget.style.gradient ?? CGradient.primaryToSecondary.opacity(0.3)
-            : null,
-        color: widget.style.filled ? widget.style.backgroundColor : null,
-      ),
+    return FieldContainer(
+      decoration: widget.decoration,
+      style: widget.style,
       child: DropdownButtonFormField<T>(
         borderRadius: BorderRadius.all(widget.decoration.radius),
         value: selectedValue,

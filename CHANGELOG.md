@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.0.3]
+
+### Added
+- **CLoader**: new animated loaders with three styles:
+  - `CLoader.bouncing()` — bouncing dots animation
+  - `CLoader.orbit()` — dots orbiting in a circle
+  - `CLoader.pulsing()` — pulsing dots animation
+- Customization: `color` and `numberOfDots` (default 3) for all loaders. For bouncing and pulsing types, `numberOfDots` is limited to at most 5.
+
+### Fixed
+- Animation intervals for bouncing and pulsing loaders now scale correctly with `numberOfDots` and stay within valid range, avoiding assertion errors with many dots.
+
 ## [1.0.2]
 
 - Added support to explicitly set light and dark variants for primary and secondary colors in `CaravaggioUI.initialize`.

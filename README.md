@@ -342,9 +342,9 @@ CTimePicker(
 
 ```
 
-#### `CTable`, `CCircularIndicator` and `CCircularProgressIndicator`
+#### `CTable`, `CCircularIndicator`, `CCircularProgressIndicator` and `CLoader`
 
-For data representation the library adds graphical elements such as tables, circular indicators and progress indicators.
+For data representation the library adds graphical elements such as tables, circular indicators, progress indicators and animated loaders.
 
 <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_10.png" alt="screenshot of Caravaggio UI view elements classes" width="200">
 
@@ -406,6 +406,23 @@ CCircularProgressIndicator.secondary(),
 CLinearProgressIndicator.primary(),
 
 CLinearProgressIndicator.secondary(),
+
+```
+
+#### `CLoader`
+
+Animated loaders with three factory constructors. Optional `color` (defaults to primary) and `numberOfDots` (default 3; for bouncing and pulsing, max 5).
+
+```dart
+
+CLoader.bouncing(),
+CLoader.orbit(),
+CLoader.pulsing(),
+
+// Customized
+CLoader.bouncing(color: CColors.secondaryColor, numberOfDots: 5),
+CLoader.orbit(color: CColors.primaryColorLight, numberOfDots: 6),
+CLoader.pulsing(numberOfDots: 4),
 
 ```
 

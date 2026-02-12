@@ -1,6 +1,6 @@
 name: caravaggio_ui
 description: "A comprehensive UI package designed to streamline your Flutter app development process."
-version: 1.0.2
+version: 1.0.3
 homepage: "https://github.com/lorenzo9598/caravaggio_ui"
 
 environment:

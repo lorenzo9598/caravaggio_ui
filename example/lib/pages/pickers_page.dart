@@ -51,7 +51,7 @@ class _PickersPageState extends State<PickersPage> {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
-          child: CText.headline(title, size: TextSize.medium),
+          child: CText.headline(title, size: TextSize.small),
         ),
         ...items.map((item) => Padding(
               padding: EdgeInsets.only(

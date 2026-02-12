@@ -126,7 +126,7 @@ class ColorsPage extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: CText.headline(text, size: TextSize.small),
+        child: CText.title(text, size: TextSize.medium),
       ),
     );
   }
@@ -153,7 +153,7 @@ class ColorsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CText.headline('Palettes', size: TextSize.medium),
+            CText.headline('Palettes', size: TextSize.small),
             const SizedBox(height: 12),
             Row(
               children: [
@@ -186,7 +186,7 @@ class ColorsPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: _sectionSpacing),
-            CText.headline('Gradients', size: TextSize.medium),
+            CText.headline('Gradients', size: TextSize.small),
             spacerSmall,
             _gradientSection(
               'Primary',

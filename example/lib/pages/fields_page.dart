@@ -24,7 +24,7 @@ class _FieldsPageState extends State<FieldsPage> {
   String _optionsValueToMatch(String value) => value.toLowerCase();
 
   static const double _cardPadding = 16.0;
-  static const double _sectionSpacing = 24.0;
+  static const double _sectionSpacing = 8.0;
   static const double _itemSpacing = 16.0;
 
   /// Wraps a field in a Form to enable validation display
@@ -68,20 +68,46 @@ class _FieldsPageState extends State<FieldsPage> {
     String title,
     List<(String label, Widget field)> items,
   ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12.0),
-          child: CText.headline(title, size: TextSize.medium),
+    final theme = Theme.of(context);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: _sectionSpacing),
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: const BorderRadius.all(AppRadius.l),
+        boxShadow: AppShadow.sm,
+      ),
+      child: Theme(
+        data: theme.copyWith(
+          dividerColor: Colors.transparent,
         ),
-        ...items.map((item) => Padding(
-              padding: EdgeInsets.only(
-                bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
+        child: ExpansionTile(
+          tilePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(AppRadius.l),
+          ),
+          collapsedShape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(AppRadius.l),
+          ),
+          iconColor: CColors.primaryColor,
+          collapsedIconColor: theme.iconTheme.color,
+          title: CText.headline(
+            title,
+            size: TextSize.small,
+          ),
+          children: [
+            ...items.map(
+              (item) => Padding(
+                padding: EdgeInsets.only(
+                  bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
+                ),
+                child: _buildFieldCard(label: item.$1, field: item.$2),
               ),
-              child: _buildFieldCard(label: item.$1, field: item.$2),
-            )),
-      ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -128,7 +154,6 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
             _buildFieldSection(
               context,
               'Border Radius',
@@ -184,7 +209,6 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
             _buildFieldSection(
               context,
               'Label Icon & Required',
@@ -225,7 +249,6 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
             _buildFieldSection(
               context,
               'Textarea',
@@ -300,7 +323,6 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
             _buildFieldSection(
               context,
               'Custom Label Widget',
@@ -433,7 +455,6 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
             _buildFieldSection(
               context,
               'Icons',
@@ -510,7 +531,6 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
             _buildFieldSection(
               context,
               'Error Messages',
@@ -609,7 +629,6 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
             _buildFieldSection(
               context,
               'Other Field Types',

@@ -17,7 +17,7 @@ class TextsPage extends StatelessWidget {
       padding: const EdgeInsets.all(_cardPadding),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.all(AppRadius.m),
+        borderRadius: const BorderRadius.all(AppRadius.m),
         boxShadow: AppShadow.sm,
       ),
       child: Row(
@@ -29,7 +29,7 @@ class TextsPage extends StatelessWidget {
               label,
               size: TextSize.small,
               style: TextStyle(
-                color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.6),
+                color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
               ),
             ),
           ),
@@ -49,7 +49,7 @@ class TextsPage extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
-          child: CText.headline(title, size: TextSize.medium),
+          child: CText.headline(title, size: TextSize.small),
         ),
         ...items.map((item) => Padding(
               padding: EdgeInsets.only(

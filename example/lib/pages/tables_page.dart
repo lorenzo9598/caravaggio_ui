@@ -24,7 +24,7 @@ class TablesPage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
-              child: CText.headline('Table Example', size: TextSize.medium),
+              child: CText.headline('Table Example', size: TextSize.small),
             ),
             Container(
               padding: const EdgeInsets.all(_cardPadding),

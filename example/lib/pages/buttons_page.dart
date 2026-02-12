@@ -16,7 +16,7 @@ class _ButtonsPageState extends State<ButtonsPage> {
   }
 
   static const double _cardPadding = 16.0;
-  static const double _sectionSpacing = 24.0;
+  static const double _sectionSpacing = 8.0;
   static const double _itemSpacing = 16.0;
 
   Widget _buildButtonCard({
@@ -52,20 +52,46 @@ class _ButtonsPageState extends State<ButtonsPage> {
     String title,
     List<(String label, Widget button)> items,
   ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12.0),
-          child: CText.headline(title, size: TextSize.medium),
+    final theme = Theme.of(context);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: _sectionSpacing),
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: const BorderRadius.all(AppRadius.l),
+        boxShadow: AppShadow.sm,
+      ),
+      child: Theme(
+        data: theme.copyWith(
+          dividerColor: Colors.transparent,
         ),
-        ...items.map((item) => Padding(
-              padding: EdgeInsets.only(
-                bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
+        child: ExpansionTile(
+          tilePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(AppRadius.l),
+          ),
+          collapsedShape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(AppRadius.l),
+          ),
+          iconColor: CColors.primaryColor,
+          collapsedIconColor: theme.iconTheme.color,
+          title: CText.headline(
+            title,
+            size: TextSize.small,
+          ),
+          children: [
+            ...items.map(
+              (item) => Padding(
+                padding: EdgeInsets.only(
+                  bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
+                ),
+                child: _buildButtonCard(label: item.$1, button: item.$2),
               ),
-              child: _buildButtonCard(label: item.$1, button: item.$2),
-            )),
-      ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 

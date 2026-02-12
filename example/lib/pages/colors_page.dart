@@ -16,7 +16,7 @@ class ColorsPage extends StatelessWidget {
         height: _gradientHeight,
         decoration: BoxDecoration(
           gradient: gradient,
-          borderRadius: BorderRadius.all(AppRadius.m),
+          borderRadius: const BorderRadius.all(AppRadius.m),
           boxShadow: AppShadow.sm,
         ),
         child: label != null

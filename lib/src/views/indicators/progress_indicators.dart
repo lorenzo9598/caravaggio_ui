@@ -12,7 +12,7 @@ extension CLinearProgressIndicator on LinearProgressIndicator {
 
   /// Creates a secondary LinearProgressIndicator widget.
   static LinearProgressIndicator secondary({Key? key}) {
-    return LinearProgressIndicator(key: key, color: CColors.secondaryColor);
+    return LinearProgressIndicator(key: key, color: CColors.secondaryColor, backgroundColor: CColors.primaryColor);
   }
 }
 

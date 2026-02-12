@@ -65,7 +65,20 @@ class CButtonDecoration {
     this.gradient,
     this.radius = defaultRadius,
     this.elevation,
-  }) : assert(filledColor == null || gradient == null, "You can't use filledColor and gradient at the same time");
+    this.animationCurve,
+    this.animationDuration,
+  })  : assert(
+          filledColor == null || gradient == null,
+          "You can't use filledColor and gradient at the same time",
+        ),
+        assert(
+          gradient == null || (animationCurve == null && animationDuration == null),
+          "You can't use gradient together with animationCurve or animationDuration",
+        ),
+        assert(
+          (animationCurve == null && animationDuration == null) || gradient == null,
+          "You can't use animationCurve or animationDuration together with gradient",
+        );
 
   /// An optional icon to display before the child widget.
   final Widget? icon;
@@ -97,6 +110,16 @@ class CButtonDecoration {
   /// Elevation (shadow) of the button. When null, uses [defaultButtonElevation].
   final double? elevation;
 
+  /// Curve used for button animations (e.g. color changes).
+  ///
+  /// When null, [Curves.easeInOut] is used.
+  final Curve? animationCurve;
+
+  /// Duration used for button animations (e.g. color changes).
+  ///
+  /// When null, [Duration(milliseconds: 250)] is used.
+  final Duration? animationDuration;
+
   CButtonDecoration copyWith({
     Widget? icon,
     Widget? suffixIcon,
@@ -108,6 +131,8 @@ class CButtonDecoration {
     LinearGradient? gradient,
     Radius? radius,
     double? elevation,
+    Curve? animationCurve,
+    Duration? animationDuration,
   }) {
     return CButtonDecoration(
       icon: icon ?? this.icon,
@@ -120,6 +145,8 @@ class CButtonDecoration {
       gradient: gradient ?? this.gradient,
       radius: radius ?? this.radius,
       elevation: elevation ?? this.elevation,
+      animationCurve: animationCurve ?? this.animationCurve,
+      animationDuration: animationDuration ?? this.animationDuration,
     );
   }
 }
@@ -155,6 +182,8 @@ class CButton extends StatelessWidget {
     LinearGradient? gradient,
     Radius radius = defaultRadius,
     double? elevation,
+    Curve? animationCurve,
+    Duration? animationDuration,
   }) {
     return CButton._(
       key: key,
@@ -168,6 +197,8 @@ class CButton extends StatelessWidget {
         suffixIconPadding: suffixIconPadding,
         radius: radius,
         elevation: elevation,
+        animationCurve: animationCurve,
+        animationDuration: animationDuration,
       ),
       child: child,
     );
@@ -186,6 +217,8 @@ class CButton extends StatelessWidget {
     Color? fillColor,
     Radius radius = defaultRadius,
     double? elevation,
+    Curve? animationCurve,
+    Duration? animationDuration,
   }) {
     return CButton._(
       key: key,
@@ -199,6 +232,8 @@ class CButton extends StatelessWidget {
         filledColor: fillColor ?? Colors.white,
         radius: radius,
         elevation: elevation,
+        animationCurve: animationCurve,
+        animationDuration: animationDuration,
       ),
       child: child,
     );
@@ -273,6 +308,10 @@ class CButton extends StatelessWidget {
 
     final hasGradient = decoration.gradient != null;
 
+    // Effective animation configuration (fallback to defaults when null).
+    final animationCurve = decoration.animationCurve ?? Curves.easeInOut;
+    final animationDuration = decoration.animationDuration ?? const Duration(milliseconds: 250);
+
     final rowChildren = <Widget>[
       if (decoration.icon != null) decoration.icon!,
       if (decoration.icon != null) SizedBox(width: decoration.iconPadding),
@@ -313,34 +352,47 @@ class CButton extends StatelessWidget {
               ),
             ),
           )
-        : ElevatedButton(
-            onPressed: onPressed,
-            style: ButtonStyle(
-              elevation: WidgetStateProperty.all(effectiveElevation),
-              shadowColor: WidgetStateProperty.all(Colors.black),
-              shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(decoration.radius),
-                ),
-              ),
-              overlayColor: WidgetStateProperty.all(
-                CColors.primaryColorLight.withValues(alpha: 0.2),
-              ),
-              backgroundColor: WidgetStateProperty.all(
-                decoration.filledColor ?? CColors.primaryColor,
-              ),
-              side: decoration.borderColor != null
-                  ? WidgetStateProperty.all(
-                      BorderSide(width: 2.0, color: decoration.borderColor ?? CColors.primaryColor),
-                    )
-                  : null,
-              minimumSize: WidgetStateProperty.all(
-                Size(0, decoration.size.height),
-              ),
-            ),
-            child: content,
+        : TweenAnimationBuilder<Color?>(
+            tween: ColorTween(end: decoration.filledColor ?? CColors.primaryColor),
+            duration: animationDuration,
+            curve: animationCurve,
+            builder: (context, filledColor, _) {
+              return TweenAnimationBuilder<Color?>(
+                tween: ColorTween(end: decoration.borderColor ?? CColors.primaryColor),
+                duration: animationDuration,
+                curve: animationCurve,
+                builder: (context, borderColor, _) {
+                  return ElevatedButton(
+                    onPressed: onPressed,
+                    style: ButtonStyle(
+                      elevation: WidgetStateProperty.all(effectiveElevation),
+                      shadowColor: WidgetStateProperty.all(Colors.black),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(decoration.radius),
+                        ),
+                      ),
+                      overlayColor: WidgetStateProperty.all(
+                        CColors.primaryColorLight.withValues(alpha: 0.2),
+                      ),
+                      backgroundColor: WidgetStateProperty.all(
+                        filledColor ?? CColors.primaryColor,
+                      ),
+                      side: decoration.borderColor != null
+                          ? WidgetStateProperty.all(
+                              BorderSide(width: 2.0, color: borderColor ?? CColors.primaryColor),
+                            )
+                          : null,
+                      minimumSize: WidgetStateProperty.all(
+                        Size(0, decoration.size.height),
+                      ),
+                    ),
+                    child: content,
+                  );
+                },
+              );
+            },
           );
-
     return button;
   }
 

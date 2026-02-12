@@ -281,7 +281,7 @@ class _CTimePickerState extends State<CTimePicker> {
                 ),
                 const SizedBox(height: 16),
                 // "Show more" button
-                OutlinedButton(
+                CButton.outlined(
                   onPressed: () {
                     setState(() {
                       _showFullList = true;
@@ -305,10 +305,10 @@ class _CTimePickerState extends State<CTimePicker> {
           // Button to add custom time
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: OutlinedButton.icon(
+            child: CButton.outlined(
               onPressed: _addCustomTime,
               icon: const Icon(Icons.add),
-              label: Text(localizations.customTime),
+              child: CText.label(localizations.customTime),
             ),
           ),
         ],
@@ -320,7 +320,7 @@ class _CTimePickerState extends State<CTimePicker> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                CText.label(
                   localizations.selectedTimes,
                   style: const TextStyle(
                     fontSize: 14,
@@ -381,7 +381,7 @@ class _TimeItem extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Text(
+      child: CText.label(
         _formatTime(time),
         style: TextStyle(
           fontSize: 14,

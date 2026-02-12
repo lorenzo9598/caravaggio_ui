@@ -1,3 +1,4 @@
+import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:caravaggio_ui/src/pickers/picker_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -190,7 +191,7 @@ class _CDatePickerState extends State<CDatePicker> {
                 icon: const Icon(Icons.chevron_left),
                 onPressed: _previousMonth,
               ),
-              Text(
+              CText.label(
                 DateFormat('MMMM yyyy', localizations.localeCode).format(_currentMonth),
                 style: const TextStyle(
                   fontSize: 18,
@@ -212,7 +213,7 @@ class _CDatePickerState extends State<CDatePicker> {
             children: weekDays.map((day) {
               return Expanded(
                 child: Center(
-                  child: Text(
+                  child: CText.label(
                     day,
                     style: const TextStyle(
                       fontSize: 12,
@@ -268,7 +269,7 @@ class _CDatePickerState extends State<CDatePicker> {
                               ),
                               padding: const EdgeInsets.all(4),
                               child: Center(
-                                child: Text(
+                                child: CText.label(
                                   '${date.day}',
                                   style: TextStyle(
                                     fontSize: 14,
@@ -303,7 +304,7 @@ class _CDatePickerState extends State<CDatePicker> {
                 final normalizedDate = DateTime(date.year, date.month, date.day);
                 return Chip(
                   key: ValueKey('${normalizedDate.year}-${normalizedDate.month}-${normalizedDate.day}'),
-                  label: Text(DateFormat('dd/MM', localizations.localeCode).format(date)),
+                  label: CText.label(DateFormat('dd/MM', localizations.localeCode).format(date)),
                   onDeleted: () {
                     setState(() {
                       _selectedDates = _selectedDates.where((d) {

@@ -1,6 +1,4 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
-import 'package:caravaggio_ui/src/pickers/date_picker.dart';
-import 'package:caravaggio_ui/src/pickers/time_picker.dart';
 import 'package:flutter/material.dart';
 
 class PickersPage extends StatefulWidget {

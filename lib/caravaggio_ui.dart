@@ -24,3 +24,6 @@ export 'src/generics/gradients.dart' show CGradient, CGradientColorType, CGradie
 export 'src/views/indicators/circular_indicator.dart' show CCircularIndicator, CircularValue, CLabelIndicator;
 export 'src/views/indicators/progress_indicators.dart' show CLinearProgressIndicator, CCircularProgressIndicator;
 export 'src/views/tables/table.dart' show CTable, CTableHeader, CTableRow, CTableCell;
+
+export 'src/pickers/date_picker.dart' show CDatePicker, CustomDatePickerMode;
+export 'src/pickers/time_picker.dart' show CTimePicker, CustomTimePickerMode;

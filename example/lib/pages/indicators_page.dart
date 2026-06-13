@@ -1,82 +1,29 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui_app/pages/demo_pages.dart';
+import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
+import 'package:caravaggio_ui_app/widgets/scaffold.dart';
+import 'package:caravaggio_ui_app/widgets/section.dart';
 import 'package:flutter/material.dart';
 
 class IndicatorsPage extends StatelessWidget {
   const IndicatorsPage({super.key});
 
-  static const double _cardPadding = 16.0;
-  static const double _itemSpacing = 16.0;
-
-  Widget _buildIndicatorCard(
-    BuildContext context, {
-    required String label,
-    required Widget indicator,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(_cardPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.all(AppRadius.m),
-        boxShadow: AppShadow.sm,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CText.label(
-            label,
-            size: TextSize.small,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Center(child: indicator),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildIndicatorSection(
-    BuildContext context,
-    String title,
-    List<(String label, Widget indicator)> items,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12.0),
-          child: CText.headline(title, size: TextSize.small),
-        ),
-        ...items.map((item) => Padding(
-              padding: EdgeInsets.only(
-                bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
-              ),
-              child: _buildIndicatorCard(context, label: item.$1, indicator: item.$2),
-            )),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Indicators')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildIndicatorSection(
-              context,
-              'Circular Indicators',
-              [
+    return CustomScaffold(
+      demoPageId: DemoPageId.indicators,
+      title: demoScaffoldTitleFor(DemoPageId.indicators),
+      bodyBuilder: (context, topPadding) {
+        return Sections(
+          padding: EdgeInsets.only(top: topPadding + 12, left: 16, right: 16, bottom: 12),
+          sections: [
+            Section(
+              title: 'Circular Indicators',
+              icon: Icons.pie_chart_outline,
+              items: [
                 (
                   'Single Indicator',
-                  CCircularIndicator.single(
-                    value: CircularValue(currentValue: 64, maxValue: 100),
-                    label: "Value 1",
-                  ),
+                  CCircularIndicator.single(value: CircularValue(currentValue: 64, maxValue: 100), label: "Value 1"),
                 ),
                 (
                   'Double Indicator',
@@ -108,8 +55,8 @@ class IndicatorsPage extends StatelessWidget {
               ],
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -1,4 +1,8 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui_app/pages/demo_pages.dart';
+import 'package:caravaggio_ui_app/widgets/demo_page_navigation.dart';
+import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
+import 'package:caravaggio_ui_app/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 
 import 'page_constants.dart';
@@ -72,7 +76,7 @@ class ColorsPage extends StatelessWidget {
         padding: const EdgeInsets.all(_cardPadding),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.all(AppRadius.l),
+          borderRadius: const BorderRadius.all(AppRadius.l),
           boxShadow: AppShadow.sm,
         ),
         child: Column(
@@ -87,7 +91,7 @@ class ColorsPage extends StatelessWidget {
                     height: 72,
                     decoration: BoxDecoration(
                       color: primary,
-                      borderRadius: BorderRadius.all(AppRadius.s),
+                      borderRadius: const BorderRadius.all(AppRadius.s),
                     ),
                     alignment: Alignment.center,
                     child: CText.label(
@@ -103,7 +107,7 @@ class ColorsPage extends StatelessWidget {
                     height: 72,
                     decoration: BoxDecoration(
                       color: secondary,
-                      borderRadius: BorderRadius.all(AppRadius.s),
+                      borderRadius: const BorderRadius.all(AppRadius.s),
                     ),
                     alignment: Alignment.center,
                     child: CText.label(
@@ -146,10 +150,14 @@ class ColorsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Colors')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    return CustomScaffold(
+      demoPageId: DemoPageId.colors,
+      title: demoScaffoldTitleFor(DemoPageId.colors),
+      bodyBuilder: (context, topPadding) => SingleChildScrollView(
+        padding: DemoPageNavigation.scrollPadding(
+          context,
+          top: topPadding + 12,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -186,8 +194,6 @@ class ColorsPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: _sectionSpacing),
-            CText.headline('Gradients', size: TextSize.small),
-            spacerSmall,
             _gradientSection(
               'Primary',
               [

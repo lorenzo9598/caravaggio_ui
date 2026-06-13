@@ -1,12 +1,14 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui_app/pages/demo_pages.dart';
+import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
+import 'package:caravaggio_ui_app/widgets/scaffold.dart';
+import 'package:caravaggio_ui_app/widgets/section.dart';
 import 'package:flutter/material.dart';
 
 import 'page_constants.dart';
 
 class TablesPage extends StatelessWidget {
   const TablesPage({super.key});
-
-  static const double _cardPadding = 16.0;
 
   @override
   Widget build(BuildContext context) {
@@ -15,29 +17,23 @@ class TablesPage extends StatelessWidget {
     );
     final rows = tableRowsTexts.map((row) => CTableRow(values: row.map((cell) => CTableCell(text: cell)).toList())).toList();
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Tables')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: CText.headline('Table Example', size: TextSize.small),
-            ),
-            Container(
-              padding: const EdgeInsets.all(_cardPadding),
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: const BorderRadius.all(AppRadius.m),
-                boxShadow: AppShadow.sm,
-              ),
-              child: CTable(header: header, rows: rows),
+    return CustomScaffold(
+      demoPageId: DemoPageId.tables,
+      title: demoScaffoldTitleFor(DemoPageId.tables),
+      bodyBuilder: (context, topPadding) {
+        return Sections(
+          padding: EdgeInsets.only(top: topPadding + 12, left: 16, right: 16, bottom: 12),
+          sections: [
+            Section(
+              title: 'Table Example',
+              icon: Icons.table_chart_outlined,
+              items: [
+                ('Table Example', CTable(header: header, rows: rows)),
+              ],
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

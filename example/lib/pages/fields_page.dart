@@ -1,6 +1,10 @@
 import 'dart:developer';
 
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui_app/pages/demo_pages.dart';
+import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
+import 'package:caravaggio_ui_app/widgets/scaffold.dart';
+import 'package:caravaggio_ui_app/widgets/section.dart';
 import 'package:flutter/material.dart';
 
 import 'page_constants.dart';
@@ -14,7 +18,10 @@ class FieldsPage extends StatefulWidget {
 
 class _FieldsPageState extends State<FieldsPage> {
   void _onChanged(String? value) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value ?? 'No value')));
+    CToast.of(context).showMessage(
+      title: value ?? 'No value',
+      variant: CToastVariant.info,
+    );
   }
 
   void _onFieldChanged(String value) {
@@ -22,10 +29,6 @@ class _FieldsPageState extends State<FieldsPage> {
   }
 
   String _optionsValueToMatch(String value) => value.toLowerCase();
-
-  static const double _cardPadding = 16.0;
-  static const double _sectionSpacing = 8.0;
-  static const double _itemSpacing = 16.0;
 
   /// Wraps a field in a Form to enable validation display
   Widget _wrapFieldInForm(Widget field) {
@@ -35,95 +38,19 @@ class _FieldsPageState extends State<FieldsPage> {
     );
   }
 
-  Widget _buildFieldCard({
-    required String label,
-    required Widget field,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(_cardPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.all(AppRadius.m),
-        boxShadow: AppShadow.sm,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CText.label(
-            label,
-            size: TextSize.small,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
-            ),
-          ),
-          const SizedBox(height: 12),
-          field,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFieldSection(
-    BuildContext context,
-    String title,
-    List<(String label, Widget field)> items,
-  ) {
-    final theme = Theme.of(context);
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: _sectionSpacing),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: const BorderRadius.all(AppRadius.l),
-        boxShadow: AppShadow.sm,
-      ),
-      child: Theme(
-        data: theme.copyWith(
-          dividerColor: Colors.transparent,
-        ),
-        child: ExpansionTile(
-          tilePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(AppRadius.l),
-          ),
-          collapsedShape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(AppRadius.l),
-          ),
-          iconColor: CColors.primaryColor,
-          collapsedIconColor: theme.iconTheme.color,
-          title: CText.headline(
-            title,
-            size: TextSize.small,
-          ),
-          children: [
-            ...items.map(
-              (item) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
-                ),
-                child: _buildFieldCard(label: item.$1, field: item.$2),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Fields')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildFieldSection(
-              context,
-              'Field Styles',
-              [
+    return CustomScaffold(
+      demoPageId: DemoPageId.fields,
+      title: demoScaffoldTitleFor(DemoPageId.fields),
+      bodyBuilder: (context, topPadding) {
+        return Sections(
+          padding: EdgeInsets.only(top: topPadding + 12, left: 16, right: 16, bottom: 12),
+          sections: [
+            Section(
+              title: 'Styles',
+              icon: Icons.style_outlined,
+              items: [
                 (
                   'Simple',
                   CTextField.simple(
@@ -154,10 +81,10 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            _buildFieldSection(
-              context,
-              'Border Radius',
-              [
+            Section(
+              title: 'Border Radius',
+              icon: Icons.rounded_corner,
+              items: [
                 (
                   'Extra Extra Small (xxs)',
                   CTextField.filled(
@@ -209,10 +136,10 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            _buildFieldSection(
-              context,
-              'Label Icon & Required',
-              [
+            Section(
+              title: 'Label Icon & Required',
+              icon: Icons.label_outline,
+              items: [
                 (
                   'With Label Icon',
                   CTextField.filled(
@@ -249,10 +176,10 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            _buildFieldSection(
-              context,
-              'Textarea',
-              [
+            Section(
+              title: 'Textarea',
+              icon: Icons.notes_outlined,
+              items: [
                 (
                   'Simple Textarea',
                   CTextField.simple(
@@ -323,10 +250,10 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            _buildFieldSection(
-              context,
-              'Custom Label Widget',
-              [
+            Section(
+              title: 'Custom Label Widget',
+              icon: Icons.badge_outlined,
+              items: [
                 (
                   'Label with Custom Widget',
                   CTextField.filled(
@@ -455,10 +382,10 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            _buildFieldSection(
-              context,
-              'Icons',
-              [
+            Section(
+              title: 'Icons',
+              icon: Icons.add_reaction_outlined,
+              items: [
                 (
                   'With Prefix Icon',
                   CTextField.filled(
@@ -531,10 +458,10 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            _buildFieldSection(
-              context,
-              'Error Messages',
-              [
+            Section(
+              title: 'Error Messages',
+              icon: Icons.error_outline,
+              items: [
                 (
                   'Filled Field with Error',
                   _wrapFieldInForm(
@@ -629,10 +556,10 @@ class _FieldsPageState extends State<FieldsPage> {
                 ),
               ],
             ),
-            _buildFieldSection(
-              context,
-              'Other Field Types',
-              [
+            Section(
+              title: 'Other Field Types',
+              icon: Icons.more_horiz,
+              items: [
                 (
                   'Autocomplete (Filled)',
                   CAutocomplete<String>.filled(
@@ -654,8 +581,8 @@ class _FieldsPageState extends State<FieldsPage> {
               ],
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -1,4 +1,8 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui_app/pages/demo_pages.dart';
+import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
+import 'package:caravaggio_ui_app/widgets/scaffold.dart';
+import 'package:caravaggio_ui_app/widgets/section.dart';
 import 'package:flutter/material.dart';
 
 class PickersPage extends StatefulWidget {
@@ -9,83 +13,29 @@ class PickersPage extends StatefulWidget {
 }
 
 class _PickersPageState extends State<PickersPage> {
-  static const double _cardPadding = 16.0;
-  static const double _sectionSpacing = 24.0;
-  static const double _itemSpacing = 16.0;
-
-  Widget _buildPickerCard({
-    required String label,
-    required Widget picker,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(_cardPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.all(AppRadius.m),
-        boxShadow: AppShadow.sm,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CText.label(
-            label,
-            size: TextSize.small,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.6),
-            ),
-          ),
-          const SizedBox(height: 12),
-          picker,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPickerSection(
-    BuildContext context,
-    String title,
-    List<(String label, Widget picker)> items,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12.0),
-          child: CText.headline(title, size: TextSize.small),
-        ),
-        ...items.map((item) => Padding(
-              padding: EdgeInsets.only(
-                bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
-              ),
-              child: _buildPickerCard(label: item.$1, picker: item.$2),
-            )),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Pickers')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildPickerSection(
-              context,
-              'Time Picker',
-              [
+    return CustomScaffold(
+      demoPageId: DemoPageId.pickers,
+      title: demoScaffoldTitleFor(DemoPageId.pickers),
+      bodyBuilder: (context, topPadding) {
+        return Sections(
+          padding: EdgeInsets.only(top: topPadding + 12, left: 16, right: 16, bottom: 12),
+          sections: [
+            Section(
+              title: 'Time Picker',
+              icon: Icons.access_time,
+              items: [
                 (
                   'Single Mode',
                   CTimePicker(
                     mode: CustomTimePickerMode.single,
                     maxLines: 3,
                     onChanged: (times) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Selected: ${times.map((t) => '${t.hour}:${t.minute.toString().padLeft(2, '0')}').join(', ')}'),
-                        ),
+                      CToast.of(context).showMessage(
+                        title: 'Time selected',
+                        subtitle: times.map((t) => '${t.hour}:${t.minute.toString().padLeft(2, '0')}').join(', '),
+                        variant: CToastVariant.info,
                       );
                     },
                   ),
@@ -113,30 +63,29 @@ class _PickersPageState extends State<PickersPage> {
                       TimeOfDay(hour: 18, minute: 0),
                     ],
                     onChanged: (times) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Selected: ${times.map((t) => '${t.hour}:${t.minute.toString().padLeft(2, '0')}').join(', ')}'),
-                        ),
+                      CToast.of(context).showMessage(
+                        title: 'Time selected',
+                        subtitle: times.map((t) => '${t.hour}:${t.minute.toString().padLeft(2, '0')}').join(', '),
+                        variant: CToastVariant.info,
                       );
                     },
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
-            _buildPickerSection(
-              context,
-              'Date Picker',
-              [
+            Section(
+              title: 'Date Picker',
+              icon: Icons.calendar_today_outlined,
+              items: [
                 (
                   'Single Mode',
                   CDatePicker(
                     mode: CustomDatePickerMode.single,
                     onChanged: (dates) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Selected: ${dates.map((d) => '${d.day}/${d.month}/${d.year}').join(', ')}'),
-                        ),
+                      CToast.of(context).showMessage(
+                        title: 'Date selected',
+                        subtitle: dates.map((d) => '${d.day}/${d.month}/${d.year}').join(', '),
+                        variant: CToastVariant.info,
                       );
                     },
                   ),
@@ -146,34 +95,61 @@ class _PickersPageState extends State<PickersPage> {
                   CDatePicker(
                     mode: CustomDatePickerMode.multiple,
                     onChanged: (dates) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Selected ${dates.length} date(s): ${dates.map((d) => '${d.day}/${d.month}/${d.year}').join(', ')}'),
-                        ),
+                      CToast.of(context).showMessage(
+                        title: '${dates.length} date(s) selected',
+                        subtitle: dates.map((d) => '${d.day}/${d.month}/${d.year}').join(', '),
+                        variant: CToastVariant.info,
                       );
                     },
                   ),
                 ),
                 (
-                  'With Date Range',
+                  'Selectable window (first / last)',
                   CDatePicker(
                     mode: CustomDatePickerMode.single,
                     firstDate: DateTime.now(),
                     lastDate: DateTime.now().add(const Duration(days: 30)),
                     onChanged: (dates) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Selected: ${dates.map((d) => '${d.day}/${d.month}/${d.year}').join(', ')}'),
-                        ),
+                      CToast.of(context).showMessage(
+                        title: 'Date selected',
+                        subtitle: dates.map((d) => '${d.day}/${d.month}/${d.year}').join(', '),
+                        variant: CToastVariant.info,
                       );
+                    },
+                  ),
+                ),
+                (
+                  'Range mode',
+                  CDatePicker(
+                    mode: CustomDatePickerMode.range,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(const Duration(days: 60)),
+                    onChanged: (dates) {
+                      if (dates.isEmpty) return;
+                      final start = dates.first;
+                      final end = dates.last;
+                      if (dates.length == 1) {
+                        CToast.of(context).showMessage(
+                          title: 'Select end date',
+                          subtitle: 'From ${start.day}/${start.month}/${start.year}',
+                          variant: CToastVariant.info,
+                        );
+                      } else {
+                        CToast.of(context).showMessage(
+                          title: 'Date range selected',
+                          subtitle:
+                              '${start.day}/${start.month}/${start.year} – ${end.day}/${end.month}/${end.year} (${dates.length} days)',
+                          variant: CToastVariant.info,
+                        );
+                      }
                     },
                   ),
                 ),
               ],
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

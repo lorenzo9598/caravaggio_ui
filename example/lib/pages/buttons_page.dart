@@ -1,4 +1,8 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui_app/pages/demo_pages.dart';
+import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
+import 'package:caravaggio_ui_app/widgets/scaffold.dart';
+import 'package:caravaggio_ui_app/widgets/section.dart';
 import 'package:flutter/material.dart';
 
 import 'page_constants.dart';
@@ -12,86 +16,9 @@ class ButtonsPage extends StatefulWidget {
 
 class _ButtonsPageState extends State<ButtonsPage> {
   void _onPressed() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Button pressed')));
-  }
-
-  static const double _cardPadding = 16.0;
-  static const double _sectionSpacing = 8.0;
-  static const double _itemSpacing = 16.0;
-
-  Widget _buildButtonCard({
-    required String label,
-    required Widget button,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(_cardPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.all(AppRadius.m),
-        boxShadow: AppShadow.sm,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CText.label(
-            label,
-            size: TextSize.small,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Center(child: button),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildButtonSection(
-    BuildContext context,
-    String title,
-    List<(String label, Widget button)> items,
-  ) {
-    final theme = Theme.of(context);
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: _sectionSpacing),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: const BorderRadius.all(AppRadius.l),
-        boxShadow: AppShadow.sm,
-      ),
-      child: Theme(
-        data: theme.copyWith(
-          dividerColor: Colors.transparent,
-        ),
-        child: ExpansionTile(
-          tilePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(AppRadius.l),
-          ),
-          collapsedShape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(AppRadius.l),
-          ),
-          iconColor: CColors.primaryColor,
-          collapsedIconColor: theme.iconTheme.color,
-          title: CText.headline(
-            title,
-            size: TextSize.small,
-          ),
-          children: [
-            ...items.map(
-              (item) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: items.indexOf(item) < items.length - 1 ? _itemSpacing : 0,
-                ),
-                child: _buildButtonCard(label: item.$1, button: item.$2),
-              ),
-            ),
-          ],
-        ),
-      ),
+    CToast.of(context).showMessage(
+      title: 'Button pressed',
+      variant: CToastVariant.info,
     );
   }
 
@@ -102,17 +29,17 @@ class _ButtonsPageState extends State<ButtonsPage> {
       child: buttonText,
     );
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Buttons')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildButtonSection(
-              context,
-              'Button Types',
-              [
+    return CustomScaffold(
+      demoPageId: DemoPageId.buttons,
+      title: demoScaffoldTitleFor(DemoPageId.buttons),
+      bodyBuilder: (context, topPadding) {
+        return Sections(
+          padding: EdgeInsets.only(top: topPadding + 12, left: 16, right: 16, bottom: 12),
+          sections: [
+            Section(
+              title: 'Types',
+              icon: Icons.category_outlined,
+              items: [
                 (
                   'Elevated Button',
                   CButton.elevated(
@@ -124,6 +51,15 @@ class _ButtonsPageState extends State<ButtonsPage> {
                   'Elevated with Gradient',
                   CButton.elevated(
                     gradient: demoGradient,
+                    onPressed: _onPressed,
+                    child: buttonText,
+                  ),
+                ),
+                (
+                  'Gradient with custom text color',
+                  CButton.elevated(
+                    gradient: CGradient.primaryLightToSecondaryLight,
+                    foregroundColor: CColors.primaryColorDark,
                     onPressed: _onPressed,
                     child: buttonText,
                   ),
@@ -144,11 +80,39 @@ class _ButtonsPageState extends State<ButtonsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
-            _buildButtonSection(
-              context,
-              'Button Sizes',
-              [
+            Section(
+              title: 'Icon button',
+              icon: Icons.crop_square_outlined,
+              items: [
+                (
+                  'CIconBadge vs CButton.icon',
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CIconBadge(icon: Icons.star_outline),
+                      const SizedBox(width: 12),
+                      CButton.icon(
+                        icon: Icons.star_outline,
+                        onPressed: _onPressed,
+                        tooltip: 'Icon button',
+                      ),
+                    ],
+                  ),
+                ),
+                (
+                  'Disabled',
+                  CButton.icon(
+                    icon: Icons.star_outline,
+                    onPressed: null,
+                    semanticsLabel: 'Disabled icon button',
+                  ),
+                ),
+              ],
+            ),
+            Section(
+              title: 'Sizes',
+              icon: Icons.straighten,
+              items: [
                 ('Extra Small', elevated.xSmall),
                 ('Small', elevated.small),
                 ('Medium', elevated.medium),
@@ -157,11 +121,10 @@ class _ButtonsPageState extends State<ButtonsPage> {
                 ('Extra Extra Large', elevated.xxLarge),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
-            _buildButtonSection(
-              context,
-              'Button Elevation',
-              [
+            Section(
+              title: 'Elevation',
+              icon: Icons.layers_outlined,
+              items: [
                 (
                   'No Elevation (0.0)',
                   CButton.elevated(
@@ -223,11 +186,53 @@ class _ButtonsPageState extends State<ButtonsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: _sectionSpacing),
-            _buildButtonSection(
-              context,
-              'Icons & Icon Padding',
-              [
+            Section(
+              title: 'Hint',
+              icon: Icons.lightbulb_outline,
+              items: [
+                (
+                  'Elevated with hint (M)',
+                  CButton.elevated(
+                    onPressed: _onPressed,
+                    hint: 'Continue',
+                    child: CText.label('Free trial · no card required'),
+                  ),
+                ),
+                (
+                  'Hint size L',
+                  CButton.elevated(
+                    onPressed: _onPressed,
+                    hint: 'Continue',
+                    hintSize: CButtonHintSize.large,
+                    child: CText.label('Same scale as the label'),
+                  ),
+                ),
+                (
+                  'Hint size S',
+                  CButton.elevated(
+                    onPressed: _onPressed,
+                    hint: 'Continue',
+                    hintSize: CButtonHintSize.small,
+                    child: CText.label('Compact secondary line'),
+                  ),
+                ),
+                (
+                  'Gradient + icon + hint',
+                  CButton.elevated(
+                    gradient: demoGradient,
+                    foregroundColor: Colors.white,
+                    icon: demoIcon,
+                    onPressed: _onPressed,
+                    hint: 'Get started',
+                    child: CText.label('Takes less than a minute'),
+                  ),
+                ),
+              ],
+            ),
+            Section(
+              title: 'Icons & Icon Padding',
+              icon: Icons.add_circle_outline,
+              items: [
                 (
                   'With Leading Icon (default padding: 8.0)',
                   CButton.elevated(
@@ -252,6 +257,26 @@ class _ButtonsPageState extends State<ButtonsPage> {
                     onPressed: _onPressed,
                     child: buttonText,
                   ),
+                ),
+                (
+                  'Icon alignment: spaceBetween',
+                  CButton.elevated(
+                    icon: demoIcon,
+                    suffixIcon: suffixIcon,
+                    iconAlignment: CButtonIconAlignment.spaceBetween,
+                    onPressed: _onPressed,
+                    child: buttonText,
+                  ).large,
+                ),
+                (
+                  'Icon alignment: spaceAround',
+                  CButton.elevated(
+                    icon: demoIcon,
+                    suffixIcon: suffixIcon,
+                    iconAlignment: CButtonIconAlignment.spaceAround,
+                    onPressed: _onPressed,
+                    child: buttonText,
+                  ).large,
                 ),
                 (
                   'Small Icon Padding (4.0)',
@@ -322,8 +347,8 @@ class _ButtonsPageState extends State<ButtonsPage> {
               ],
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -407,8 +407,9 @@ class CText extends StatelessWidget {
     );
   }
 
-  TextStyle? mergedStyle(context) {
-    final baseTheme = Theme.of(context).textTheme;
+  TextStyle? mergedStyle(BuildContext context) {
+    final theme = Theme.of(context);
+    final baseTheme = theme.textTheme;
 
     final TextStyle? baseStyle = switch (type) {
       TextType.display => switch (size) {
@@ -438,24 +439,39 @@ class CText extends StatelessWidget {
         },
     };
 
-    // Unisce lo stile personalizzato (se presente) con quello base
-    TextStyle? mergedStyle = baseStyle?.merge(style) ?? baseStyle;
+    TextStyle? result = baseStyle?.merge(style) ?? baseStyle;
 
     for (final delta in _overrides) {
-      mergedStyle = mergedStyle?.merge(delta);
+      result = result?.merge(delta);
     }
 
-    return mergedStyle;
+    final fontFamily = theme.textTheme.bodyMedium?.fontFamily;
+    if (result != null && result.fontFamily == null && fontFamily != null) {
+      result = result.copyWith(fontFamily: fontFamily);
+    }
+
+    return result;
   }
+
+  bool get _hasExplicitColor => style?.color != null || _overrides.any((o) => o.color != null);
 
   @override
   Widget build(BuildContext context) {
-    // Usa ThemeData.light() per stili sicuri e coerenti con Material Design
+    TextStyle? effectiveStyle = mergedStyle(context);
+
+    // CButton wraps labels in DefaultTextStyle.merge(color: …). Prefer that color
+    // unless this CText sets one explicitly (e.g. .primary, .withColor).
+    if (!_hasExplicitColor) {
+      final ancestorColor = DefaultTextStyle.of(context).style.color;
+      if (ancestorColor != null) {
+        effectiveStyle = effectiveStyle?.copyWith(color: ancestorColor);
+      }
+    }
 
     return Text(
       data!,
       key: key,
-      style: mergedStyle(context),
+      style: effectiveStyle?.copyWith(inherit: false),
       textAlign: textAlign,
       textDirection: textDirection,
       locale: locale,

@@ -426,6 +426,226 @@ CLoader.pulsing(numberOfDots: 4),
 
 ```
 
+### Views
+
+#### `CScaffold`
+
+Design-system scaffold with gradient background, scroll-linked app bar overlay, optional scroll-aware title, and a configurable default back pill.
+
+```dart
+
+CScaffold(
+  title: CText.title('Page title', size: TextSize.small),
+  bodyBuilder: (context, topPadding) {
+    return ListView(
+      padding: EdgeInsets.only(top: topPadding),
+      children: [
+        // ...
+      ],
+    );
+  },
+)
+
+```
+
+**Layout & scroll**
+
+| Parameter | Description |
+| --- | --- |
+| `body` | Content below the app bar. Ignored when `bodyBuilder` is set. |
+| `bodyBuilder` | Receives `topPadding` so you can pad scrollables (`ListView`, `CustomScrollView`, …). |
+| `scrollController` | Pass when the body uses a custom controller so overlay, title, and back pill react to scroll. |
+| `title` | Widget in the app bar (e.g. page title). |
+| `titleAlignment` | Alignment of `title` in the app bar. Default: `Alignment.center`. |
+| `hideTitleOnScroll` | When true (default), title fades on scroll down and reappears on scroll up. Fade range: `kCScaffoldTitleHideScrollRange` (56 px). |
+| `leading` | Left app bar control (e.g. drawer menu). When null and `showBackButton` is true, the default back pill is shown. |
+| `action` | Widget pinned to the right of the app bar. |
+| `drawer` | Optional `Scaffold.drawer` content. |
+| `backgroundGradient` | Behind `backgroundLayers` and body. Default: `CGradient.primaryLightToSecondaryLight`. |
+| `backgroundLayers` | Widgets painted above the gradient and below scrollable content. |
+| `scrollOverlayColor` | Tint for the top gradient overlay while scrolling. Opacity tracks scroll offset. Default: `CColors.secondaryColorLight` when null. |
+| `onBackPressed` | Callback for the default back pill. Default: `Navigator.pop`. |
+
+**Back pill** (when `showBackButton` is true and `leading` is null)
+
+| Parameter | Description |
+| --- | --- |
+| `showBackButton` | When false, no left control unless `leading` is set. Default: true. |
+| `backButtonTopBackgroundAlpha` | White pill opacity at scroll offset 0. Default: `0.5`. |
+| `backButtonScrolledBackgroundColor` | Pill background tint after scroll fade. Default: `CColors.secondaryColor` when null. |
+| `backButtonScrolledBackgroundAlpha` | Opacity of the scrolled pill background. Default: `0.7`. |
+| `backButtonBorder` | Optional border. When null, no border is drawn. |
+| `backButtonIcon` | Icon for the back pill. Default: `Icons.arrow_back_ios_new_outlined`. |
+
+Read top inset from a descendant with `CScaffold.topPaddingOf(context)`, or use `CScaffoldState.topPadding` from a `GlobalKey<CScaffoldState>`.
+
+See the example app: `example/lib/pages/scaffold_page.dart` and `example/lib/pages/scaffold_preview_page.dart`.
+
+#### `CTabs`
+
+Rounded pill tab bar backed by Material [TabBar] / [TabBarView], with a card-style content panel below.
+
+```dart
+
+CTabs(
+  tabs: const [
+    CTabItem(label: 'Overview', icon: Icons.dashboard_outlined),
+    CTabItem(label: 'Stats', icon: Icons.bar_chart_outlined),
+    CTabItem(label: 'Details', icon: Icons.info_outline),
+  ],
+  children: [
+    Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CText.title('Overview'),
+        CText.body('First tab content', size: TextSize.small),
+      ],
+    ),
+    Center(child: CText.body('Stats tab content')),
+    Center(child: CText.body('Details tab content')),
+  ],
+  onTabChanged: (index) {
+    // React to tab selection
+  },
+)
+
+```
+
+For text-only tabs, use the `fromLabels` factory:
+
+```dart
+
+CTabs.fromLabels(
+  labels: const ['First', 'Second', 'Third'],
+  children: [
+    Center(child: CText.body('First tab content')),
+    Center(child: CText.body('Second tab content')),
+    Center(child: CText.body('Third tab content')),
+  ],
+)
+
+```
+
+Enable horizontal swipes with `enableSwipe: true`. When swipe is on, set `contentHeight` if the tabs sit inside an unbounded vertical layout (e.g. a `ListView`):
+
+```dart
+
+CTabs.fromLabels(
+  enableSwipe: true,
+  contentHeight: 120,
+  labels: const ['Alpha', 'Beta', 'Gamma'],
+  children: [
+    Center(child: CText.body('Swipe between tabs')),
+    Center(child: CText.body('Native TabBarView physics')),
+    Center(child: CText.body('Indicator animates with selection')),
+  ],
+)
+
+```
+
+| Parameter | Description |
+| --- | --- |
+| `tabs` / `labels` | Tab descriptors ([CTabItem] or strings via `fromLabels`). Must match `children.length`. |
+| `children` | One widget per tab panel. |
+| `controller` | Optional external [TabController]. When null, [CTabs] creates and owns one. |
+| `onTabChanged` | Called when the selected tab index changes. |
+| `initialIndex` | Starting tab. Default: `0`. |
+| `tabBarHeight` | Height of each tab label. Default: `44`. |
+| `contentPadding` | Padding around each tab panel. Default: `EdgeInsets.all(16)`. |
+| `contentHeight` | Fixed height for tab content. Required when `enableSwipe` is true in unbounded layouts. |
+| `enableSwipe` | When true, tab panels respond to horizontal swipes. Default: false. |
+
+See the example app: `example/lib/pages/tabs_page.dart` (component demos) and `example/lib/pages/views_tabs_page.dart` (account profile layout).
+
+#### `CPopup` and `showCPopup`
+
+Centered modal dialog with a gradient icon header ([CPopupHeader]), optional body, and a row of [CButton] actions ([CPopupActionsRow]).
+
+```dart
+
+showCPopup(
+  context: context,
+  icon: Icons.info_outline,
+  title: 'Confirm action',
+  subtitle: 'This cannot be undone.',
+  body: CText.body(
+    'Review the details before continuing.',
+    size: TextSize.small,
+  ),
+  actions: [
+    CPopupAction(
+      label: 'Cancel',
+      style: CPopupActionStyle.outlined,
+      onPressed: () {},
+    ),
+    CPopupAction(
+      label: 'Confirm',
+      onPressed: () {
+        // Action runs after the dialog is dismissed
+      },
+    ),
+  ],
+);
+
+```
+
+| Parameter | Description |
+| --- | --- |
+| `icon` | Header icon shown in [CIconBadge]. |
+| `title` | Primary header text. |
+| `subtitle` | Optional secondary header text. |
+| `body` | Optional content between header and actions. |
+| `actions` | Footer buttons as [CPopupAction] entries. Each action pops the route, then runs `onPressed`. |
+| `barrierDismissible` | Whether tapping outside closes the dialog. Default: true. |
+| `elevation` | [Dialog] elevation. Default: `8`. |
+
+[CPopupActionStyle] offers `elevated` (filled) and `outlined` (bordered) button styles.
+
+See the example app: `example/lib/pages/popup_page.dart` and `example/lib/pages/views_dialogs_page.dart` (delete-account confirmation).
+
+#### `CModalBottomSheet` and `showCModalBottomSheet`
+
+Bottom sheet with the same header pattern as [CPopup], a required body, and optional footer actions.
+
+```dart
+
+showCModalBottomSheet(
+  context: context,
+  icon: Icons.tune_outlined,
+  title: 'Filter results',
+  subtitle: 'Adjust what appears in the list.',
+  body: CText.body(
+    'Choose one or more categories, then apply to update the view.',
+    size: TextSize.small,
+  ),
+  actions: [
+    CPopupAction(
+      label: 'Cancel',
+      style: CPopupActionStyle.outlined,
+      onPressed: () {},
+    ),
+    CPopupAction(
+      label: 'Apply',
+      onPressed: () {
+        // Apply filters after the sheet closes
+      },
+    ),
+  ],
+);
+
+```
+
+Omit `actions` for content-only sheets (e.g. a list of tappable rows). The sheet is scroll-controlled and respects keyboard insets.
+
+| Parameter | Description |
+| --- | --- |
+| `icon`, `title`, `subtitle`, `body` | Same roles as [CPopup]; `body` is required. |
+| `actions` | Optional footer [CPopupAction] buttons. |
+| `isDismissible` | Whether tapping the scrim closes the sheet. Default: true. |
+| `enableDrag` | Whether the sheet can be dragged down to dismiss. Default: true. |
+
+See the example app: `example/lib/pages/modal_bottom_sheet_page.dart` and `example/lib/pages/views_dialogs_page.dart` (order filters and action menu).
+
 ### Others
 
 #### `CCheckbox`

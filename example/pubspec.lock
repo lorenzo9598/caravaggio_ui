@@ -17,13 +17,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  caravaggio_calendar_picker:
+    dependency: transitive
+    description:
+      name: caravaggio_calendar_picker
+      sha256: "3f2f820372367ec31ba6c4d3a9ae9d89934e3d07682f79cbdf2c9fceaa8e0c41"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   caravaggio_ui:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "1.0.1"
+    version: "1.0.3"
   characters:
     dependency: transitive
     description:

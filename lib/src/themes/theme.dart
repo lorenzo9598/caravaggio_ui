@@ -16,6 +16,18 @@ class CaravaggioUI {
   late MaterialColor _onPrimaryDarkMaterialColor;
   late MaterialColor _onSecondaryDarkMaterialColor;
 
+  late Color _configuredPrimaryColor;
+  late Color _configuredSecondaryColor;
+  Color? _configuredPrimaryColorLight;
+  Color? _configuredPrimaryColorDark;
+  Color? _configuredSecondaryColorLight;
+  Color? _configuredSecondaryColorDark;
+  String? _configuredFontFamily;
+  bool _configuredScaffoldBackgroundColor = false;
+
+  /// Notifies listeners when theme colors are updated at runtime.
+  final ValueNotifier<int> colorsListenable = ValueNotifier<int>(0);
+
   /// Private constructor for singleton pattern.
   CaravaggioUI._();
 
@@ -44,74 +56,95 @@ class CaravaggioUI {
     String? fontFamily,
     bool scaffoldBackgroundColor = false,
   }) {
-    // Create a MaterialColor from the primary color and its optional light/dark variants
+    _instance._configuredPrimaryColor = primaryColor;
+    _instance._configuredSecondaryColor = secondaryColor;
+    _instance._configuredPrimaryColorLight = primaryColorLight;
+    _instance._configuredPrimaryColorDark = primaryColorDark;
+    _instance._configuredSecondaryColorLight = secondaryColorLight;
+    _instance._configuredSecondaryColorDark = secondaryColorDark;
+    _instance._configuredFontFamily = fontFamily;
+    _instance._configuredScaffoldBackgroundColor = scaffoldBackgroundColor;
+    _instance._applyTheme(notifyListeners: false);
+    return _instance;
+  }
+
+  /// Updates primary and/or secondary colors at runtime.
+  ///
+  /// Light and dark variants are regenerated from the new base colors unless
+  /// they were explicitly set during [initialize].
+  void updateColors({
+    Color? primaryColor,
+    Color? secondaryColor,
+  }) {
+    if (primaryColor != null) {
+      _configuredPrimaryColor = primaryColor;
+      _configuredPrimaryColorLight = null;
+      _configuredPrimaryColorDark = null;
+    }
+    if (secondaryColor != null) {
+      _configuredSecondaryColor = secondaryColor;
+      _configuredSecondaryColorLight = null;
+      _configuredSecondaryColorDark = null;
+    }
+    _applyTheme();
+  }
+
+  void _applyTheme({bool notifyListeners = true}) {
     final MaterialColor primaryMaterialColor = _buildMaterialColor(
-      primaryColor,
-      lightVariant: primaryColorLight,
-      darkVariant: primaryColorDark,
+      _configuredPrimaryColor,
+      lightVariant: _configuredPrimaryColorLight,
+      darkVariant: _configuredPrimaryColorDark,
     );
 
-    // Create a MaterialColor from the secondary color and its optional light/dark variants
     final MaterialColor secondaryMaterialColor = _buildMaterialColor(
-      secondaryColor,
-      lightVariant: secondaryColorLight,
-      darkVariant: secondaryColorDark,
+      _configuredSecondaryColor,
+      lightVariant: _configuredSecondaryColorLight,
+      darkVariant: _configuredSecondaryColorDark,
     );
 
-    final MaterialColor onPrimaryMaterialColor = AppColors.onFrom(primaryColor);
-
-    final MaterialColor onSecondaryMaterialColor = AppColors.onFrom(secondaryColor);
-
+    final MaterialColor onPrimaryMaterialColor = AppColors.onFrom(_configuredPrimaryColor);
+    final MaterialColor onSecondaryMaterialColor = AppColors.onFrom(_configuredSecondaryColor);
     final MaterialColor onPrimaryLightMaterialColor = AppColors.onFrom(primaryMaterialColor[200] ?? primaryMaterialColor);
-
     final MaterialColor onSecondaryLightMaterialColor = AppColors.onFrom(secondaryMaterialColor[200] ?? secondaryMaterialColor);
-
     final MaterialColor onPrimaryDarkMaterialColor = AppColors.onFrom(primaryMaterialColor[800] ?? primaryMaterialColor);
-
     final MaterialColor onSecondaryDarkMaterialColor = AppColors.onFrom(secondaryMaterialColor[800] ?? secondaryMaterialColor);
 
-    // Set the primary MaterialColor in the singleton instance
-    _instance._materialPrimaryColor = primaryMaterialColor;
+    _materialPrimaryColor = primaryMaterialColor;
+    _materialSecondaryColor = secondaryMaterialColor;
+    _onPrimaryMaterialColor = onPrimaryMaterialColor;
+    _onSecondaryMaterialColor = onSecondaryMaterialColor;
+    _onPrimaryLightMaterialColor = onPrimaryLightMaterialColor;
+    _onSecondaryLightMaterialColor = onSecondaryLightMaterialColor;
+    _onPrimaryDarkMaterialColor = onPrimaryDarkMaterialColor;
+    _onSecondaryDarkMaterialColor = onSecondaryDarkMaterialColor;
 
-    // Set the secondary MaterialColor in the singleton instance
-    _instance._materialSecondaryColor = secondaryMaterialColor;
-
-    // Set the onPrimary and onSecondary MaterialColors in the singleton instance
-    _instance._onPrimaryMaterialColor = onPrimaryMaterialColor;
-    _instance._onSecondaryMaterialColor = onSecondaryMaterialColor;
-    _instance._onPrimaryLightMaterialColor = onPrimaryLightMaterialColor;
-    _instance._onSecondaryLightMaterialColor = onSecondaryLightMaterialColor;
-    _instance._onPrimaryDarkMaterialColor = onPrimaryDarkMaterialColor;
-    _instance._onSecondaryDarkMaterialColor = onSecondaryDarkMaterialColor;
-
-    // Initialize ThemeHelper with the primary and secondary MaterialColors
     final ThemeHelper themeHelper = ThemeHelper(
       primaryMaterialColor: primaryMaterialColor,
       secondaryMaterialColor: secondaryMaterialColor,
     );
 
-    // Create a ThemeData object with various theme settings
-    _instance._themeData = ThemeData(
-      useMaterial3: true, // Enable Material 3 design
-      fontFamily: fontFamily, // Set the font family
-      primarySwatch: primaryMaterialColor, // Set the primary swatch color
-      primaryColor: primaryMaterialColor, // Set the primary color
-      primaryColorLight: primaryMaterialColor[200], // Set the light primary color
-      buttonTheme: themeHelper.buttonTheme, // Set the button theme
-      outlinedButtonTheme: themeHelper.outlinedButtonTheme, // Set the outlined button theme
-      floatingActionButtonTheme: themeHelper.floatingActionButtonTheme, // Set the floating action button theme
-      disabledColor: Colors.grey, // Set the disabled color
-      inputDecorationTheme: themeHelper.inputDecorationTheme, // Set the input decoration theme
-      appBarTheme: themeHelper.appBarTheme, // Set the app bar theme
-      bottomNavigationBarTheme: themeHelper.bottomNavigationBarTheme, // Set the bottom navigation bar theme
-      progressIndicatorTheme: themeHelper.progressIndicatorTheme, // Set the progress indicator theme
-      scaffoldBackgroundColor: scaffoldBackgroundColor ? primaryMaterialColor[50] : null, // Set the scaffold background color
-      colorScheme: themeHelper.colorScheme, // Set the color scheme
-      iconTheme: themeHelper.iconTheme, // Set the icon theme
+    _themeData = ThemeData(
+      useMaterial3: true,
+      fontFamily: _configuredFontFamily,
+      primarySwatch: primaryMaterialColor,
+      primaryColor: primaryMaterialColor,
+      primaryColorLight: primaryMaterialColor[200],
+      buttonTheme: themeHelper.buttonTheme,
+      outlinedButtonTheme: themeHelper.outlinedButtonTheme,
+      floatingActionButtonTheme: themeHelper.floatingActionButtonTheme,
+      disabledColor: Colors.grey,
+      inputDecorationTheme: themeHelper.inputDecorationTheme,
+      appBarTheme: themeHelper.appBarTheme,
+      bottomNavigationBarTheme: themeHelper.bottomNavigationBarTheme,
+      progressIndicatorTheme: themeHelper.progressIndicatorTheme,
+      scaffoldBackgroundColor: _configuredScaffoldBackgroundColor ? primaryMaterialColor[50] : null,
+      colorScheme: themeHelper.colorScheme,
+      iconTheme: themeHelper.iconTheme,
     );
 
-    // Return the singleton instance
-    return _instance;
+    if (notifyListeners) {
+      colorsListenable.value++;
+    }
   }
 
   /// Returns the initialized theme data.
@@ -262,4 +295,22 @@ class CColors {
   /// Returns the onSecondary dark variant color.
   // ignore: deprecated_member_use_from_same_package
   static Color get onSecondaryDarkColor => CaravaggioUI.instance.onSecondaryDarkColor;
+}
+
+/// Rebuilds when [CaravaggioUI.updateColors] changes the palette.
+///
+/// Use around widgets that resolve [CColors] or [CGradient] at build time so
+/// their colors refresh. [Theme.of] alone does not rebuild const subtrees.
+class CColorsBuilder extends StatelessWidget {
+  const CColorsBuilder({super.key, required this.builder});
+
+  final Widget Function(BuildContext context) builder;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: CaravaggioUI.instance.colorsListenable,
+      builder: (context, _) => builder(context),
+    );
+  }
 }

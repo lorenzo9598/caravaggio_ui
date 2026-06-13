@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 ## [1.0.3]
 
 ### Added
+- **CScaffold**: design-system scaffold with gradient background, scroll-linked app bar overlay, scroll-aware title, and configurable default back pill.
+  - `scrollOverlayColor` (`Color?`) — top scroll overlay gradient tint; null uses `CColors.secondaryColorLight`.
+  - `backButtonScrolledBackgroundColor` (`Color?`) — back pill background when scrolled; null uses `CColors.secondaryColor`.
+  - `backButtonScrolledBackgroundAlpha` (`double`, default `0.7`) — opacity of the scrolled back pill background.
+  - `backButtonTopBackgroundAlpha` (`double`, default `0.5`) — white back pill opacity at scroll offset 0.
+  - Also: `hideTitleOnScroll`, `titleAlignment`, `bodyBuilder`, `scrollController`, `backgroundGradient`, `backgroundLayers`, and related back-pill options.
 - **CLoader**: new animated loaders with three styles:
   - `CLoader.bouncing()` — bouncing dots animation
   - `CLoader.orbit()` — dots orbiting in a circle

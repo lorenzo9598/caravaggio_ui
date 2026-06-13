@@ -15,14 +15,7 @@ class CLoader extends StatelessWidget {
     required this.type,
     this.color,
     this.numberOfDots = 3,
-  })  : assert(
-          type != CLoaderType.bouncing || numberOfDots <= 5,
-          'Bouncing loader supports at most 5 dots.',
-        ),
-        assert(
-          type != CLoaderType.pulsing || numberOfDots <= 5,
-          'Pulsing loader supports at most 5 dots.',
-        );
+  });
 
   /// Tipo di animazione del loader.
   final CLoaderType type;
@@ -285,36 +278,31 @@ class _PulsingDotsLoaderInnerState extends State<_PulsingDotsLoaderInner> with S
     )..repeat();
 
     _scaleAnimations = List.generate(widget.numberOfDots, (index) {
-      // Distribuisce l'intervallo in base al numero di pallini.
-      final segment = 1.0 / widget.numberOfDots;
-      final rawStart = index * segment;
-      // Ogni pallino occupa il 60% del proprio segmento, lasciando un po' di spazio "vuoto".
-      final rawEnd = rawStart + segment * 0.6;
+      final start = index * 0.2;
+      final end = start + 0.6;
 
-      final start = rawStart.clamp(0.0, 1.0);
-      final end = rawEnd.clamp(start, 1.0);
+      final rawStart = start.clamp(0.0, 1.0);
+      final rawEnd = end.clamp(rawStart, 1.0);
 
       return Tween(begin: 0.7, end: 1.2).animate(
         CurvedAnimation(
           parent: _controller,
-          curve: Interval(start, end, curve: Curves.easeInOut),
+          curve: Interval(rawStart, rawEnd, curve: Curves.easeInOut),
         ),
       );
     });
 
     _opacityAnimations = List.generate(widget.numberOfDots, (index) {
-      // Stessa logica di distribuzione usata per la scala.
-      final segment = 1.0 / widget.numberOfDots;
-      final rawStart = index * segment;
-      final rawEnd = rawStart + segment * 0.6;
+      final start = index * 0.2;
+      final end = start + 0.6;
 
-      final start = rawStart.clamp(0.0, 1.0);
-      final end = rawEnd.clamp(start, 1.0);
+      final rawStart = start.clamp(0.0, 1.0);
+      final rawEnd = end.clamp(rawStart, 1.0);
 
       return Tween(begin: 0.3, end: 1.0).animate(
         CurvedAnimation(
           parent: _controller,
-          curve: Interval(start, end, curve: Curves.easeInOut),
+          curve: Interval(rawStart, rawEnd, curve: Curves.easeInOut),
         ),
       );
     });

@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 extension CLinearProgressIndicator on LinearProgressIndicator {
   /// Creates a primary LinearProgressIndicator widget.
   static LinearProgressIndicator primary({Key? key}) {
-    return LinearProgressIndicator(key: key, color: CColors.primaryColor);
+    return LinearProgressIndicator(key: key, color: CColors.primaryColor, backgroundColor: CColors.primaryColor.withValues(alpha: 0.1));
   }
 
   /// Creates a secondary LinearProgressIndicator widget.
   static LinearProgressIndicator secondary({Key? key}) {
-    return LinearProgressIndicator(key: key, color: CColors.secondaryColor, backgroundColor: CColors.primaryColor);
+    return LinearProgressIndicator(key: key, color: CColors.secondaryColor, backgroundColor: CColors.secondaryColor.withValues(alpha: 0.1));
   }
 }
 

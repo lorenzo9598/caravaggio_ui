@@ -6,7 +6,7 @@ const SizedBox spacerSmall = SizedBox(height: 10);
 const Icon demoIcon = Icon(Icons.star);
 const Icon suffixIcon = Icon(Icons.star);
 const CFieldDecoration demoDecoration = CFieldDecoration(labelText: "Label", hintText: "Hint text");
-const Text buttonText = Text("Click here");
+final CText buttonText = CText.label("Click here");
 const List<String> options = ["Option 1", "Option 2", "Option 3"];
 
 const CFieldDecoration textFieldDecoration = demoDecoration;

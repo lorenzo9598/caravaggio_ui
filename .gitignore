@@ -53,6 +53,3 @@ app.*.map.json
 *.freezed.dart
 
 *.todo
-
-# website
-/website/

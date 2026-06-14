@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CaravaggioUI — A comprehensive Flutter UI package with beautifully crafted components, design tokens, and runtime theming.">
+  <meta name="theme-color" content="#662D8C">
+  <link rel="canonical" href="https://caravaggioui.com/">
+  <title>CaravaggioUI — Flutter UI Components</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Main">
+      <a class="nav-brand" href="#top">
+        <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png" alt="" width="36" height="36">
+        <span>CaravaggioUI</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#components">Components</a></li>
+        <li><a href="#getting-started">Get started</a></li>
+        <li><a href="https://pub.dev/documentation/caravaggio_ui/latest/" target="_blank" rel="noopener">API docs</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-ghost btn-sm" href="https://github.com/lorenzo9598/caravaggio_ui" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.395-.135-.345-.72-1.395-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a class="btn btn-primary btn-sm" href="https://pub.dev/packages/caravaggio_ui" target="_blank" rel="noopener">pub.dev</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-content reveal">
+        <p class="hero-badge">Flutter UI package · v1.0.4</p>
+        <h1>Build stunning Flutter apps with a cohesive design system</h1>
+        <p class="hero-lead">
+          CaravaggioUI streamlines your UI workflow with theme-aware components,
+          design tokens, and runtime color customization — so you ship polished
+          interfaces faster.
+        </p>
+        <div class="install-box">
+          <code id="install-cmd">flutter pub add caravaggio_ui</code>
+          <button class="copy-btn" type="button" data-copy="#install-cmd" aria-label="Copy install command">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#getting-started">Get started</a>
+          <a class="btn btn-outline" href="https://github.com/lorenzo9598/caravaggio_ui/tree/main/example" target="_blank" rel="noopener">View example app</a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong>30+</strong> components</li>
+          <li><strong>Flutter</strong> ≥ 3.22</li>
+          <li><strong>Dart</strong> ≥ 3.0</li>
+          <li><strong>All</strong> platforms</li>
+        </ul>
+      </div>
+
+      <div class="hero-preview reveal" aria-hidden="true">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="preview-scaffold">
+              <div class="preview-appbar">
+                <div class="preview-back"></div>
+                <span>Dashboard</span>
+              </div>
+              <div class="preview-body">
+                <div class="preview-carousel">
+                  <div class="preview-carousel-header">
+                    <span class="preview-tag">Featured</span>
+                  </div>
+                  <div class="preview-carousel-content">
+                    <strong>Weekend retreat</strong>
+                    <span>Mountain escape · 4.8 ★</span>
+                  </div>
+                </div>
+                <div class="preview-tabs">
+                  <span class="active">Overview</span>
+                  <span>Stats</span>
+                  <span>Details</span>
+                </div>
+                <div class="preview-tile">
+                  <div class="preview-tile-icon"></div>
+                  <div class="preview-tile-text">
+                    <strong>Account settings</strong>
+                    <span>Email, password, preferences</span>
+                  </div>
+                  <div class="preview-chevron"></div>
+                </div>
+                <div class="preview-btn-row">
+                  <div class="preview-btn gradient">Get started</div>
+                  <div class="preview-btn outline">Learn more</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="features">
+      <div class="section-header reveal">
+        <p class="section-label">Why CaravaggioUI</p>
+        <h2>Everything you need for production-ready UI</h2>
+        <p class="section-desc">From typography and gradients to complex scaffolds and data views — built with flexibility and consistency at the core.</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card reveal">
+          <div class="feature-icon" style="--accent: var(--primary-light)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </div>
+          <h3>Runtime theming</h3>
+          <p>Initialize primary and secondary colors once, then update them live with <code>CaravaggioUI.updateColors</code> and <code>CColorsBuilder</code>.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-icon" style="--accent: var(--secondary-light)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3>Design tokens</h3>
+          <p>Shared spacing, radius, shadows, and semantic colors via <code>AppSpacing</code>, <code>AppRadius</code>, <code>AppShadow</code>, and <code>AppColors</code>.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-icon" style="--accent: var(--primary-light)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>Rich form controls</h3>
+          <p>Buttons, text fields, autocomplete, dropdowns, date &amp; time pickers, checkboxes, and radio groups with four visual styles each.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-icon" style="--accent: var(--secondary-light)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Opinionated views</h3>
+          <p>Gradient scaffolds, pill tabs, popups, bottom sheets, toasts, carousels, and list tiles — ready to drop into your app.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-icon" style="--accent: var(--primary-light)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h3>Gradients &amp; typography</h3>
+          <p>Theme-aware <code>CGradient</code> presets and <code>CText</code> factory constructors with chainable style modifiers.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-icon" style="--accent: var(--secondary-light)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Data &amp; feedback</h3>
+          <p>Tables, circular indicators, progress bars, animated loaders, and loading wrappers for complete user feedback loops.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="components">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-label">Component library</p>
+          <h2>Organized by category</h2>
+          <p class="section-desc">Explore the full catalog in the example app or API documentation.</p>
+        </div>
+
+        <div class="components-grid">
+          <div class="component-group reveal">
+            <h3>Generics</h3>
+            <ul>
+              <li><code>CText</code></li>
+              <li><code>CGradient</code></li>
+            </ul>
+          </div>
+          <div class="component-group reveal">
+            <h3>Form</h3>
+            <ul>
+              <li><code>CButton</code></li>
+              <li><code>CTextField</code></li>
+              <li><code>CAutocomplete</code></li>
+              <li><code>CDropdown</code></li>
+              <li><code>CDatePicker</code></li>
+              <li><code>CTimePicker</code></li>
+              <li><code>CCheckbox</code></li>
+              <li><code>CRadioGroup</code></li>
+            </ul>
+          </div>
+          <div class="component-group reveal">
+            <h3>Views</h3>
+            <ul>
+              <li><code>CScaffold</code></li>
+              <li><code>CTabs</code></li>
+              <li><code>CPopup</code></li>
+              <li><code>CModalBottomSheet</code></li>
+              <li><code>CToast</code></li>
+              <li><code>CWrapper</code></li>
+              <li><code>CIconBadge</code></li>
+              <li><code>CCarousel</code></li>
+              <li><code>CTagChip</code></li>
+              <li><code>CTile</code></li>
+            </ul>
+          </div>
+          <div class="component-group reveal">
+            <h3>Indicators &amp; data</h3>
+            <ul>
+              <li><code>CTable</code></li>
+              <li><code>CCircularIndicator</code></li>
+              <li><code>CCircularProgressIndicator</code></li>
+              <li><code>CLinearProgressIndicator</code></li>
+              <li><code>CLoader</code></li>
+            </ul>
+          </div>
+          <div class="component-group reveal">
+            <h3>Design tokens</h3>
+            <ul>
+              <li><code>AppRadius</code></li>
+              <li><code>AppSpacing</code></li>
+              <li><code>AppShadow</code></li>
+              <li><code>AppColors</code></li>
+              <li><code>CColors</code></li>
+            </ul>
+          </div>
+          <div class="component-group component-highlight reveal">
+            <h3>Example app</h3>
+            <p>Interactive demos for every component — colors, forms, scaffolds, dialogs, carousels, and more.</p>
+            <a class="btn btn-outline btn-sm" href="https://github.com/lorenzo9598/caravaggio_ui/tree/main/example" target="_blank" rel="noopener">Browse demos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="getting-started">
+      <div class="section-header reveal">
+        <p class="section-label">Get started</p>
+        <h2>Up and running in minutes</h2>
+        <p class="section-desc">Add the package, initialize the theme, wrap your app with <code>CToast</code>, and start building.</p>
+      </div>
+
+      <div class="code-steps">
+        <div class="code-step reveal">
+          <span class="step-num">1</span>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span>Install</span>
+              <button class="copy-btn copy-btn-dark" type="button" data-copy="#code-install" aria-label="Copy install command">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <pre><code id="code-install">flutter pub add caravaggio_ui</code></pre>
+          </div>
+        </div>
+
+        <div class="code-step reveal">
+          <span class="step-num">2</span>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span>Initialize in main.dart</span>
+              <button class="copy-btn copy-btn-dark" type="button" data-copy="#code-init" aria-label="Copy initialization code">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <pre><code id="code-init">void main() {
+  CaravaggioUI.initialize(
+    primaryColor: const Color(0xFF662D8C),
+    secondaryColor: const Color(0xFFED1E79),
+  );
+
+  runApp(const MainApp());
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="code-step reveal">
+          <span class="step-num">3</span>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span>Configure MaterialApp</span>
+              <button class="copy-btn copy-btn-dark" type="button" data-copy="#code-app" aria-label="Copy MaterialApp code">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <pre><code id="code-app">MaterialApp(
+  theme: CUI.themeData,
+  builder: (context, child) =>
+      CToast(child: child ?? const SizedBox.shrink()),
+  home: const HomeScreen(),
+);</code></pre>
+          </div>
+        </div>
+
+        <div class="code-step reveal">
+          <span class="step-num">4</span>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span>Use components</span>
+              <button class="copy-btn copy-btn-dark" type="button" data-copy="#code-use" aria-label="Copy usage example">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <pre><code id="code-use">CButton.elevated(
+  gradient: CGradient.primaryToSecondary,
+  onPressed: () {},
+  child: CText.label('Press me'),
+);
+
+CColorsBuilder(
+  builder: (context) => CScaffold(
+    title: CText.title('Hello'),
+    body: CText.body('Welcome to CaravaggioUI'),
+  ),
+);</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container cta-inner reveal">
+        <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png" alt="" width="80" height="80" class="cta-logo">
+        <h2>Ready to paint your next Flutter app?</h2>
+        <p>Install from pub.dev, explore the example app, and dive into the documentation.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary btn-lg" href="https://pub.dev/packages/caravaggio_ui" target="_blank" rel="noopener">View on pub.dev</a>
+          <a class="btn btn-ghost btn-lg" href="https://github.com/lorenzo9598/caravaggio_ui" target="_blank" rel="noopener">Star on GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png" alt="" width="32" height="32">
+        <span>CaravaggioUI</span>
+      </div>
+      <p class="footer-copy">Open source Flutter UI package by Lorenzo Busi.</p>
+      <ul class="footer-links">
+        <li><a href="https://pub.dev/packages/caravaggio_ui" target="_blank" rel="noopener">pub.dev</a></li>
+        <li><a href="https://pub.dev/documentation/caravaggio_ui/latest/" target="_blank" rel="noopener">API docs</a></li>
+        <li><a href="https://github.com/lorenzo9598/caravaggio_ui" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/lorenzo9598/caravaggio_ui/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

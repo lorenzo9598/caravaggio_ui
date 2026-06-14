@@ -1,6 +1,6 @@
 # CaravaggioUI
 
-<div align="center"> 
+<div align="center">
     <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png" alt="Caravaggio UI logo" width="300">
 </div>
 
@@ -8,18 +8,43 @@
 
 A comprehensive UI package designed to streamline your Flutter app development process. Built with flexibility and customization in mind, CaravaggioUI offers a wide range of beautifully crafted UI components to help you create stunning user interfaces with ease.
 
-<br />
+## Table of contents
 
-<p align="center"> 
-    <img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/example_app.png" alt="example of an app with Caravaggio UI design screenshots" width="450">
-</p>
+- [Getting started](#getting-started)
+- [Usage](#usage)
+- [Colors](#colors)
+- [Design tokens](#design-tokens)
+- [Generics](#generics)
+  - [CText](#ctext)
+  - [CGradient](#cgradient)
+- [Form](#form)
+  - [CButton](#cbutton)
+  - [CTextField, CAutocomplete, CDropdown](#ctextfield-cautocomplete-cdropdown)
+  - [CDatePicker and CTimePicker](#cdatepicker-and-ctimepicker)
+  - [CCheckbox](#ccheckbox)
+  - [CRadioGroup](#cradiogroup)
+- [Views](#views)
+  - [CScaffold](#cscaffold)
+  - [CTabs](#ctabs)
+  - [CPopup and showCPopup](#cpopup-and-showcpopup)
+  - [CModalBottomSheet and showCModalBottomSheet](#cmodalbottomsheet-and-showcmodalbottomsheet)
+  - [CToast](#ctoast)
+  - [CWrapper](#cwrapper)
+  - [CIconBadge](#ciconbadge)
+  - [CCarousel](#ccarousel)
+  - [CTagChip](#ctagchip)
+  - [CTile](#ctile)
+- [Indicators & data](#indicators--data)
+  - [CTable](#ctable)
+  - [CCircularIndicator](#ccircularindicator)
+  - [Progress indicators](#progress-indicators)
+  - [CLoader](#cloader)
 
 ## Getting started
 
-Within your main.dart file, initiate CarvaggioUI to harness its capabilities. This initialization step is essential for accessing CarvaggioUI's rich set of features seamlessly.
+Within your `main.dart` file, initialize CaravaggioUI before calling `runApp`. This step is required to access the theme and components.
 
 ```dart
-
 void main() {
   CaravaggioUI.initialize(
     primaryColor: const Color(0xFF662D8C),
@@ -32,300 +57,251 @@ void main() {
 
   runApp(const MainApp());
 }
-
 ```
 
-After initialization, ensure that you set the theme parameter of MaterialApp with the themeData provided by CarvaggioUI. This step guarantees consistent visual styling across your entire application.
+Then pass the generated theme to `MaterialApp` and wrap the app with [CToast] so toast messages can be shown from any route:
 
 ```dart
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
-class  MainApp  extends  StatelessWidget {
-
-    const  MainApp({Key? key}) : super(key: key);
-
-    @override
-    Widget  build(BuildContext context) {
-        return  MaterialApp(
-            title: 'Caravaggio UI',
-            theme: CaravaggioUI.instance.themeData,
-            home: const  HomeScreen(),
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Caravaggio UI',
+      theme: CUI.themeData,
+      builder: (context, child) => CToast(child: child ?? const SizedBox.shrink()),
+      home: const HomeScreen(),
+    );
+  }
 }
-
 ```
 
 ## Usage
 
-Upon initialization, by simply invoking
+After initialization, use [CUI] and [CColors] for theme and palette access. [CaravaggioUI.instance] remains available but its direct color getters are deprecated in favor of [CColors].
 
 ```dart
+ThemeData themeData = CUI.themeData;
 
-CaravaggioUI.instance
+MaterialColor primary = CColors.primary;
+MaterialColor secondary = CColors.secondary;
 
+Color primaryColor = CColors.primaryColor;
+Color secondaryColor = CColors.secondaryColor;
 ```
 
-you'll ulock the core theme data of your application and a default color Palette, including primaryLight, primaryDark, secondaryLight, and secondaryDark. These predefined colors offer a quick and intuitive way to maintain visual consistency across your app, catering to various design needs.
+## Colors
 
-### Colors
-
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_1.png" alt="screenshot of Caravaggio UI generated colors" width="200">
-
+[CColors] exposes the full palette generated from your primary and secondary colors, including light/dark variants and on-color tones.
 
 ```dart
+Color primaryColorLight = CColors.primaryColorLight;
+Color secondaryColorLight = CColors.secondaryColorLight;
+Color primaryColorDark = CColors.primaryColorDark;
+Color secondaryColorDark = CColors.secondaryColorDark;
 
-ThemeData themeData => CaravaggioUI.instance.themeData;
-
-MaterialColor primary = CarvaggioUI.instance.primary;
-MaterialColor secondary = CarvaggioUI.instance.secondary;
-
-Color primaryColor = CarvaggioUI.instance.primaryColor;
-Color secondaryColor = CarvaggioUI.instance.secondaryColor;
-
-Color primaryColorLight = CarvaggioUI.instance.primaryColorLight;
-Color secondaryColorLight = CarvaggioUI.instance.secondaryColorLight;
-
-Color primaryColorDark = CarvaggioUI.instance.;
-Color secondaryColorDark = CarvaggioUI.instance.secondaryColorDark;
-
+Color onPrimary = CColors.onPrimaryColor;
+Color onSecondary = CColors.onSecondaryColor;
 ```
 
-### Generics
-
-For graphic uniformity, Caravaggio UI introduces CText and CGradients. These are two classes that aim to provide easy, intuitive, and easily memorable methods so they can be readily used at any point during app development.
-
-#### `CText`
-
-CText is an extension of Text widget that adds a series of factory constructors and getter methods to include dimensions, colors, and styles.
-
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_2.png" alt="screenshot of Caravaggio UI generated text sizes" width="200">
+Update colors at runtime with [CaravaggioUI.updateColors]. Wrap widgets that read [CColors] or [CGradient] in [CColorsBuilder] so they rebuild when the palette changes:
 
 ```dart
+CaravaggioUI.instance.updateColors(
+  primaryColor: const Color(0xFF00695C),
+  secondaryColor: const Color(0xFFFF6F00),
+);
 
-CText.label("Label", size: TextSize.small),
-CText.label("Label", size: TextSize.medium),
-CText.label("Label", size: TextSize.large),
-CText.body("Body", size: TextSize.small),
-CText.body("Body", size: TextSize.medium),
-CText.body("Body", size: TextSize.large),
-CText.title("Title", size: TextSize.small),
-CText.title("Title", size: TextSize.medium),
-CText.title("Title", size: TextSize.large),
-CText.headline("Headline", size: TextSize.small),
-CText.headline("Headline", size: TextSize.medium),
-CText.headline("Headline", size: TextSize.large),
-CText.display("Display", size: TextSize.small),
-CText.display("Display", size: TextSize.medium),
-CText.display("Display", size: TextSize.large),
-
+CColorsBuilder(
+  builder: (context) => CButton.elevated(
+    onPressed: () {},
+    child: CText.label('Themed button'),
+  ),
+)
 ```
 
-Overrides such as `italic`, `bold`, `withColor()`, etc. are applied after merging, so they always retain the theme values.
+## Design tokens
 
-Chaining (e.g., `CText("hello").italic.bold.size(18)`) respects the order: the last override takes precedence over previous properties.
+Shared spacing, radius, shadow, and color helpers used across components:
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_3.png" alt="screenshot of Caravaggio UI generated text getters" width="200">
+| Class | Purpose |
+| --- | --- |
+| [AppRadius] | Corner radii (`AppRadius.s`, `AppRadius.m`, `AppRadius.l`, …) |
+| [AppSpacing] | Consistent padding and gaps |
+| [AppShadow] | Card and surface shadows (`AppShadow.sm`, …) |
+| [AppColors] | Semantic colors independent of the theme palette |
 
+Use them in custom widgets or when overriding component defaults:
 
 ```dart
-
-CText.body("Primary", size: TextSize.medium).primary,
-CText.body("Secondary", size: TextSize.medium).secondary,
-CText.body("Bold", size: TextSize.medium).bold,
-CText.body("Italic", size: TextSize.medium).italic,
-CText.body("Underline", size: TextSize.medium).underline,
-CText.body("withColor", size: TextSize.medium).withColor(Colors.blue),
-CText.body("withSize", size: TextSize.medium).withSize(11),
-CText.body("withWeight", size: TextSize.medium).withWeight(FontWeight.bold),
-
+Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.all(AppRadius.m),
+    boxShadow: AppShadow.sm,
+  ),
+  padding: EdgeInsets.all(AppSpacing.sm),
+  child: CText.body('Custom card'),
+)
 ```
 
-#### `CGradients`
+## Generics
 
-With the CGradient class you can quickly get gradients that match your app's theme
+### CText
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_4.png" alt="screenshot of Caravaggio UI generated gradients" width="200">
+[CText] extends [Text] with factory constructors for labels, body, titles, headlines, and display styles. Each accepts a [TextSize] (`small`, `medium`, `large`).
 
 ```dart
+CText.label('Label', size: TextSize.small),
+CText.body('Body', size: TextSize.medium),
+CText.title('Title', size: TextSize.large),
+CText.headline('Headline', size: TextSize.medium),
+CText.display('Display', size: TextSize.large),
+```
 
+Style modifiers can be chained. The last override wins:
+
+```dart
+CText.body('Primary', size: TextSize.medium).primary,
+CText.body('Secondary', size: TextSize.medium).secondary,
+CText.body('Bold', size: TextSize.medium).bold,
+CText.body('Italic', size: TextSize.medium).italic,
+CText.body('Underline', size: TextSize.medium).underline,
+CText.body('Custom', size: TextSize.medium).withColor(Colors.blue),
+CText.body('Custom size', size: TextSize.medium).withSize(11),
+CText.body('Custom weight', size: TextSize.medium).withWeight(FontWeight.bold),
+```
+
+### CGradient
+
+[CGradient] provides theme-aware [LinearGradient] presets and a customizable factory.
+
+```dart
 final LinearGradient gradient = CGradient.primaryLight;
-final LinearGradient gradient = CGradient.primaryDark;
-final LinearGradient gradient = CGradient.primaryHighContrast;
-
-final LinearGradient gradient = CGradient.secondaryLight;
-final LinearGradient gradient = CGradient.secondaryDark;
-final LinearGradient gradient = CGradient.secondaryHighContrast;
-
 final LinearGradient gradient = CGradient.primaryToSecondary;
-final LinearGradient gradient = CGradient.primaryLightToSecondaryLign;
+final LinearGradient gradient = CGradient.primaryLightToSecondaryLight;
 final LinearGradient gradient = CGradient.primaryDarkToSecondaryDark;
 
-```
-
-You can also add some customization with static getter
-
-```dart
-
-CGradient.primaryToSecondary.reverse,
-CGradient.primaryToSecondary.opacity(0.5),
-
-```
-
-Or create a custom gradient using user friendly enums ready to use.
-
-```dart
+CGradient.primaryToSecondary.reverse;
+CGradient.primaryToSecondary.opacity(0.5);
 
 CGradient.custom(
-    colors: CGradientColorType.primaryLightToSecondaryDark,
-    direction: CGradientDirection.centerLeftToTopRight,
-    opacity: 1,
-),
-
+  colors: CGradientColorType.primaryLightToSecondaryDark,
+  direction: CGradientDirection.centerLeftToTopRight,
+  opacity: 1,
+);
 ```
 
-CGradientDirection is an enum that exposes all possible gradient directions. Similarly, it considers left to right by default, as the reverse method is available
+[CGradientDirection] covers all common directions. Use `.reverse` on any preset to flip it.
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/gradient_directions.png" alt="Caravaggio UI gradient direction enum attribute for custom gradient generator" width="500">
+## Form
 
-### Form
+### CButton
 
-#### `CButtons`
-
-The CButton class enables easy and fast creation of buttons according to the CaravaggioUI style. It features three types of buttons, each with its corresponding small version.
-
-1. Elevated `elevated`
-
-2. Outlined `outlined`
-
-3. Text `text`
-
-
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_8.png" alt="screenshot of Caravaggio UI CButton class" width="200">
+[CButton] supports elevated, outlined, text, and icon-only variants. Size modifiers scale the button height:
 
 ```dart
+CButton.elevated(
+  onPressed: () {},
+  icon: Icon(Icons.star),
+  suffixIcon: Icon(Icons.arrow_forward),
+  gradient: CGradient.primaryToSecondary,
+  iconAlignment: CButtonIconAlignment.spaceBetween,
+  child: CText.label('Press me'),
+);
 
-final CButton button = CButton.elevated({
-    child: Text('Press me'),
-    icon: Icon(Icons.star),
-    suffixIcon: Icon(Icons.star),
-    gradient: CGradients.primaryToSecodnary,
-})
+CButton.outlined(
+  onPressed: () {},
+  child: CText.label('Outlined'),
+);
 
+CButton.text(
+  onPressed: () {},
+  child: CText.label('Text button'),
+);
+
+CButton.icon(
+  onPressed: () {},
+  icon: Icons.settings_outlined,
+);
 ```
 
-You can also create a sized button with size getter :
+Size getters: `.xSmall`, `.small`, `.medium`, `.large`, `.xLarge`, `.xxLarge`.
 
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_9.png" alt="screenshot of Caravaggio UI CButton size gettrs" width="200">
+Optional press animation via `animationDuration` and `animationCurve`. Gradient buttons accept `foregroundColor` for label contrast.
 
-```dart
+### CTextField, CAutocomplete, CDropdown
 
-button.xSmall
-button.small
-button.medium
-button.large
-button.xLarge
-button.xxLarge
-
-```
-
-#### `CTextField`, `CAutocomplete`, `CDropdown`
-
-The available input fields in Caravaggio are `CTextField`, `CAutocomplete` and `CDropdown`. All three can be in the following forms:
-
-1. simple
-
-2. bordered
-
-3. filled
-
-4. borderedFilled
-
-and each of them can have different radius size:
-
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_6.png" alt="screenshot of Caravaggio UI CTextField class" width="200">
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_5.png" alt="screenshot of Caravaggio UI CTextField class AppRadius attribute" width="200">
+Input fields share four visual styles: `simple`, `bordered`, `filled`, and `borderedFilled`. Radius is controlled through [CFieldDecoration]:
 
 ```dart
-
 CTextField.simple(),
 CTextField.bordered(),
 CTextField.filled(),
 CTextField.borderedFilled(),
 
-
-CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.xxs)),
-CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.xs)),
-CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.s)),
 CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.m)),
-CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.l)),
-CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.xl)),
-CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.xxl)),
 ```
 
-`CTextField`, `CAutocomplete` and `CDropdown` looks like:
-
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_7.png" alt="screenshot of Caravaggio UI CTextField, CAutocomplete and CDropdown classes compared" width="200">
-
-##### `CTextField`
+##### CTextField
 
 ```dart
-
 CTextField.simple(
-    decoration: CFieldDecoration(
-        labelText: "Label",
-        hintText: "Write something here",
-        prefixIcon: Icon(Icons.star),
-        suffixIcon: Icon(Icons.star),
-    ),
-    onChanged: (_) => //...do stuff,
-),
-
+  decoration: CFieldDecoration(
+    labelText: 'Label',
+    hintText: 'Write something here',
+    prefixIcon: Icon(Icons.star),
+    suffixIcon: Icon(Icons.star),
+  ),
+  onChanged: (_) {
+    // ...
+  },
+);
 ```
 
-##### `CAutocomplete`
+##### CAutocomplete
 
 ```dart
-
 CAutocomplete<String>.simple(
-    options: ["Option 1", "Option 2", "Option 3"],
-    decoration: CFieldDecoration(
-        labelText: "Label",
-        hintText: "Write something here",
-        prefixIcon: Icon(Icons.star),
-    ),
-    optionsValueToMatch: (value) => value.toLowerCase(),
-    displayStringForOption: (value) => value,
-    searchItems: () => //...do stuff
-),
-
+  options: ['Option 1', 'Option 2', 'Option 3'],
+  decoration: CFieldDecoration(
+    labelText: 'Label',
+    hintText: 'Write something here',
+    prefixIcon: Icon(Icons.star),
+  ),
+  optionsValueToMatch: (value) => value.toLowerCase(),
+  displayStringForOption: (value) => value,
+  searchItems: () {
+    // ...
+  },
+);
 ```
 
-##### `CDropdown`
+##### CDropdown
 
 ```dart
-
 CDropdown<String>.simple(
-    items: [
-        CDropdownItemModel<String>(value: "item1", text: "Item 1"),
-        CDropdownItemModel<String>(value: "item2", text: "Item 2"),
-        CDropdownItemModel<String>(value: "item3", text: "Item 3"),
-    ],
-    decoration: CFieldDecoration(
-        labelText: "Label",
-        hintText: "Write something here",
-        prefixIcon: Icon(Icons.star),
-    ),
-    onChanged: (_) => //...do stuff
-),
-
+  items: [
+    CDropdownItemModel<String>(value: 'item1', text: 'Item 1'),
+    CDropdownItemModel<String>(value: 'item2', text: 'Item 2'),
+    CDropdownItemModel<String>(value: 'item3', text: 'Item 3'),
+  ],
+  decoration: CFieldDecoration(
+    labelText: 'Label',
+    hintText: 'Select an option',
+    prefixIcon: Icon(Icons.star),
+  ),
+  onChanged: (_) {
+    // ...
+  },
+);
 ```
 
-#### `CDatePicker` and `CTimePicker`
+### CDatePicker and CTimePicker
 
-Caravaggio UI also provides ready-to-use date and time pickers with support for single or multiple selection.
+[CDatePicker] is re-exported from the `caravaggio_calendar_picker` package. [CTimePicker] ships with CaravaggioUI. Both support single or multiple selection.
 
 ```dart
-
 CDatePicker(
   mode: CustomDatePickerMode.single,
   onChanged: (dates) {
@@ -339,101 +315,41 @@ CTimePicker(
     // Handle selected times
   },
 );
-
 ```
 
-#### `CTable`, `CCircularIndicator`, `CCircularProgressIndicator` and `CLoader`
-
-For data representation the library adds graphical elements such as tables, circular indicators, progress indicators and animated loaders.
-
-<img src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/screenshot_10.png" alt="screenshot of Caravaggio UI view elements classes" width="200">
-
-
-#### `CTable`
+### CCheckbox
 
 ```dart
+CCheckbox(controller: CCheckboxController(), label: 'Checkbox');
+```
 
-final List<String> _headerTexts = ["Header 1", "Header 2", "Header 3"];
-final List<List<String>> _rowsTexts = [
-  ["Row 1", "Row 1", "Row 1"],
-  ["Row 2", "Row 2", "Row 2"],
-  ["Row 3", "Row 3", "Row 3"],
+### CRadioGroup
+
+```dart
+final List<CRadioItem<String>> items = [
+  CRadioItem<String>(value: 'option1', label: 'Option 1'),
+  CRadioItem<String>(value: 'option2', label: 'Option 2'),
+  CRadioItem<String>(value: 'option3', label: 'Option 3'),
 ];
 
-final header = CTableHeader(titles: _headerTexts.map((title) => CTableCell(text: title)).toList());
+final CRadioController<String> controller =
+    CRadioController<String>(initialValue: 'option1');
 
-final rows = _rowsTexts.map((row) => CTableRow(values: row.map((cell) => CTableCell(text: cell)).toList())).toList();
-
-return CTable(
-    header: header,
-    rows: rows,
+CRadioGroup<String>(
+  values: items,
+  controller: controller,
+  orientation: CRadioGroupOrientation.vertical,
+  crossAxisAlignment: CRadioCrossAxisAlignment.start,
 );
-
 ```
 
-#### `CCircularIndicator`
+## Views
 
-```dart
-
-CCircularIndicator.single(value: CircularValue(currentValue: 64, maxValue: 100), label: "Value 1"),
-
-CCircularIndicator.double(
-    externalValue: CircularValue(currentValue: 64, maxValue: 100),
-    internalValue: CircularValue(currentValue: 87, maxValue: 100),
-    internalLabel: "Value 1",
-    externalLabel: "Value 2",
-),
-
-CCircularIndicator.percent(
-    value: CircularValue(currentValue: 64, maxValue: 100),
-    currentLabel: "Current",
-    maxLabel: "Max",
-    isDense: true,
-),
-
-```
-
-#### `CCircularProgressIndicator`
-
-```dart
-
-// Circular
-CCircularProgressIndicator.primary(),
-
-CCircularProgressIndicator.secondary(),
-
-// Linear
-CLinearProgressIndicator.primary(),
-
-CLinearProgressIndicator.secondary(),
-
-```
-
-#### `CLoader`
-
-Animated loaders with three factory constructors. Optional `color` (defaults to primary) and `numberOfDots` (default 3; for bouncing and pulsing, max 5).
-
-```dart
-
-CLoader.bouncing(),
-CLoader.orbit(),
-CLoader.pulsing(),
-
-// Customized
-CLoader.bouncing(color: CColors.secondaryColor, numberOfDots: 5),
-CLoader.orbit(color: CColors.primaryColorLight, numberOfDots: 6),
-CLoader.pulsing(numberOfDots: 4),
-
-```
-
-### Views
-
-#### `CScaffold`
+### CScaffold
 
 Design-system scaffold with gradient background, scroll-linked app bar overlay, optional scroll-aware title, and a configurable default back pill.
 
 ```dart
-
 CScaffold(
   title: CText.title('Page title', size: TextSize.small),
   bodyBuilder: (context, topPadding) {
@@ -445,7 +361,6 @@ CScaffold(
     );
   },
 )
-
 ```
 
 **Layout & scroll**
@@ -481,12 +396,11 @@ Read top inset from a descendant with `CScaffold.topPaddingOf(context)`, or use 
 
 See the example app: `example/lib/pages/scaffold_page.dart` and `example/lib/pages/scaffold_preview_page.dart`.
 
-#### `CTabs`
+### CTabs
 
 Rounded pill tab bar backed by Material [TabBar] / [TabBarView], with a card-style content panel below.
 
 ```dart
-
 CTabs(
   tabs: const [
     CTabItem(label: 'Overview', icon: Icons.dashboard_outlined),
@@ -508,13 +422,11 @@ CTabs(
     // React to tab selection
   },
 )
-
 ```
 
 For text-only tabs, use the `fromLabels` factory:
 
 ```dart
-
 CTabs.fromLabels(
   labels: const ['First', 'Second', 'Third'],
   children: [
@@ -523,13 +435,11 @@ CTabs.fromLabels(
     Center(child: CText.body('Third tab content')),
   ],
 )
-
 ```
 
 Enable horizontal swipes with `enableSwipe: true`. When swipe is on, set `contentHeight` if the tabs sit inside an unbounded vertical layout (e.g. a `ListView`):
 
 ```dart
-
 CTabs.fromLabels(
   enableSwipe: true,
   contentHeight: 120,
@@ -540,7 +450,6 @@ CTabs.fromLabels(
     Center(child: CText.body('Indicator animates with selection')),
   ],
 )
-
 ```
 
 | Parameter | Description |
@@ -555,14 +464,13 @@ CTabs.fromLabels(
 | `contentHeight` | Fixed height for tab content. Required when `enableSwipe` is true in unbounded layouts. |
 | `enableSwipe` | When true, tab panels respond to horizontal swipes. Default: false. |
 
-See the example app: `example/lib/pages/tabs_page.dart` (component demos) and `example/lib/pages/views_tabs_page.dart` (account profile layout).
+See the example app: `example/lib/pages/tabs_page.dart` and `example/lib/pages/views_tabs_page.dart`.
 
-#### `CPopup` and `showCPopup`
+### CPopup and showCPopup
 
 Centered modal dialog with a gradient icon header ([CPopupHeader]), optional body, and a row of [CButton] actions ([CPopupActionsRow]).
 
 ```dart
-
 showCPopup(
   context: context,
   icon: Icons.info_outline,
@@ -586,7 +494,6 @@ showCPopup(
     ),
   ],
 );
-
 ```
 
 | Parameter | Description |
@@ -601,14 +508,13 @@ showCPopup(
 
 [CPopupActionStyle] offers `elevated` (filled) and `outlined` (bordered) button styles.
 
-See the example app: `example/lib/pages/popup_page.dart` and `example/lib/pages/views_dialogs_page.dart` (delete-account confirmation).
+See the example app: `example/lib/pages/popup_page.dart` and `example/lib/pages/views_dialogs_page.dart`.
 
-#### `CModalBottomSheet` and `showCModalBottomSheet`
+### CModalBottomSheet and showCModalBottomSheet
 
 Bottom sheet with the same header pattern as [CPopup], a required body, and optional footer actions.
 
 ```dart
-
 showCModalBottomSheet(
   context: context,
   icon: Icons.tune_outlined,
@@ -632,7 +538,6 @@ showCModalBottomSheet(
     ),
   ],
 );
-
 ```
 
 Omit `actions` for content-only sheets (e.g. a list of tappable rows). The sheet is scroll-controlled and respects keyboard insets.
@@ -644,9 +549,67 @@ Omit `actions` for content-only sheets (e.g. a list of tappable rows). The sheet
 | `isDismissible` | Whether tapping the scrim closes the sheet. Default: true. |
 | `enableDrag` | Whether the sheet can be dragged down to dismiss. Default: true. |
 
-See the example app: `example/lib/pages/modal_bottom_sheet_page.dart` and `example/lib/pages/views_dialogs_page.dart` (order filters and action menu).
+See the example app: `example/lib/pages/modal_bottom_sheet_page.dart` and `example/lib/pages/views_dialogs_page.dart`.
 
-#### `CCarousel`
+### CToast
+
+Overlay toasts with semantic variants and top/bottom positioning. Wrap the app root with [CToast] (see [Getting started](#getting-started)), then show messages from any descendant:
+
+```dart
+CToast.of(context).showMessage(
+  variant: CToastVariant.success,
+  title: 'Changes saved',
+  subtitle: 'Your profile was updated successfully.',
+  position: CToastPosition.top,
+  duration: const Duration(seconds: 4),
+);
+```
+
+| Variant | Use case |
+| --- | --- |
+| `CToastVariant.error` | Failures and blocking errors |
+| `CToastVariant.success` | Completed actions |
+| `CToastVariant.warning` | Cautionary messages |
+| `CToastVariant.info` | Neutral information |
+
+See the example app: `example/lib/pages/messages_page.dart`.
+
+### CWrapper
+
+Wraps content and shows a loading overlay when `loading` is true. Blocks interaction and optionally dims the child with a scrim.
+
+```dart
+CWrapper(
+  loading: isLoading,
+  message: isLoading ? 'Please wait…' : null,
+  loader: CLoader.orbit(color: CColors.secondaryColor),
+  child: MyContent(),
+)
+```
+
+| Parameter | Description |
+| --- | --- |
+| `loading` | When true, shows the overlay on top of `child`. |
+| `loader` | Custom loader widget. Defaults to [CLoader.bouncing]. |
+| `message` | Optional text below the loader. |
+| `scrimColor` | Overlay tint. Default: black at 35% opacity. |
+| `borderRadius` | Clips the scrim to match rounded child corners. |
+
+See the example app: `example/lib/pages/wrapper_page.dart` and `example/lib/pages/loading_page.dart`.
+
+### CIconBadge
+
+Rounded icon container with a gradient background. Used in [CPopupHeader], [CTile], and [CButton.icon].
+
+```dart
+CIconBadge(icon: Icons.notifications_outlined)
+CIconBadge(
+  icon: Icons.star_outline,
+  backgroundColor: CColors.primaryColorLight.withValues(alpha: 0.2),
+)
+```
+
+### CCarousel
 
 Rounded card for horizontal carousels and featured content. The header accepts exactly one of image, gradient, or solid color (fallback: `CGradient.primaryToSecondary`). Tags are pinned to the top-left of the header; optional `onTap` makes the card tappable.
 
@@ -658,7 +621,6 @@ Two layouts are available via factory constructors:
 Use **`stackedSimple`** / **`overlaySimple`** when you prefer string slots for title, subtitle, description, and tags, plus an optional `ImageProvider` for the header image.
 
 ```dart
-
 CCarousel.stackedSimple(
   width: 280,
   gradient: CGradient.primaryToSecondary,
@@ -679,13 +641,11 @@ CCarousel.overlaySimple(
     // Navigate or show a sheet
   },
 )
-
 ```
 
 For full control over each slot, use `stacked` or `overlay` with `Widget` parameters (`title`, `subtitle`, `description`, `bottom`, `tags`). In overlay mode, text color is your responsibility unless you use `overlaySimple` (white [CText] by default).
 
 ```dart
-
 CCarousel.stacked(
   width: 280,
   gradient: CGradient.primaryLightToSecondaryLight,
@@ -703,7 +663,6 @@ CCarousel.stacked(
     child: CText.label('Discover'),
   ),
 )
-
 ```
 
 | Parameter | Description |
@@ -721,25 +680,22 @@ CCarousel.stacked(
 | `borderRadius` | Outer clip radius. Default: `BorderRadius.all(AppRadius.l)`. |
 | `boxFit` | Image fit for `*Simple` factories. Default: [BoxFit.cover]. |
 
-See the example app: `example/lib/pages/carousel_page.dart` (stacked and overlay demos in a horizontal scroll row).
+See the example app: `example/lib/pages/carousel_page.dart`.
 
-#### `CTagChip`
+### CTagChip
 
 Shared text badge used by [CCarousel] and [CTile] tags. Two variants: `normal` (primary tint) and `overlay` (translucent white on dark/image surfaces).
 
 ```dart
-
 CTagChip(label: 'Food')
 CTagChip(label: 'New', variant: CTagChipVariant.overlay)
-
 ```
 
-#### `CTile`
+### CTile
 
 Rounded list/modal row with optional leading icon, center column (`header`, `content`, `footer`), and trailing chevron when tappable. Card styling uses theme surface color, border, and [AppShadow.sm].
 
 ```dart
-
 CTile.simple(
   icon: Icons.restaurant_outlined,
   title: 'Pasta al pomodoro',
@@ -763,13 +719,11 @@ CTile.icon(
   description: 'Email, password, and preferences',
   onTap: () {},
 )
-
 ```
 
 For full control, use the main constructor with [Widget] slots. String tags populate the header via [CTagChip]; a custom `header` widget takes precedence over `tags`. When `onTap` is null, no chevron is shown unless you pass a custom `trailing` together with `onTap`.
 
 ```dart
-
 CTile(
   leading: CIconBadge(icon: Icons.star_outline),
   header: CText.label('Custom header'),
@@ -778,7 +732,6 @@ CTile(
   trailing: CText.label('Open'),
   onTap: () {},
 )
-
 ```
 
 | Parameter | Description |
@@ -797,33 +750,79 @@ CTile(
 
 See the example app: `example/lib/pages/tiles_page.dart`.
 
-### Others
+## Indicators & data
 
-#### `CCheckbox`
-
-```dart
-
-CCheckbox(controller: CCheckboxController(), label: "Checkbox");
-
-```
-
-#### `CRadioGroup`
+### CTable
 
 ```dart
-
-final  List<CRadioItem<String>> items = [
-    CRadioItem<String>(value: "option1", label: "Option 1"),
-    CRadioItem<String>(value: "option2", label: "Option 2"),
-    CRadioItem<String>(value: "option3", label: "Option 3"),
+final List<String> headerTexts = ['Header 1', 'Header 2', 'Header 3'];
+final List<List<String>> rowsTexts = [
+  ['Row 1', 'Row 1', 'Row 1'],
+  ['Row 2', 'Row 2', 'Row 2'],
+  ['Row 3', 'Row 3', 'Row 3'],
 ];
 
-final  CRadioController<String> controller = CRadioController<String>(initialValue: "option1");
+final header = CTableHeader(
+  titles: headerTexts.map((title) => CTableCell(text: title)).toList(),
+);
 
-CRadioGroup<String>(
-    values: items,
-    controller: controller,
-    orientation: CRadioGroupOrientation.vertical,
-    crossAxisAlignment: CRadioCrossAxisAlignment.start,
+final rows = rowsTexts
+    .map((row) => CTableRow(
+          values: row.map((cell) => CTableCell(text: cell)).toList(),
+        ))
+    .toList();
+
+return CTable(
+  header: header,
+  rows: rows,
+);
+```
+
+### CCircularIndicator
+
+```dart
+CCircularIndicator.single(
+  value: CircularValue(currentValue: 64, maxValue: 100),
+  label: 'Value 1',
 ),
 
+CCircularIndicator.double(
+  externalValue: CircularValue(currentValue: 64, maxValue: 100),
+  internalValue: CircularValue(currentValue: 87, maxValue: 100),
+  internalLabel: 'Value 1',
+  externalLabel: 'Value 2',
+),
+
+CCircularIndicator.percent(
+  value: CircularValue(currentValue: 64, maxValue: 100),
+  currentLabel: 'Current',
+  maxLabel: 'Max',
+  isDense: true,
+),
 ```
+
+### Progress indicators
+
+```dart
+CCircularProgressIndicator.primary(),
+CCircularProgressIndicator.secondary(),
+
+CLinearProgressIndicator.primary(),
+CLinearProgressIndicator.secondary(),
+```
+
+### CLoader
+
+Animated loaders with three factory constructors. Optional `color` (defaults to primary) and `numberOfDots` (default 3; for bouncing and pulsing, max 5).
+
+```dart
+CLoader.bouncing(),
+CLoader.orbit(),
+CLoader.pulsing(),
+
+CLoader.bouncing(color: CColors.secondaryColor, numberOfDots: 5),
+CLoader.orbit(color: CColors.primaryColorLight, numberOfDots: 6),
+CLoader.pulsing(numberOfDots: 4),
+```
+
+See the example app: `example/lib/pages/loaders_page.dart`.

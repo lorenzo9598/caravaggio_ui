@@ -40,14 +40,14 @@ jobs:
       - name: Install dependencies
         run: |
           flutter pub get
-          flutter pub get --directory example
+          cd example && flutter pub get
 
       - name: Build example web preview
+        working-directory: example
         run: |
           flutter build web --release \
             --dart-define=preview=true \
-            --base-href="/demo/app/" \
-            --directory example
+            --base-href="/demo/app/"
 
       - name: Assemble static site
         run: |

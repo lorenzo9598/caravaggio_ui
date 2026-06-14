@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CCarousel — anteprima concettuale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Colori demo Caravaggio (example/main.dart) */
+      --primary: #6f513b;
+      --primary-light: #c4a88a;
+      --secondary: #405055;
+      --secondary-light: #8aaeb3;
+      --surface: #fcfcfd;
+      --text: #101828;
+      --text-muted: #667085;
+      --radius: 20px;
+      --radius-tag: 10px;
+      --card-width: 280px;
+      --aspect-ratio: 16 / 9;
+      --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: linear-gradient(180deg, #f9fafb 0%, #f2f4f7 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    .banner {
+      background: white;
+      border: 1px solid #eaecf0;
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .banner h1 {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .banner p {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 72ch;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    section {
+      margin-bottom: 48px;
+    }
+
+    section > h2 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+
+    section > .subtitle {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin: 0 0 20px;
+    }
+
+    .carousel-row {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .carousel-row > * {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+
+    /* ─── Card base ─── */
+    .card {
+      width: var(--card-width);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: white;
+      position: relative;
+    }
+
+    .card.clickable {
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card.clickable:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
+    }
+
+    .card-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    /* ─── Header (aspect ratio) ─── */
+    .header {
+      aspect-ratio: var(--aspect-ratio);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header.gradient-primary {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary), var(--secondary));
+    }
+
+    .header.gradient-fallback {
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    }
+
+    .header.solid {
+      background: var(--secondary-light);
+    }
+
+    .header.image {
+      background:
+        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=340&fit=crop') center / cover no-repeat;
+    }
+
+    /* ─── Tags (top-left, stile CIconBadge) ─── */
+    .tags {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: var(--radius-tag);
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .tag.stacked {
+      background: rgba(111, 81, 59, 0.08);
+      color: var(--primary);
+    }
+
+    .tag.overlay {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ─── Content stacked ─── */
+    .content-stacked {
+      background: var(--surface);
+      padding: 16px;
+    }
+
+    .content-stacked.custom-bg {
+      background: #f0ebe6;
+    }
+
+    .title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .title.light { color: white; }
+
+    .subtitle {
+      margin: 4px 0 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .subtitle.light { color: rgba(255,255,255,0.85); }
+
+    .stars {
+      display: inline-flex;
+      gap: 2px;
+      color: #f5a623;
+      font-size: 0.875rem;
+    }
+
+    .description {
+      margin: 8px 0 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .description.light { color: rgba(255,255,255,0.8); }
+
+    .bottom {
+      margin-top: 12px;
+    }
+
+    .btn-outlined {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      background: transparent;
+    }
+
+    /* ─── Overlay layout ─── */
+    .card.overlay-layout {
+      height: calc(var(--card-width) / (16 / 9));
+    }
+
+    .card.overlay-layout .header {
+      position: absolute;
+      inset: 0;
+      aspect-ratio: unset;
+      height: 100%;
+    }
+
+    .overlay-scrim {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.78) 0%,
+        rgba(0, 0, 0, 0.45) 45%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      z-index: 1;
+    }
+
+    .overlay-scrim.custom-bg {
+      background: linear-gradient(
+        to top,
+        rgba(64, 80, 85, 0.82) 0%,
+        rgba(64, 80, 85, 0.4) 50%,
+        rgba(64, 80, 85, 0) 100%
+      );
+    }
+
+    /* ─── Annotazioni ─── */
+    .annotated {
+      position: relative;
+    }
+
+    .callout {
+      position: absolute;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .callout.header-zone {
+      top: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.9);
+      color: #7a5c44;
+      border: 1px dashed var(--primary);
+    }
+
+    .callout.content-zone {
+      bottom: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.95);
+      color: var(--secondary);
+      border: 1px dashed var(--secondary);
+    }
+
+    .callout.scrim-zone {
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: 1px dashed rgba(255,255,255,0.5);
+    }
+
+    /* ─── Schema API ─── */
+    .api-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .api-grid { grid-template-columns: 1fr; }
+    }
+
+    .api-box {
+      background: white;
+      border: 1px solid #eaecf0;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .api-box h3 {
+      margin: 0 0 12px;
+      font-size: 0.9375rem;
+    }
+
+    .api-box ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .api-box li { margin-bottom: 6px; }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78em;
+      background: #f2f4f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: #344054;
+    }
+
+    .diagram {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .diagram-card {
+      width: 200px;
+      border: 2px dashed #d0d5dd;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.6875rem;
+      text-align: center;
+    }
+
+    .diagram-card .zone {
+      padding: 10px 8px;
+      border-bottom: 1px dashed #eaecf0;
+    }
+
+    .diagram-card .zone:last-child { border-bottom: none; }
+
+    .zone-header { background: linear-gradient(135deg, #e8ddd4, #b8c5c8); min-height: 56px; position: relative; }
+    .zone-tags { position: absolute; top: 6px; left: 6px; background: rgba(111,81,59,0.15); padding: 2px 6px; border-radius: 4px; }
+    .zone-content { background: #fcfcfd; min-height: 72px; }
+    .zone-scrim { background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); color: white; min-height: 48px; }
+
+    .note {
+      margin-top: 24px;
+      padding: 14px 16px;
+      background: #fffaeb;
+      border: 1px solid #fedf89;
+      border-radius: 12px;
+      font-size: 0.8125rem;
+      color: #7a2e0e;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="banner">
+      <h1>CCarousel — anteprima concettuale</h1>
+      <p>
+        Mockup HTML statico per validare il design prima dell'implementazione Flutter.
+        Non è il componente reale: mostra layout, zone e stili previsti dal piano.
+      </p>
+      <div class="legend">
+        <div class="legend-item"><span class="swatch" style="background: linear-gradient(135deg, var(--primary-light), var(--secondary));"></span> Header: gradient / immagine / colore (uno solo)</div>
+        <div class="legend-item"><span class="swatch" style="background: rgba(111,81,59,0.08);"></span> Tag chip (stile CIconBadge)</div>
+        <div class="legend-item"><span class="swatch" style="background: var(--surface);"></span> backgroundColor area content</div>
+        <div class="legend-item"><span class="swatch" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);"></span> Scrim overlay (nero se bg null)</div>
+      </div>
+    </div>
+
+    <!-- Schema layout -->
+    <section>
+      <h2>Due layout (factory constructor)</h2>
+      <p class="subtitle"><code>CCarousel.stacked</code> vs <code>CCarousel.overlay</code> — stessa API, struttura diversa.</p>
+      <div class="diagram">
+        <div>
+          <div class="card-label">stacked</div>
+          <div class="diagram-card">
+            <div class="zone zone-header">
+              <span class="zone-tags">tags</span>
+              header<br><small>aspectRatio</small>
+            </div>
+            <div class="zone zone-content">
+              title · subtitle · description · bottom<br><small>backgroundColor</small>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card-label">overlay</div>
+          <div class="diagram-card">
+            <div class="zone zone-header" style="min-height: 140px; display:flex; flex-direction:column; justify-content:flex-end;">
+              <span class="zone-tags">tags</span>
+              header full bleed
+              <div class="zone-scrim" style="margin-top:auto;">
+                title · subtitle · description · bottom
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACKED -->
+    <section>
+      <h2>CCarousel.stacked / stackedSimple</h2>
+      <p class="subtitle">Header sopra (aspect ratio 16:9) · content sotto con <code>backgroundColor</code></p>
+
+      <div class="carousel-row">
+        <!-- Gradient -->
+        <div>
+          <div class="card-label">gradient + tags</div>
+          <div class="card annotated">
+            <div class="header gradient-primary">
+              <div class="tags">
+                <span class="tag stacked">Food</span>
+                <span class="tag stacked">Trending</span>
+              </div>
+              <span class="callout header-zone">header</span>
+            </div>
+            <div class="content-stacked">
+              <span class="callout content-zone">content</span>
+              <h3 class="title">Pasta al pomodoro</h3>
+              <p class="subtitle">
+                <span class="stars">★★★★☆</span>
+              </p>
+              <p class="description">Ricetta veloce con basilico fresco e pomodorini.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div>
+          <div class="card-label">ImageProvider (simple)</div>
+          <div class="card">
+            <div class="header image">
+              <div class="tags">
+                <span class="tag stacked">Chef</span>
+              </div>
+            </div>
+            <div class="content-stacked custom-bg">
+              <h3 class="title">Weekend brunch</h3>
+              <p class="description">backgroundColor personalizzato (#f0ebe6)</p>
+              <div class="bottom">
+                <span class="btn-outlined">Scopri</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fallback gradient -->
+        <div>
+          <div class="card-label">fallback (no img/grad/color)</div>
+          <div class="card">
+            <div class="header gradient-fallback"></div>
+            <div class="content-stacked">
+              <h3 class="title">Solo testo</h3>
+              <p class="description">CGradient.primaryToSecondary di default</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERLAY -->
+    <section>
+      <h2>CCarousel.overlay / overlaySimple</h2>
+      <p class="subtitle">Altezza fissa = width ÷ aspectRatio · content in basso · scrim scuro → trasparente</p>
+
+      <div class="carousel-row">
+        <!-- Image overlay -->
+        <div>
+          <div class="card-label">immagine + scrim nero</div>
+          <div class="card overlay-layout clickable" onclick="flash(this)" title="onTap → card cliccabile">
+            <div class="header image">
+              <div class="tags">
+                <span class="tag overlay">New</span>
+                <span class="tag overlay">★ 4.8</span>
+              </div>
+            </div>
+            <div class="overlay-scrim">
+              <span class="callout scrim-zone">scrim gradient</span>
+              <h3 class="title light">Mountain retreat</h3>
+              <p class="subtitle light">Weekend escape</p>
+              <p class="description light">Prenota ora e risparmia il 20%.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overlay with custom backgroundColor -->
+        <div>
+          <div class="card-label">backgroundColor = secondary</div>
+          <div class="card overlay-layout">
+            <div class="header gradient-primary"></div>
+            <div class="tags" style="position:absolute; top:12px; left:12px; z-index:2;">
+              <span class="tag overlay">Event</span>
+            </div>
+            <div class="overlay-scrim custom-bg">
+              <h3 class="title light">Live cooking</h3>
+              <p class="description light">Scrim basato su backgroundColor semi-trasparente</p>
+              <div class="bottom">
+                <span class="btn-outlined" style="border-color:white; color:white;">Partecipa</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solid color overlay -->
+        <div>
+          <div class="card-label">colore solido header</div>
+          <div class="card overlay-layout">
+            <div class="header solid"></div>
+            <div class="overlay-scrim">
+              <h3 class="title light">Minimal card</h3>
+              <p class="description light">Solo titolo e descrizione in overlay</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- API recap -->
+    <section>
+      <h2>API prevista (riepilogo)</h2>
+      <div class="api-grid">
+        <div class="api-box">
+          <h3>Costruttore completo (Widget)</h3>
+          <ul>
+            <li><code>width</code> obbligatorio</li>
+            <li><code>aspectRatio</code> default 16/9</li>
+            <li>Uno solo: <code>image</code> Widget · <code>gradient</code> · <code>color</code></li>
+            <li><code>backgroundColor</code> — content stacked / scrim overlay</li>
+            <li><code>title</code>, <code>subtitle?</code>, <code>description?</code>, <code>bottom?</code> — Widget</li>
+            <li><code>tags</code> — List&lt;Widget&gt;, top-left</li>
+            <li><code>onTap?</code> — se non null, card cliccabile</li>
+          </ul>
+        </div>
+        <div class="api-box">
+          <h3>Factory semplificati (*Simple)</h3>
+          <ul>
+            <li><code>title</code>, <code>subtitle?</code>, <code>description?</code> — String</li>
+            <li><code>tags</code> — List&lt;String&gt; → chip automatici</li>
+            <li><code>image</code> — ImageProvider + <code>boxFit</code></li>
+            <li>CText predefiniti (bianco in overlay)</li>
+            <li><code>stackedSimple</code> / <code>overlaySimple</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Nota:</strong> questo file è solo un'anteprima visiva. Apri nel browser con
+        <code>open example/preview/ccarousel_preview.html</code> (o doppio click sul file).
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function flash(el) {
+      el.style.outline = '3px solid #6f513b';
+      setTimeout(() => { el.style.outline = 'none'; }, 400);
+    }
+  </script>
+</body>
+</html>

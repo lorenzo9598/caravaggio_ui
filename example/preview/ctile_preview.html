@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTile — anteprima concettuale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #6f513b;
+      --primary-light: #c4a88a;
+      --primary-tint: rgba(111, 81, 59, 0.08);
+      --secondary: #405055;
+      --surface: #ffffff;
+      --page-bg: #f2f4f7;
+      --text: #101828;
+      --text-muted: #667085;
+      --border: #eaecf0;
+      --radius-tile: 15px;
+      --radius-badge: 10px;
+      --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: linear-gradient(180deg, #f9fafb 0%, var(--page-bg) 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    .banner {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .banner h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; }
+    .banner p { margin: 0; color: var(--text-muted); max-width: 65ch; }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    section { margin-bottom: 40px; }
+    section > h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 4px; }
+    section > .subtitle { color: var(--text-muted); font-size: 0.84rem; margin: 0 0 16px; }
+
+    .stack { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ─── CTile card ─── */
+    .tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-tile);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .tile.clickable {
+      cursor: pointer;
+    }
+
+    .tile.clickable:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(16, 24, 40, 0.1);
+    }
+
+    .tile-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    /* leading: CIconBadge style */
+    .icon-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-badge);
+      background: var(--primary-tint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .center {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: var(--radius-badge);
+      background: var(--primary-tint);
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .datetime {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .content .title {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .content .description {
+      margin: 4px 0 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .footer {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .trailing {
+      flex-shrink: 0;
+      color: var(--text-muted);
+      font-size: 20px;
+      line-height: 1;
+      padding-top: 2px;
+      opacity: 0.55;
+    }
+
+    .tile:not(.clickable) .trailing-slot:empty { display: none; }
+
+    /* diagram */
+    .diagram {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 560px) {
+      .diagram { grid-template-columns: 1fr; }
+    }
+
+    .diagram-box {
+      border: 2px dashed #d0d5dd;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 0.72rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .diagram-box .row-demo {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      text-align: left;
+    }
+
+    .zone {
+      border-radius: 6px;
+      padding: 8px 6px;
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+
+    .zone-leading { background: #ede4dc; color: #7a5c44; width: 28px; flex-shrink: 0; text-align: center; }
+    .zone-center { background: #eef2f3; color: var(--secondary); flex: 1; }
+    .zone-trail { background: #f2f4f7; color: var(--text-muted); width: 20px; flex-shrink: 0; text-align: center; }
+
+    .modal-mock {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0;
+      padding: 20px 16px 16px;
+      box-shadow: 0 -4px 24px rgba(16,24,40,0.08);
+    }
+
+    .modal-handle {
+      width: 40px;
+      height: 4px;
+      background: #d0d5dd;
+      border-radius: 99px;
+      margin: 0 auto 16px;
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+
+    .modal-sub {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin: 0 0 16px;
+    }
+
+    code {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 0.78em;
+      background: #f2f4f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .api-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .api-box h3 { margin: 0 0 10px; font-size: 0.9rem; color: var(--text); }
+    .api-box ul { margin: 0; padding-left: 18px; }
+    .api-box li { margin-bottom: 5px; }
+
+    .note {
+      margin-top: 20px;
+      padding: 12px 14px;
+      background: #fffaeb;
+      border: 1px solid #fedf89;
+      border-radius: 12px;
+      font-size: 0.8125rem;
+      color: #7a2e0e;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="banner">
+      <h1>CTile — anteprima concettuale</h1>
+      <p>
+        Mockup HTML statico del componente lista/modal previsto. Card con sfondo, bordo e ombra;
+        altezza intrinseca; freccia destra solo se <code>onTap</code> è valorizzato.
+      </p>
+      <div class="legend">
+        <div class="legend-item"><span class="dot" style="background:var(--primary-tint);"></span> leading · solitamente CIconBadge</div>
+        <div class="legend-item"><span class="dot" style="background:#eef2f3;"></span> center · header · content · footer</div>
+        <div class="legend-item"><span class="dot" style="background:var(--primary-tint);"></span> tags · CTagChip condiviso con CCarousel</div>
+        <div class="legend-item"><span class="dot" style="background:#f2f4f7;"></span> trailing · chevron o override</div>
+      </div>
+    </div>
+
+    <!-- Schema -->
+    <section>
+      <h2>Layout orizzontale</h2>
+      <p class="subtitle"><code>Row</code> con tre zone: leading, colonna centrale, trailing.</p>
+      <div class="diagram">
+        <div class="diagram-box">
+          <strong>CTile (base)</strong>
+          <div class="row-demo">
+            <div class="zone zone-leading">L</div>
+            <div class="zone zone-center">header<br>content<br>footer</div>
+            <div class="zone zone-trail">→</div>
+          </div>
+        </div>
+        <div class="diagram-box">
+          <strong>Header row</strong>
+          <div style="margin-top:10px;text-align:left;font-size:0.7rem;">
+            <div style="display:flex;justify-content:space-between;gap:8px;padding:6px;background:#eef2f3;border-radius:6px;">
+              <span>[ tags Wrap ]</span>
+              <span style="color:var(--text-muted);">13 Jun 2026 · 14:30</span>
+            </div>
+            <div style="margin-top:6px;color:var(--text-muted);">datetime solo in <code>withDateTime</code></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simple -->
+    <section>
+      <h2>CTile.simple</h2>
+      <p class="subtitle">icon → leading · tags → header · title + description → content</p>
+      <div class="stack">
+        <div class="tile-label">cliccabile · onTap</div>
+        <div class="tile clickable" onclick="flash(this)">
+          <div class="icon-badge">★</div>
+          <div class="center">
+            <div class="header-row">
+              <div class="tags">
+                <span class="tag">Food</span>
+                <span class="tag">Popular</span>
+              </div>
+            </div>
+            <div class="content">
+              <p class="title">Pasta al pomodoro</p>
+              <p class="description">Ricetta veloce con basilico e pomodorini freschi.</p>
+            </div>
+          </div>
+          <div class="trailing">›</div>
+        </div>
+
+        <div class="tile-label">statico · onTap null · nessuna freccia</div>
+        <div class="tile">
+          <div class="icon-badge">ℹ</div>
+          <div class="center">
+            <div class="content">
+              <p class="title">Informazioni evento</p>
+              <p class="description">Solo lettura, nessun chevron a destra.</p>
+            </div>
+          </div>
+          <div class="trailing-slot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- withDateTime -->
+    <section>
+      <h2>CTile.withDateTime</h2>
+      <p class="subtitle">Header: tags a sinistra · <code>DateTime</code> a destra (una riga: <code>d MMM y · HH:mm</code>)</p>
+      <div class="stack">
+        <div class="tile clickable">
+          <div class="icon-badge">📅</div>
+          <div class="center">
+            <div class="header-row">
+              <div class="tags"><span class="tag">Booking</span></div>
+              <span class="datetime">13 Jun 2026 · 14:30</span>
+            </div>
+            <div class="content">
+              <p class="title">Weekend brunch</p>
+              <p class="description">Ristorante Da Marco · 4 persone</p>
+            </div>
+          </div>
+          <div class="trailing">›</div>
+        </div>
+
+        <div class="tile clickable">
+          <div class="icon-badge">🎵</div>
+          <div class="center">
+            <div class="header-row">
+              <div class="tags">
+                <span class="tag">Live</span>
+                <span class="tag">Sold out</span>
+              </div>
+              <span class="datetime">20 Jun 2026 · 21:00</span>
+            </div>
+            <div class="content">
+              <p class="title">Jazz night</p>
+              <p class="description">Auditorium centrale</p>
+            </div>
+            <div class="footer">Tap per i dettagli</div>
+          </div>
+          <div class="trailing">›</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- icon shortcut -->
+    <section>
+      <h2>CTile.icon</h2>
+      <p class="subtitle">Shortcut: icon + title + description, senza tags</p>
+      <div class="tile clickable">
+        <div class="icon-badge">⚙</div>
+        <div class="center">
+          <div class="content">
+            <p class="title">Impostazioni account</p>
+            <p class="description">Email, password e preferenze</p>
+          </div>
+        </div>
+        <div class="trailing">›</div>
+      </div>
+    </section>
+
+    <!-- Full custom -->
+    <section>
+      <h2>CTile (widget completi)</h2>
+      <p class="subtitle">leading, header, content, footer e trailing customizzabili</p>
+      <div class="tile clickable">
+        <div class="icon-badge" style="background:rgba(64,80,85,0.1);color:var(--secondary);">✦</div>
+        <div class="center">
+          <div class="header-row">
+            <span style="font-size:0.72rem;font-weight:600;color:var(--secondary);">HEADER CUSTOM</span>
+          </div>
+          <div class="content">
+            <p class="title">Widget libero nel content</p>
+            <p class="description">Es. rating a stelle, badge, testo ricco…</p>
+          </div>
+          <div class="footer"><strong style="color:var(--primary);">Footer widget</strong> · azione secondaria</div>
+        </div>
+        <div class="trailing" style="font-size:0.75rem;font-weight:600;color:var(--primary);opacity:1;">Open</div>
+      </div>
+    </section>
+
+    <!-- Modal context -->
+    <section>
+      <h2>Contesto modal (todo Views)</h2>
+      <p class="subtitle">Tap su CCarousel → bottom sheet con lista di CTile</p>
+      <div class="modal-mock">
+        <div class="modal-handle"></div>
+        <p class="modal-title">Mountain retreat</p>
+        <p class="modal-sub">Scegli un'opzione</p>
+        <div class="stack">
+          <div class="tile clickable" style="box-shadow:none;">
+            <div class="icon-badge">🏔</div>
+            <div class="center">
+              <div class="content">
+                <p class="title">Prenota ora</p>
+                <p class="description">Risparmia il 20%</p>
+              </div>
+            </div>
+            <div class="trailing">›</div>
+          </div>
+          <div class="tile clickable" style="box-shadow:none;">
+            <div class="icon-badge">📍</div>
+            <div class="center">
+              <div class="content">
+                <p class="title">Indicazioni</p>
+                <p class="description">Apri in mappe</p>
+              </div>
+            </div>
+            <div class="trailing">›</div>
+          </div>
+          <div class="tile clickable" style="box-shadow:none;">
+            <div class="icon-badge">💬</div>
+            <div class="center">
+              <div class="content">
+                <p class="title">Contatta host</p>
+                <p class="description">Risposta entro 1 ora</p>
+              </div>
+            </div>
+            <div class="trailing">›</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- API -->
+    <section>
+      <h2>API prevista</h2>
+      <div class="api-box">
+        <h3>Costruttore base</h3>
+        <ul>
+          <li><code>leading</code>, <code>header</code>, <code>content</code>, <code>footer</code> — Widget</li>
+          <li><code>tags</code> — List&lt;Widget&gt;, popola header se header assente</li>
+          <li><code>trailing</code> — override; default chevron se <code>onTap</code> != null</li>
+          <li><code>onTap</code> — nullable, abilita InkWell + freccia</li>
+          <li>Card: sfondo, bordo, ombra · altezza intrinseca</li>
+        </ul>
+        <h3 style="margin-top:14px;">Factory</h3>
+        <ul>
+          <li><code>CTile.simple</code> — title, description?, tags (string), icon?, leading?, footer?, onTap?</li>
+          <li><code>CTile.withDateTime</code> — come simple + DateTime in header (destra)</li>
+          <li><code>CTile.icon</code> — icon + title + description</li>
+        </ul>
+        <h3 style="margin-top:14px;">Condiviso</h3>
+        <ul>
+          <li><code>CTagChip</code> — estratto da CCarousel, usato da entrambi</li>
+        </ul>
+      </div>
+      <div class="note">
+        Apri con doppio click o: <code>open example/preview/ctile_preview.html</code>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function flash(el) {
+      el.style.outline = '3px solid #6f513b';
+      setTimeout(() => { el.style.outline = 'none'; }, 400);
+    }
+  </script>
+</body>
+</html>

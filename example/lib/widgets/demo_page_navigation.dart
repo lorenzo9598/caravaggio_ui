@@ -172,30 +172,9 @@ class _DemoNavBarChrome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.white.withValues(alpha: 0.05),
-                Colors.white.withValues(alpha: 0.35),
-                Colors.white.withValues(alpha: 0.72),
-              ],
-            ),
-            border: Border(
-              top: BorderSide(
-                color: Colors.white.withValues(alpha: 0.45),
-              ),
-            ),
-          ),
-          child: SafeArea(
-            top: false,
-            child: child,
-          ),
-        ),
+      child: SafeArea(
+        top: false,
+        child: child,
       ),
     );
   }

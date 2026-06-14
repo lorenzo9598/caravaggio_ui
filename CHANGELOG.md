@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.  
 
-## [1.0.3]
+## [1.0.4]
 
 ### Added
 - **CScaffold**: design-system scaffold with gradient background, scroll-linked app bar overlay, scroll-aware title, and configurable default back pill.
@@ -11,11 +11,12 @@ All notable changes to this project will be documented in this file.
   - `backButtonScrolledBackgroundAlpha` (`double`, default `0.7`) — opacity of the scrolled back pill background.
   - `backButtonTopBackgroundAlpha` (`double`, default `0.5`) — white back pill opacity at scroll offset 0.
   - Also: `hideTitleOnScroll`, `titleAlignment`, `bodyBuilder`, `scrollController`, `backgroundGradient`, `backgroundLayers`, and related back-pill options.
-- **CLoader**: new animated loaders with three styles:
-  - `CLoader.bouncing()` — bouncing dots animation
-  - `CLoader.orbit()` — dots orbiting in a circle
-  - `CLoader.pulsing()` — pulsing dots animation
-- Customization: `color` and `numberOfDots` (default 3) for all loaders. For bouncing and pulsing types, `numberOfDots` is limited to at most 5.
+- **CTabs**: rounded pill tab bar with optional swipe navigation (`fromLabels` factory, `enableSwipe`, `contentHeight`).
+- **CPopup** / **showCPopup**: centered modal dialog with gradient icon header, optional body, and action row.
+- **CModalBottomSheet** / **showCModalBottomSheet**: bottom sheet with the same header pattern as [CPopup].
+- **CToast**: overlay toasts with semantic variants (`error`, `success`, `warning`, `info`) and top/bottom positioning via [CToastScope].
+- **CWrapper**: loading overlay wrapper with optional scrim, message, and custom loader.
+- **CIconBadge** and **CPopupHeader**: shared icon header used by popups, bottom sheets, and tiles.
 - **CCarousel**: rounded carousel card with two layouts (`stacked`, `overlay`) and simplified factories (`stackedSimple`, `overlaySimple`).
   - Header: one of image ([Widget] or [ImageProvider]), [LinearGradient], or [Color]; fallback `CGradient.primaryToSecondary`.
   - Content slots: `title`, optional `subtitle`, `description`, `bottom`, and top-left `tags`.
@@ -25,6 +26,21 @@ All notable changes to this project will be documented in this file.
 - **CTile**: rounded list/modal row with leading, center slots (`header`, `content`, `footer`), and optional trailing chevron.
   - Factories: `simple`, `withDateTime` (header date/time), and `icon` shortcut.
   - `tags` populate the header; `onTap` enables tap + default chevron; intrinsic height.
+- **CColorsBuilder**: fluent builder for runtime primary/secondary color updates.
+- **CaravaggioUI.updateColors()** and **colorsListenable** for live theme color changes.
+- **CButton**: `CButtonIconAlignment`, `CButtonHintSize`, optional press animation, and customizable gradient text color.
+
+### Changed
+- **CDatePicker** moved to the `caravaggio_calendar_picker` package and is re-exported from `caravaggio_ui`.
+
+## [1.0.3]
+
+### Added
+- **CLoader**: new animated loaders with three styles:
+  - `CLoader.bouncing()` — bouncing dots animation
+  - `CLoader.orbit()` — dots orbiting in a circle
+  - `CLoader.pulsing()` — pulsing dots animation
+- Customization: `color` and `numberOfDots` (default 3) for all loaders. For bouncing and pulsing types, `numberOfDots` is limited to at most 5.
 
 ### Fixed
 - Animation intervals for bouncing and pulsing loaders now scale correctly with `numberOfDots` and stay within valid range, avoiding assertion errors with many dots.

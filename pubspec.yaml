@@ -1,6 +1,6 @@
 name: caravaggio_ui
 description: "A comprehensive UI package designed to streamline your Flutter app development process."
-version: 1.0.3
+version: 1.0.4
 homepage: "https://github.com/lorenzo9598/caravaggio_ui"
 
 environment:
@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   caravaggio_calendar_picker: ^1.0.0
+  device_preview: ^1.3.1
   flutter:
     sdk: flutter
   intl: ^0.20.2

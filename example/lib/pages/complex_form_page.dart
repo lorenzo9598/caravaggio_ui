@@ -114,6 +114,8 @@ class _ComplexFormPageState extends State<ComplexFormPage> {
     final muted = theme.textTheme.bodySmall?.color?.withValues(alpha: 0.7);
 
     return CustomScaffold(
+      showAppDrawer: false,
+      backToHome: true,
       title: demoScaffoldTitle('Book event'),
       bodyBuilder: (context, topPadding) {
         return ListView(

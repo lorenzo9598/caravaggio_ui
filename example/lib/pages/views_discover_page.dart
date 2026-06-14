@@ -246,6 +246,8 @@ class ViewsDiscoverPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      showAppDrawer: false,
+      backToHome: true,
       title: demoScaffoldTitle('Discover'),
       bodyBuilder: (context, topPadding) {
         return ListView(

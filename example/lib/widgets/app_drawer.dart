@@ -25,6 +25,28 @@ import '../pages/views_dialogs_page.dart';
 import '../pages/views_discover_page.dart';
 import '../pages/views_tabs_page.dart';
 import '../pages/wrapper_page.dart';
+import 'demo_scaffold_title.dart';
+
+/// Resets the navigation stack to [HomeScreen] with a back-style slide transition.
+void navigateToDemoHome(BuildContext context) {
+  Navigator.of(context).pushAndRemoveUntil(
+    PageRouteBuilder<void>(
+      pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
+      transitionDuration: const Duration(milliseconds: 300),
+      reverseTransitionDuration: const Duration(milliseconds: 300),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final tween = Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero).chain(
+          CurveTween(curve: Curves.easeInOut),
+        );
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    ),
+    (route) => false,
+  );
+}
 
 /// Navigation drawer listing all demo pages (Basics, Advanced, Views).
 class AppDrawer extends StatefulWidget {
@@ -49,11 +71,14 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   void _goHome(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute<void>(builder: (_) => const HomeScreen()),
-      (route) => false,
-    );
+    final navigator = Navigator.of(context);
+    final alreadyOnHome = context.findAncestorWidgetOfExactType<HomeScreen>() != null;
+
+    navigator.pop();
+
+    if (!alreadyOnHome) {
+      navigateToDemoHome(navigator.context);
+    }
   }
 
   @override
@@ -73,66 +98,7 @@ class _AppDrawerState extends State<AppDrawer> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  gradient: CGradient.primaryLightToSecondaryLight,
-                ),
-                padding: EdgeInsets.zero,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: -400,
-                      left: -150,
-                      width: 400,
-                      child: Image.asset(
-                        'assets/pattern_secondary_dark.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: -300,
-                      right: -120,
-                      width: 400,
-                      child: Image.asset(
-                        'assets/pattern_primary_dark.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Column(
-                        children: [
-                          const Expanded(
-                            child: Center(
-                              child: Image(
-                                image: NetworkImage(
-                                  'https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png',
-                                ),
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                          CButton.outlined(
-                            onPressed: () => _goHome(context),
-                            color: Colors.white,
-                            fillColor: Colors.white.withValues(alpha: 0.15),
-                            icon: const Icon(
-                              Icons.home_outlined,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                            child: CText.label(
-                              'Back to Home',
-                              size: TextSize.small,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ).small,
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _AppDrawerHeader(onHomePressed: () => _goHome(context)),
               _DrawerExpandableSection(
                 title: 'Basics',
                 expanded: _basicsExpanded,
@@ -275,6 +241,154 @@ class _AppDrawerState extends State<AppDrawer> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _AppDrawerHeader extends StatelessWidget {
+  const _AppDrawerHeader({required this.onHomePressed});
+
+  final VoidCallback onHomePressed;
+
+  static const _lightText = TextStyle(color: Colors.white);
+  static const _mutedLightText = TextStyle(color: Color(0xD9FFFFFF));
+
+  @override
+  Widget build(BuildContext context) {
+    return DrawerHeader(
+      margin: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
+      decoration: BoxDecoration(
+        gradient: CGradient.primaryToSecondary,
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Positioned(
+            top: -72,
+            right: -48,
+            child: Opacity(
+              opacity: 0.16,
+              child: Image.asset(
+                'assets/pattern_primary_dark.png',
+                width: 220,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -88,
+            left: -56,
+            child: Opacity(
+              opacity: 0.12,
+              child: Image.asset(
+                'assets/pattern_secondary_dark.png',
+                width: 240,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 72,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withValues(alpha: 0),
+                    Colors.black.withValues(alpha: 0.14),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: onHomePressed,
+                      borderRadius: const BorderRadius.all(AppRadius.m),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Row(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.94),
+                                borderRadius: const BorderRadius.all(AppRadius.m),
+                                boxShadow: AppShadow.xs,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Image.network(
+                                  kDemoLogoUrl,
+                                  height: 36,
+                                  width: 36,
+                                  fit: BoxFit.contain,
+                                  filterQuality: FilterQuality.medium,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CText.headline(
+                                    'Caravaggio UI',
+                                    size: TextSize.small,
+                                    style: _lightText.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: -0.3,
+                                      height: 1.1,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  CText.body(
+                                    'Component gallery',
+                                    size: TextSize.small,
+                                    style: _mutedLightText.copyWith(height: 1.2),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  CButton.outlined(
+                    onPressed: onHomePressed,
+                    color: Colors.white,
+                    fillColor: Colors.white.withValues(alpha: 0.1),
+                    icon: const Icon(
+                      Icons.home_outlined,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                    child: CText.label(
+                      'Back to Home',
+                      size: TextSize.small,
+                      style: _lightText,
+                    ),
+                  ).small,
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

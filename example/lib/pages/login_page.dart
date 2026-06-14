@@ -38,6 +38,8 @@ class _LoginPageState extends State<LoginPage> {
     final muted = theme.textTheme.bodySmall?.color?.withValues(alpha: 0.7);
 
     return CustomScaffold(
+      showAppDrawer: false,
+      backToHome: true,
       title: demoScaffoldTitle('Login'),
       bodyBuilder: (context, topPadding) {
         return ListView(

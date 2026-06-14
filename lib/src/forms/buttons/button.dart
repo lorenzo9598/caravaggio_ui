@@ -302,7 +302,7 @@ class CButton extends StatelessWidget {
     Color? color,
     Color? fillColor,
     Radius radius = defaultRadius,
-    double? elevation,
+    double elevation = 0,
     Curve? animationCurve,
     Duration? animationDuration,
   }) {

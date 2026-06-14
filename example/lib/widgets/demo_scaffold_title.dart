@@ -2,7 +2,7 @@ import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:caravaggio_ui_app/pages/demo_pages.dart';
 import 'package:flutter/material.dart';
 
-const _kDemoLogoUrl =
+const kDemoLogoUrl =
     'https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png';
 
 /// Polished app-bar title for demo [CustomScaffold] / [CScaffold] pages.
@@ -33,7 +33,7 @@ Widget demoScaffoldColorsTitle() {
     child: ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 36, maxWidth: 132),
       child: Image.network(
-        _kDemoLogoUrl,
+        kDemoLogoUrl,
         fit: BoxFit.contain,
         filterQuality: FilterQuality.medium,
       ),

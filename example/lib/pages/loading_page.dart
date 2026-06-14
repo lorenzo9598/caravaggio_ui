@@ -42,6 +42,8 @@ class _LoadingPageState extends State<LoadingPage> {
     final theme = Theme.of(context);
 
     return CustomScaffold(
+      showAppDrawer: false,
+      backToHome: true,
       title: demoScaffoldTitle('Loading'),
       bodyBuilder: (context, topPadding) {
         return ListView(

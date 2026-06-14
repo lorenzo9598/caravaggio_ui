@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - 'website/**'
+      - 'example/**'
+      - 'lib/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
       - '.github/workflows/deploy-website.yml'
   workflow_dispatch:
 
@@ -26,6 +30,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          flutter pub get
+          flutter pub get --directory example
+
+      - name: Build example web preview
+        run: |
+          flutter build web --release \
+            --dart-define=preview=true \
+            --base-href="/demo/app/" \
+            --directory example
+
+      - name: Assemble static site
+        run: |
+          rm -rf website/demo/app
+          mkdir -p website/demo/app
+          cp -r example/build/web/. website/demo/app/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -33,6 +33,8 @@ class _ViewsTabsPageState extends State<ViewsTabsPage> {
     final theme = Theme.of(context);
 
     return CustomScaffold(
+      showAppDrawer: false,
+      backToHome: true,
       title: demoScaffoldTitle('Tabs'),
       bodyBuilder: (context, topPadding) {
         return ListView(

@@ -1,5 +1,6 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:caravaggio_ui_app/main_app.dart';
+import 'package:caravaggio_ui_app/webview_device_info.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -24,14 +25,12 @@ Future<void> main() async {
       (const String.fromEnvironment('preview', defaultValue: '').isNotEmpty && const String.fromEnvironment('preview', defaultValue: '').toLowerCase() != 'false');
 
   if (isPreview) {
-    runApp(
-      DevicePreview(
-        builder: (context) => const MainApp(),
-        backgroundColor: Colors.white,
-        defaultDevice: DeviceInfo.genericPhone(platform: TargetPlatform.android, id: 'android', name: 'Google Pixel 9 Pro XL', screenSize: const Size(1080, 2160)),
-        isToolbarVisible: false,
-      ),
-    );
+    runApp(DevicePreview(
+      builder: (context) => const MainApp(),
+      backgroundColor: Colors.white,
+      defaultDevice: webviewDeviceInfo,
+      isToolbarVisible: false,
+    ));
     return;
   }
 

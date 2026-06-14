@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 /// Home-page controls to change Caravaggio primary and secondary colors at runtime.
 class ThemeColorPicker extends StatelessWidget {
-  const ThemeColorPicker({super.key});
+  const ThemeColorPicker({super.key, this.compact = false});
+
+  final bool compact;
 
   Future<void> _pickColor(
     BuildContext context, {
@@ -29,54 +31,114 @@ class ThemeColorPicker extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 12 : 16,
+        vertical: compact ? 10 : 16,
+      ),
       decoration: BoxDecoration(
         color: theme.cardColor,
-        borderRadius: const BorderRadius.all(AppRadius.l),
-        boxShadow: AppShadow.sm,
+        borderRadius: BorderRadius.all(compact ? AppRadius.m : AppRadius.l),
+        border: compact
+            ? Border.all(color: theme.dividerColor.withValues(alpha: 0.35))
+            : null,
+        boxShadow: compact ? null : AppShadow.sm,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          CText.title('Theme colors', size: TextSize.medium),
-          const SizedBox(height: 4),
-          CText.body(
-            'Tap a swatch to customize the palette across all demos.',
-            size: TextSize.small,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Expanded(
-                child: _ColorSwatch(
-                  label: 'Primary',
-                  color: CColors.primaryColor,
-                  onTap: () => _pickColor(
-                    context,
-                    label: 'Primary color',
-                    currentColor: CColors.primaryColor,
-                    onColorChanged: (color) => CaravaggioUI.instance.updateColors(primaryColor: color),
-                  ),
+      child: compact ? _buildCompactLayout(context) : _buildDefaultLayout(context),
+    );
+  }
+
+  Widget _buildDefaultLayout(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        CText.title('Theme colors', size: TextSize.medium),
+        const SizedBox(height: 4),
+        CText.body(
+          'Tap a swatch to customize the palette across all demos.',
+          size: TextSize.small,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            Expanded(
+              child: _ColorSwatch(
+                label: 'Primary',
+                color: CColors.primaryColor,
+                onTap: () => _pickColor(
+                  context,
+                  label: 'Primary color',
+                  currentColor: CColors.primaryColor,
+                  onColorChanged: (color) => CaravaggioUI.instance.updateColors(primaryColor: color),
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _ColorSwatch(
-                  label: 'Secondary',
-                  color: CColors.secondaryColor,
-                  onTap: () => _pickColor(
-                    context,
-                    label: 'Secondary color',
-                    currentColor: CColors.secondaryColor,
-                    onColorChanged: (color) => CaravaggioUI.instance.updateColors(secondaryColor: color),
-                  ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _ColorSwatch(
+                label: 'Secondary',
+                color: CColors.secondaryColor,
+                onTap: () => _pickColor(
+                  context,
+                  label: 'Secondary color',
+                  currentColor: CColors.secondaryColor,
+                  onColorChanged: (color) => CaravaggioUI.instance.updateColors(secondaryColor: color),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCompactLayout(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CText.label('Theme colors', size: TextSize.small),
+              const SizedBox(height: 2),
+              CText.body(
+                'Tap a swatch to customize',
+                size: TextSize.small,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.65),
                 ),
               ),
             ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(width: 12),
+        _ColorSwatch(
+          label: 'Primary',
+          color: CColors.primaryColor,
+          height: 44,
+          compact: true,
+          onTap: () => _pickColor(
+            context,
+            label: 'Primary color',
+            currentColor: CColors.primaryColor,
+            onColorChanged: (color) => CaravaggioUI.instance.updateColors(primaryColor: color),
+          ),
+        ),
+        const SizedBox(width: 8),
+        _ColorSwatch(
+          label: 'Secondary',
+          color: CColors.secondaryColor,
+          height: 44,
+          compact: true,
+          onTap: () => _pickColor(
+            context,
+            label: 'Secondary color',
+            currentColor: CColors.secondaryColor,
+            onColorChanged: (color) => CaravaggioUI.instance.updateColors(secondaryColor: color),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -86,11 +148,15 @@ class _ColorSwatch extends StatelessWidget {
     required this.label,
     required this.color,
     required this.onTap,
+    this.height = 72,
+    this.compact = false,
   });
 
   final String label;
   final Color color;
   final VoidCallback onTap;
+  final double height;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -102,24 +168,37 @@ class _ColorSwatch extends StatelessWidget {
         onTap: onTap,
         borderRadius: const BorderRadius.all(AppRadius.m),
         child: Ink(
-          height: 72,
+          width: compact ? 72 : null,
+          height: height,
           decoration: BoxDecoration(
             color: color,
             borderRadius: const BorderRadius.all(AppRadius.m),
             border: Border.all(color: Colors.black12),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CText.label(
-                label,
-                size: TextSize.small,
-                style: TextStyle(color: onColor),
-              ),
-              const SizedBox(height: 4),
-              Icon(Icons.colorize_outlined, size: 18, color: onColor),
-            ],
-          ),
+          child: compact
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CText.label(
+                      label,
+                      size: TextSize.small,
+                      style: TextStyle(color: onColor, fontSize: 11),
+                    ),
+                    Icon(Icons.colorize_outlined, size: 16, color: onColor),
+                  ],
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CText.label(
+                      label,
+                      size: TextSize.small,
+                      style: TextStyle(color: onColor),
+                    ),
+                    const SizedBox(height: 4),
+                    Icon(Icons.colorize_outlined, size: 18, color: onColor),
+                  ],
+                ),
         ),
       ),
     );

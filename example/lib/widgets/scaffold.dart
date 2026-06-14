@@ -27,6 +27,7 @@ class CustomScaffold extends StatefulWidget {
     this.backgroundGradient,
     this.scrollOverlayColor,
     this.onBackPressed,
+    this.backToHome = false,
     this.demoPageId,
     this.showBackgroundLayers = false,
   });
@@ -71,6 +72,9 @@ class CustomScaffold extends StatefulWidget {
 
   /// Override for the default back pill. When null, [Navigator.pop] is used.
   final VoidCallback? onBackPressed;
+
+  /// When true, the back pill navigates to [HomeScreen] instead of [Navigator.pop].
+  final bool backToHome;
 
   final bool showBackgroundLayers;
 
@@ -195,7 +199,8 @@ class CustomScaffoldState extends State<CustomScaffold> with TickerProviderState
       backButtonBorder: widget.backButtonBorder,
       backButtonIcon: widget.backButtonIcon,
       scrollOverlayColor: widget.scrollOverlayColor,
-      onBackPressed: widget.onBackPressed,
+      onBackPressed: widget.onBackPressed ??
+          (widget.backToHome ? () => navigateToDemoHome(context) : null),
       backgroundGradient: widget.backgroundGradient ??
           LinearGradient(
             colors: [

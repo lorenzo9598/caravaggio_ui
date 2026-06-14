@@ -36,6 +36,8 @@ class StatisticsPage extends StatelessWidget {
         .toList();
 
     return CustomScaffold(
+      showAppDrawer: false,
+      backToHome: true,
       title: demoScaffoldTitle('Statistics'),
       bodyBuilder: (context, topPadding) {
         return ListView(

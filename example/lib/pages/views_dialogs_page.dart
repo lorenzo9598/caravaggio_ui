@@ -224,6 +224,8 @@ class _ViewsDialogsPageState extends State<ViewsDialogsPage> {
     final orders = _visibleOrders;
 
     return CustomScaffold(
+      showAppDrawer: false,
+      backToHome: true,
       title: demoScaffoldTitle('Dialogs'),
       action: IconButton(
         tooltip: 'Filter orders',

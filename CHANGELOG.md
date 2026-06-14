@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.0.5]
+
+### Changed
+- **CButton.outlined**: default `elevation` is now `0` (was `1`).
+
 ## [1.0.4]
 
 ### Added

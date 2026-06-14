@@ -8,8 +8,11 @@
 
 A comprehensive UI package designed to streamline your Flutter app development process. Built with flexibility and customization in mind, CaravaggioUI offers a wide range of beautifully crafted UI components to help you create stunning user interfaces with ease.
 
+**Website:** [caravaggioui.com](https://caravaggioui.com) · **Live demo:** [Try all components in the browser](https://caravaggioui.com/demo/)
+
 ## Table of contents
 
+- [Live demo](#live-demo)
 - [Getting started](#getting-started)
 - [Usage](#usage)
 - [Colors](#colors)
@@ -39,6 +42,14 @@ A comprehensive UI package designed to streamline your Flutter app development p
   - [CCircularIndicator](#ccircularindicator)
   - [Progress indicators](#progress-indicators)
   - [CLoader](#cloader)
+
+## Live demo
+
+Explore every component interactively in the browser — no install required:
+
+**[https://caravaggioui.com/demo/](https://caravaggioui.com/demo/)**
+
+The demo runs the Flutter example app in preview mode (`--dart-define=preview=true`), wrapped in a phone frame so you can browse colors, forms, scaffolds, dialogs, carousels, and more.
 
 ## Getting started
 

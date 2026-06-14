@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.0.6]
+
+### Added
+- Official website at [caravaggioui.com](https://caravaggioui.com).
+- Live browser demo at [caravaggioui.com/demo/](https://caravaggioui.com/demo/) — interactive example app built for web with `--dart-define=preview=true`.
+- GitHub Actions workflow to deploy the static site and rebuild the web demo on push to `main`.
+
+### Changed
+- **pubspec.yaml**: `homepage` points to [caravaggioui.com](https://caravaggioui.com); added `repository` and `issue_tracker` links.
+- **README**: added website and live demo links, plus a dedicated Live demo section.
+
 ## [1.0.5]
 
 ### Changed

@@ -1,6 +1,8 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/carousel_page.dart';
+import '../pages/tiles_page.dart';
 import '../pages/home_page.dart';
 import '../pages/buttons_page.dart';
 import '../pages/colors_page.dart';
@@ -20,6 +22,7 @@ import '../pages/tables_page.dart';
 import '../pages/tabs_page.dart';
 import '../pages/texts_page.dart';
 import '../pages/views_dialogs_page.dart';
+import '../pages/views_discover_page.dart';
 import '../pages/views_tabs_page.dart';
 import '../pages/wrapper_page.dart';
 
@@ -213,6 +216,16 @@ class _AppDrawerState extends State<AppDrawer> {
                     title: 'Modal Bottom Sheet',
                     onTap: () => _goTo(context, const ModalBottomSheetPage()),
                   ),
+                  _DrawerTile(
+                    icon: Icons.view_carousel_outlined,
+                    title: 'Carousel',
+                    onTap: () => _goTo(context, const CarouselPage()),
+                  ),
+                  _DrawerTile(
+                    icon: Icons.view_list_outlined,
+                    title: 'Tiles',
+                    onTap: () => _goTo(context, const TilesPage()),
+                  ),
                 ],
               ),
               const Divider(),
@@ -225,6 +238,11 @@ class _AppDrawerState extends State<AppDrawer> {
                     icon: Icons.hourglass_top_outlined,
                     title: 'Loading',
                     onTap: () => _goTo(context, const LoadingPage()),
+                  ),
+                  _DrawerTile(
+                    icon: Icons.explore_outlined,
+                    title: 'Discover',
+                    onTap: () => _goTo(context, const ViewsDiscoverPage()),
                   ),
                   _DrawerTile(
                     icon: Icons.insights_outlined,

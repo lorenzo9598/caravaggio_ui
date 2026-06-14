@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'carousel_page.dart';
+import 'tiles_page.dart';
 import 'buttons_page.dart';
 import 'colors_page.dart';
 import 'complex_form_page.dart';
@@ -17,6 +19,7 @@ import 'tables_page.dart';
 import 'tabs_page.dart';
 import 'texts_page.dart';
 import 'loading_page.dart';
+import 'views_discover_page.dart';
 import 'wrapper_page.dart';
 
 /// Demo pages in the same order as the home drawer (Basics, Advanced, Views).
@@ -35,6 +38,9 @@ enum DemoPageId {
   wrapper,
   popups,
   modalBottomSheet,
+  carousel,
+  tiles,
+  discover,
   loading,
   statistics,
   form,
@@ -56,6 +62,9 @@ enum DemoPageId {
         DemoPageId.wrapper => 'Wrapper',
         DemoPageId.popups => 'Popups',
         DemoPageId.modalBottomSheet => 'Modal Bottom',
+        DemoPageId.carousel => 'Carousel',
+        DemoPageId.tiles => 'Tiles',
+        DemoPageId.discover => 'Discover',
         DemoPageId.loading => 'Loading',
         DemoPageId.statistics => 'Statistics',
         DemoPageId.form => 'Book event',
@@ -66,7 +75,7 @@ enum DemoPageId {
 class DemoPages {
   DemoPages._();
 
-  /// Prev/next navigation: Basics + Advanced only (ends at [DemoPageId.modalBottomSheet]).
+  /// Prev/next navigation: Basics + Advanced (ends at [DemoPageId.tiles]).
   static const List<DemoPageId> navigableOrder = [
     DemoPageId.colors,
     DemoPageId.texts,
@@ -82,6 +91,8 @@ class DemoPages {
     DemoPageId.wrapper,
     DemoPageId.popups,
     DemoPageId.modalBottomSheet,
+    DemoPageId.carousel,
+    DemoPageId.tiles,
   ];
 
   static const List<DemoPageId> order = navigableOrder;
@@ -118,6 +129,9 @@ class DemoPages {
       DemoPageId.wrapper => const WrapperPage(),
       DemoPageId.popups => const PopupPage(),
       DemoPageId.modalBottomSheet => const ModalBottomSheetPage(),
+      DemoPageId.carousel => const CarouselPage(),
+      DemoPageId.tiles => const TilesPage(),
+      DemoPageId.discover => const ViewsDiscoverPage(),
       DemoPageId.loading => const LoadingPage(),
       DemoPageId.statistics => const StatisticsPage(),
       DemoPageId.form => const ComplexFormPage(),

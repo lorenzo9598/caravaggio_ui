@@ -646,6 +646,157 @@ Omit `actions` for content-only sheets (e.g. a list of tappable rows). The sheet
 
 See the example app: `example/lib/pages/modal_bottom_sheet_page.dart` and `example/lib/pages/views_dialogs_page.dart` (order filters and action menu).
 
+#### `CCarousel`
+
+Rounded card for horizontal carousels and featured content. The header accepts exactly one of image, gradient, or solid color (fallback: `CGradient.primaryToSecondary`). Tags are pinned to the top-left of the header; optional `onTap` makes the card tappable.
+
+Two layouts are available via factory constructors:
+
+- **`stacked`** — header on top (`aspectRatio`, default `16 / 9`), content below on `backgroundColor` (defaults to the theme surface).
+- **`overlay`** — fixed height (`width / aspectRatio`); content sits at the bottom over a bottom-to-top scrim (`backgroundColor ?? Colors.black` at 75% opacity fading to transparent).
+
+Use **`stackedSimple`** / **`overlaySimple`** when you prefer string slots for title, subtitle, description, and tags, plus an optional `ImageProvider` for the header image.
+
+```dart
+
+CCarousel.stackedSimple(
+  width: 280,
+  gradient: CGradient.primaryToSecondary,
+  title: 'Pasta al pomodoro',
+  subtitle: '4.2 · 320 kcal',
+  description: 'Ricetta veloce con basilico fresco.',
+  tags: const ['Food', 'Trending'],
+)
+
+CCarousel.overlaySimple(
+  width: 280,
+  image: const NetworkImage('https://example.com/photo.jpg'),
+  title: 'Mountain retreat',
+  subtitle: 'Weekend escape',
+  description: 'Tap to open details.',
+  tags: const ['New'],
+  onTap: () {
+    // Navigate or show a sheet
+  },
+)
+
+```
+
+For full control over each slot, use `stacked` or `overlay` with `Widget` parameters (`title`, `subtitle`, `description`, `bottom`, `tags`). In overlay mode, text color is your responsibility unless you use `overlaySimple` (white [CText] by default).
+
+```dart
+
+CCarousel.stacked(
+  width: 280,
+  gradient: CGradient.primaryLightToSecondaryLight,
+  title: CText.title('Featured recipe'),
+  subtitle: Row(
+    children: [
+      Icon(Icons.star, size: 16, color: Color(0xFFF5A623)),
+      // ...
+    ],
+  ),
+  description: CText.body('Any widget works in each slot.', size: TextSize.small),
+  tags: const [/* custom chip widgets */],
+  bottom: CButton.outlined(
+    onPressed: () {},
+    child: CText.label('Discover'),
+  ),
+)
+
+```
+
+| Parameter | Description |
+| --- | --- |
+| `width` | Required card width. |
+| `aspectRatio` | Header aspect ratio. Default: `16 / 9`. In overlay mode, card height is `width / aspectRatio`. |
+| `image` | Header image as a [Widget] (`stacked` / `overlay`) or [ImageProvider] (`*Simple`). Mutually exclusive with `gradient` and `color`. |
+| `gradient` | Header [LinearGradient]. Mutually exclusive with `image` and `color`. |
+| `color` | Solid header color. Mutually exclusive with `image` and `gradient`. |
+| `backgroundColor` | Stacked: content area background. Overlay: base color for the bottom scrim. |
+| `title` | Required title ([Widget] or [String] via `*Simple`). |
+| `subtitle`, `description`, `bottom` | Optional content slots ([Widget] or [String] via `*Simple`). |
+| `tags` | Top-left chips ([List<Widget>] or [List<String>] via `*Simple`; string tags use a badge-style chip). |
+| `onTap` | When set, the card responds to taps via [InkWell]. |
+| `borderRadius` | Outer clip radius. Default: `BorderRadius.all(AppRadius.l)`. |
+| `boxFit` | Image fit for `*Simple` factories. Default: [BoxFit.cover]. |
+
+See the example app: `example/lib/pages/carousel_page.dart` (stacked and overlay demos in a horizontal scroll row).
+
+#### `CTagChip`
+
+Shared text badge used by [CCarousel] and [CTile] tags. Two variants: `normal` (primary tint) and `overlay` (translucent white on dark/image surfaces).
+
+```dart
+
+CTagChip(label: 'Food')
+CTagChip(label: 'New', variant: CTagChipVariant.overlay)
+
+```
+
+#### `CTile`
+
+Rounded list/modal row with optional leading icon, center column (`header`, `content`, `footer`), and trailing chevron when tappable. Card styling uses theme surface color, border, and [AppShadow.sm].
+
+```dart
+
+CTile.simple(
+  icon: Icons.restaurant_outlined,
+  title: 'Pasta al pomodoro',
+  description: 'Ricetta veloce con basilico fresco.',
+  tags: const ['Food', 'Popular'],
+  onTap: () {},
+)
+
+CTile.withDateTime(
+  icon: Icons.event_outlined,
+  title: 'Weekend brunch',
+  description: 'Ristorante Da Marco · 4 persone',
+  tags: const ['Booking'],
+  dateTime: DateTime(2026, 6, 13, 14, 30),
+  onTap: () {},
+)
+
+CTile.icon(
+  icon: Icons.settings_outlined,
+  title: 'Account settings',
+  description: 'Email, password, and preferences',
+  onTap: () {},
+)
+
+```
+
+For full control, use the main constructor with [Widget] slots. String tags populate the header via [CTagChip]; a custom `header` widget takes precedence over `tags`. When `onTap` is null, no chevron is shown unless you pass a custom `trailing` together with `onTap`.
+
+```dart
+
+CTile(
+  leading: CIconBadge(icon: Icons.star_outline),
+  header: CText.label('Custom header'),
+  content: CText.title('Any widget in each slot'),
+  footer: CText.body('Secondary line', size: TextSize.small),
+  trailing: CText.label('Open'),
+  onTap: () {},
+)
+
+```
+
+| Parameter | Description |
+| --- | --- |
+| `leading` | Left slot (e.g. [CIconBadge]). |
+| `header` | Custom header row content; when set, `tags` are ignored. |
+| `content` | Main body column. |
+| `footer` | Optional bottom line in the center column. |
+| `tags` | [List<Widget>] rendered in the header when `header` is null. |
+| `dateTime` | Shown top-right in the header row (`d MMM y · HH:mm`, locale-aware). Used by [withDateTime]. |
+| `trailing` | Override right slot; default chevron when `onTap` is set. |
+| `onTap` | Enables [InkWell] and default chevron. |
+| `backgroundColor` | Tile surface. Default: [ThemeData.cardColor]. |
+| `borderRadius` | Default: `BorderRadius.all(AppRadius.m)`. |
+| `padding` | Default: `EdgeInsets.all(16)`. |
+
+See the example app: `example/lib/pages/tiles_page.dart`.
+
 ### Others
 
 #### `CCheckbox`

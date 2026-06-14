@@ -203,7 +203,7 @@ class CButton extends StatelessWidget {
     this.iconOnly,
     this.tooltip,
     this.semanticsLabel,
-  }) : assert(
+  })  : assert(
           hint == null || hintWidget == null,
           'Provide only one of hint or hintWidget',
         ),
@@ -319,7 +319,7 @@ class CButton extends StatelessWidget {
         suffixIconPadding: suffixIconPadding,
         iconAlignment: iconAlignment,
         borderColor: color ?? CColors.primaryColor,
-        filledColor: fillColor ?? Colors.white,
+        filledColor: fillColor ?? Colors.transparent,
         radius: radius,
         elevation: elevation,
         animationCurve: animationCurve,

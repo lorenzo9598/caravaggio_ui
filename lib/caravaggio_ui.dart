@@ -32,6 +32,9 @@ export 'src/views/popup.dart'
 export 'src/views/modal_bottom_sheet.dart' show CModalBottomSheet, showCModalBottomSheet;
 export 'src/views/toast.dart' show CToast, CToastScope, CToastState, CToastVariant, CToastPosition;
 export 'src/views/tabs.dart' show CTabs, CTabItem;
+export 'src/views/carousel.dart' show CCarousel;
+export 'src/views/tag_chip.dart' show CTagChip, CTagChipVariant;
+export 'src/views/tile.dart' show CTile;
 export 'src/views/wrapper.dart' show CWrapper;
 export 'src/views/scaffold.dart'
     show CScaffold, CScaffoldState, kCScaffoldLeadingWidth, kCScaffoldTitleHideScrollRange;

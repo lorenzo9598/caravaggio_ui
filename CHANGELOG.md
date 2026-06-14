@@ -16,6 +16,15 @@ All notable changes to this project will be documented in this file.
   - `CLoader.orbit()` — dots orbiting in a circle
   - `CLoader.pulsing()` — pulsing dots animation
 - Customization: `color` and `numberOfDots` (default 3) for all loaders. For bouncing and pulsing types, `numberOfDots` is limited to at most 5.
+- **CCarousel**: rounded carousel card with two layouts (`stacked`, `overlay`) and simplified factories (`stackedSimple`, `overlaySimple`).
+  - Header: one of image ([Widget] or [ImageProvider]), [LinearGradient], or [Color]; fallback `CGradient.primaryToSecondary`.
+  - Content slots: `title`, optional `subtitle`, `description`, `bottom`, and top-left `tags`.
+  - `backgroundColor`: content background in stacked mode; scrim base in overlay mode.
+  - `onTap`: optional tap handler; `aspectRatio` (default `16 / 9`); required `width`.
+- **CTagChip**: shared text badge for [CCarousel] and [CTile] tags (`normal` and `overlay` variants).
+- **CTile**: rounded list/modal row with leading, center slots (`header`, `content`, `footer`), and optional trailing chevron.
+  - Factories: `simple`, `withDateTime` (header date/time), and `icon` shortcut.
+  - `tags` populate the header; `onTap` enables tap + default chevron; intrinsic height.
 
 ### Fixed
 - Animation intervals for bouncing and pulsing loaders now scale correctly with `numberOfDots` and stay within valid range, avoiding assertion errors with many dots.

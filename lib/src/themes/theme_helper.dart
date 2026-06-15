@@ -1,4 +1,5 @@
 import 'package:caravaggio_ui/src/utils/app_colors.dart';
+import 'package:caravaggio_ui/src/utils/app_radius.dart';
 import 'package:flutter/material.dart';
 
 /// Helper class to manage theme data
@@ -74,8 +75,8 @@ class ThemeHelper {
   /// Returns the input decoration theme data with outlined border and white fill color
   InputDecorationTheme get inputDecorationTheme {
     return InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+      border: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(AppRadius.defaultRadius),
       ),
       filled: true,
       fillColor: Colors.white,

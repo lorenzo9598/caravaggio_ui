@@ -17,7 +17,7 @@ class CModalBottomSheet extends StatelessWidget {
     this.actions,
   });
 
-  static const BorderRadius _borderRadius = BorderRadius.vertical(top: AppRadius.l);
+  static const BorderRadius _borderRadius = BorderRadius.vertical(top: AppRadius.defaultRadius);
   static const EdgeInsets _bodyPadding = EdgeInsets.fromLTRB(16, 16, 16, 0);
   static const EdgeInsets _footerPadding = EdgeInsets.all(16);
 

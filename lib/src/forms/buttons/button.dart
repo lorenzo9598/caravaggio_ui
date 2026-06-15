@@ -5,7 +5,7 @@ import 'package:caravaggio_ui/src/utils/icon_badge_metrics.dart';
 import 'package:flutter/material.dart';
 
 /// Default radius for buttons
-const Radius defaultRadius = AppRadius.xl;
+const Radius defaultRadius = AppRadius.defaultRadius;
 
 /// [CButtonSize.small] set the button's height to 32.0.
 /// Enumeration defining the size of a [CButton].

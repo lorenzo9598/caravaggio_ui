@@ -194,11 +194,11 @@ class _CTabsState extends State<CTabs> with SingleTickerProviderStateMixin {
         ),
         const SizedBox(height: 12),
         ClipRRect(
-          borderRadius: const BorderRadius.all(AppRadius.m),
+          borderRadius: const BorderRadius.all(AppRadius.defaultRadius),
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: theme.cardColor,
-              borderRadius: const BorderRadius.all(AppRadius.m),
+              borderRadius: const BorderRadius.all(AppRadius.defaultRadius),
               border: Border.all(
                 color: CColors.primaryColor.withValues(alpha: 0.12),
               ),

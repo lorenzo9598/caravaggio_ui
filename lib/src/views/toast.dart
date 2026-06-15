@@ -172,7 +172,7 @@ class _CToastMessage extends StatelessWidget {
     this.onDismiss,
   });
 
-  static const BorderRadius _borderRadius = BorderRadius.all(AppRadius.m);
+  static const BorderRadius _borderRadius = BorderRadius.all(AppRadius.defaultRadius);
   static const EdgeInsets _padding = EdgeInsets.all(12);
   static const double _accentWidth = 4;
   static const double _iconGap = 12;

@@ -11,7 +11,7 @@ class CPopupHeader extends StatelessWidget {
     required this.icon,
     required this.title,
     this.subtitle,
-    this.borderRadius = const BorderRadius.vertical(top: AppRadius.l),
+    this.borderRadius = const BorderRadius.vertical(top: AppRadius.defaultRadius),
   });
 
   static const EdgeInsets padding = EdgeInsets.all(16);

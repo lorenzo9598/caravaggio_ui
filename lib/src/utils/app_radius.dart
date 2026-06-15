@@ -29,6 +29,9 @@ class AppRadius {
   /// Extra extra large radius of 30.
   static const xxl = Radius.circular(30);
 
+  /// Default corner radius used across components (matches [CButton]).
+  static const defaultRadius = xl;
+
   /// Returns a [Radius] with the given [radius] value.
   static Radius custom(double radius) {
     return Radius.circular(radius);

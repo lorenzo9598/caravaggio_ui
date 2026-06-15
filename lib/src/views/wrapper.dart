@@ -67,7 +67,7 @@ class CWrapper extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.9),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: const BorderRadius.all(AppRadius.defaultRadius),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

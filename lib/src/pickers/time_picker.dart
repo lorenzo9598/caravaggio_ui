@@ -375,7 +375,7 @@ class _TimeItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
         color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: const BorderRadius.all(AppRadius.defaultRadius),
         border: Border.all(
           color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade300,
           width: 1,

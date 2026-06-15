@@ -91,7 +91,7 @@ class CPopup extends StatelessWidget {
     this.elevation = 8,
   });
 
-  static const BorderRadius _borderRadius = BorderRadius.all(AppRadius.l);
+  static const BorderRadius _borderRadius = BorderRadius.all(AppRadius.defaultRadius);
   static const EdgeInsets _bodyPadding = EdgeInsets.fromLTRB(16, 16, 16, 0);
   static const EdgeInsets _footerPadding = EdgeInsets.all(16);
 
@@ -128,7 +128,7 @@ class CPopup extends StatelessWidget {
             icon: icon,
             title: title,
             subtitle: subtitle,
-            borderRadius: const BorderRadius.vertical(top: AppRadius.l),
+            borderRadius: const BorderRadius.vertical(top: AppRadius.defaultRadius),
           ),
           if (body != null) Padding(padding: _bodyPadding, child: body),
           Padding(

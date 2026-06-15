@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CFieldDecoration {
   /// Creates a [CFieldDecoration] instance.
   const CFieldDecoration({
-    this.radius = AppRadius.m,
+    this.radius = AppRadius.defaultRadius,
     this.prefixIcon,
     this.suffixIcon,
     this.hintText,

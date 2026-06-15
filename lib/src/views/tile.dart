@@ -18,7 +18,7 @@ class CTile extends StatelessWidget {
     this.trailing,
     this.onTap,
     this.backgroundColor,
-    this.borderRadius = const BorderRadius.all(AppRadius.m),
+    this.borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
     this.padding = const EdgeInsets.all(16),
     this.dateTime,
   });
@@ -59,7 +59,7 @@ class CTile extends StatelessWidget {
     String? footer,
     VoidCallback? onTap,
     Color? backgroundColor,
-    BorderRadius borderRadius = const BorderRadius.all(AppRadius.m),
+    BorderRadius borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
     EdgeInsets padding = const EdgeInsets.all(16),
     Widget? trailing,
   }) {
@@ -89,7 +89,7 @@ class CTile extends StatelessWidget {
     String? footer,
     VoidCallback? onTap,
     Color? backgroundColor,
-    BorderRadius borderRadius = const BorderRadius.all(AppRadius.m),
+    BorderRadius borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
     EdgeInsets padding = const EdgeInsets.all(16),
     Widget? trailing,
   }) {
@@ -116,7 +116,7 @@ class CTile extends StatelessWidget {
     String? description,
     VoidCallback? onTap,
     Color? backgroundColor,
-    BorderRadius borderRadius = const BorderRadius.all(AppRadius.m),
+    BorderRadius borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
     EdgeInsets padding = const EdgeInsets.all(16),
     Widget? trailing,
   }) {

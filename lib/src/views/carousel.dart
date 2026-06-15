@@ -22,7 +22,7 @@ class CCarousel extends StatelessWidget {
     this.bottom,
     this.tags = const [],
     this.onTap,
-    this.borderRadius = const BorderRadius.all(AppRadius.l),
+    this.borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
   })  : _overlay = overlay,
         assert(
           (image != null ? 1 : 0) + (gradient != null ? 1 : 0) + (color != null ? 1 : 0) <= 1,
@@ -65,7 +65,7 @@ class CCarousel extends StatelessWidget {
     Widget? bottom,
     List<Widget> tags = const [],
     VoidCallback? onTap,
-    BorderRadius borderRadius = const BorderRadius.all(AppRadius.l),
+    BorderRadius borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
   }) {
     return CCarousel._(
       key: key,
@@ -101,7 +101,7 @@ class CCarousel extends StatelessWidget {
     Widget? bottom,
     List<Widget> tags = const [],
     VoidCallback? onTap,
-    BorderRadius borderRadius = const BorderRadius.all(AppRadius.l),
+    BorderRadius borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
   }) {
     return CCarousel._(
       key: key,
@@ -138,7 +138,7 @@ class CCarousel extends StatelessWidget {
     List<String> tags = const [],
     Widget? bottom,
     VoidCallback? onTap,
-    BorderRadius borderRadius = const BorderRadius.all(AppRadius.l),
+    BorderRadius borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
   }) {
     return CCarousel.stacked(
       key: key,
@@ -174,7 +174,7 @@ class CCarousel extends StatelessWidget {
     List<String> tags = const [],
     Widget? bottom,
     VoidCallback? onTap,
-    BorderRadius borderRadius = const BorderRadius.all(AppRadius.l),
+    BorderRadius borderRadius = const BorderRadius.all(AppRadius.defaultRadius),
   }) {
     const lightText = TextStyle(color: Colors.white);
 

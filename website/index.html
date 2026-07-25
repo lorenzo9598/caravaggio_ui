@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=phone-demo-3">
 </head>
 <body>
   <div class="page-bg" aria-hidden="true">
@@ -79,42 +79,95 @@
 
       <div class="hero-preview reveal" aria-hidden="true">
         <div class="phone-frame">
-          <div class="phone-notch"></div>
           <div class="phone-screen">
-            <div class="preview-scaffold">
-              <div class="preview-appbar">
-                <div class="preview-back"></div>
-                <span>Dashboard</span>
-              </div>
-              <div class="preview-body">
-                <div class="preview-carousel">
-                  <div class="preview-carousel-header">
-                    <span class="preview-tag">Featured</span>
-                  </div>
-                  <div class="preview-carousel-content">
-                    <strong>Weekend retreat</strong>
-                    <span>Mountain escape · 4.8 ★</span>
-                  </div>
-                </div>
-                <div class="preview-tabs">
-                  <span class="active">Overview</span>
-                  <span>Stats</span>
-                  <span>Details</span>
-                </div>
-                <div class="preview-tile">
-                  <div class="preview-tile-icon"></div>
-                  <div class="preview-tile-text">
-                    <strong>Account settings</strong>
-                    <span>Email, password, preferences</span>
-                  </div>
-                  <div class="preview-chevron"></div>
-                </div>
-                <div class="preview-btn-row">
-                  <div class="preview-btn gradient">Get started</div>
-                  <div class="preview-btn outline">Learn more</div>
-                </div>
+            <div class="phone-notch"></div>
+            <div class="preview-status">
+              <span>9:41</span>
+              <span class="preview-status-spacer"></span>
+              <div class="preview-status-icons">
+                <span class="preview-signal"></span>
+                <span class="preview-battery"></span>
               </div>
             </div>
+            <div class="preview-body">
+              <div class="preview-brand">
+                <img
+                  src="https://raw.githubusercontent.com/lorenzo9598/caravaggio_ui/refs/heads/main/assets-for-api-docs/logo.png"
+                  alt=""
+                  width="28"
+                  height="28"
+                  class="preview-logo"
+                >
+                <div class="preview-brand-text">
+                  <strong>CaravaggioUI</strong>
+                  <span>Design system</span>
+                </div>
+              </div>
+
+              <div class="preview-chips">
+                <span class="preview-chip">Flutter</span>
+                <span class="preview-chip">Open source</span>
+                <span class="preview-chip">Gradients</span>
+              </div>
+
+              <div class="preview-tile">
+                <div class="preview-tile-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                </div>
+                <div class="preview-tile-text">
+                  <strong>Weekend brunch</strong>
+                  <span class="preview-tile-sub">At Marco's · 4 guests</span>
+                  <span class="preview-chip">Booking</span>
+                </div>
+                <svg class="preview-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+
+              <div class="preview-progress-card">
+                <div class="preview-ring">
+                  <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="phone-demo-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#662d8c"/>
+                        <stop offset="100%" stop-color="#ed1e79"/>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="18" cy="18" r="15.25" fill="none" stroke="rgba(102,45,140,0.13)" stroke-width="3.5"/>
+                    <circle cx="18" cy="18" r="15.25" fill="none" stroke="url(#phone-demo-ring)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="69 96" transform="rotate(-90 18 18)"/>
+                  </svg>
+                  <span>72%</span>
+                </div>
+                <div class="preview-progress">
+                  <div class="preview-progress-label">
+                    <span>Progress</span>
+                    <strong>72%</strong>
+                  </div>
+                  <div class="preview-progress-bar">
+                    <div class="preview-progress-fill"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="preview-table">
+                <div class="preview-table-head">
+                  <span>Product</span>
+                  <span>Status</span>
+                </div>
+                <div class="preview-table-row">
+                  <span>Starter</span>
+                  <span class="preview-table-status">Active</span>
+                </div>
+                <div class="preview-table-row">
+                  <span>Pro</span>
+                  <span class="preview-table-status">Active</span>
+                </div>
+              </div>
+
+              <div class="preview-cta">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.8 5.7 20.7 8 13.6 2 9.2h7.6z"/></svg>
+                Primary action
+              </div>
+            </div>
+            <div class="preview-home-indicator"></div>
           </div>
         </div>
       </div>

@@ -393,7 +393,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
       style: widget.style,
       child: DropdownButtonFormField<T>(
         borderRadius: BorderRadius.all(widget.decoration.radius),
-        value: selectedValue,
+        initialValue: selectedValue,
         validator: widget.validator,
         isExpanded: true,
         hint: widget.decoration.hintText != null ? Text(widget.decoration.hintText!) : null,

@@ -160,32 +160,34 @@ class _CRadioGroupState<T> extends State<CRadioGroup<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.orientation == CRadioGroupOrientation.vertical
-        ? Column(
-            crossAxisAlignment: widget.crossAxisAlignment.value,
-            children: _buildRadioButtons(),
-          )
-        : Wrap(
-            alignment: widget.crossAxisAlignment.wrapValue,
-            children: _buildRadioButtons(),
-          );
+    return RadioGroup<T>(
+      groupValue: _selectedItem,
+      onChanged: (T? value) {
+        if (widget.controller != null) {
+          widget.controller!.add(value);
+        } else {
+          setState(() {
+            _selectedItem = value;
+          });
+        }
+        widget.onChanged?.call(value);
+      },
+      child: widget.orientation == CRadioGroupOrientation.vertical
+          ? Column(
+              crossAxisAlignment: widget.crossAxisAlignment.value,
+              children: _buildRadioButtons(),
+            )
+          : Wrap(
+              alignment: widget.crossAxisAlignment.wrapValue,
+              children: _buildRadioButtons(),
+            ),
+    );
   }
 
   List<_CRadioButton<T>> _buildRadioButtons() {
-    return widget.values.map((item) {
-      return _CRadioButton<T>(
-        item: item,
-        itemSelected: _selectedItem,
-        onChanged: (T? value) {
-          widget.controller != null
-              ? widget.controller!.add(value)
-              : setState(() {
-                  _selectedItem = value;
-                });
-          widget.onChanged?.call(value);
-        },
-      );
-    }).toList();
+    return widget.values
+        .map((item) => _CRadioButton<T>(item: item))
+        .toList();
   }
 }
 
@@ -194,30 +196,15 @@ class _CRadioButton<T> extends StatelessWidget {
   /// The radio item to display.
   final CRadioItem<T> item;
 
-  /// The currently selected item.
-  final T? itemSelected;
-
-  /// Callback function for when the radio button is changed.
-  final void Function(T?)? onChanged;
-
   /// Creates a [_CRadioButton] widget.
-  const _CRadioButton({
-    super.key,
-    required this.item,
-    this.itemSelected,
-    this.onChanged,
-  });
+  const _CRadioButton({required this.item});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Radio<T>(
-          value: item.value,
-          groupValue: itemSelected,
-          onChanged: onChanged,
-        ),
+        Radio<T>(value: item.value),
         Text(item.label),
       ],
     );

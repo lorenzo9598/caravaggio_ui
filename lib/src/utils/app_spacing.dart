@@ -17,4 +17,16 @@ class AppSpacing {
 
   /// Small spacing of 6.0.
   static const sm = 6.0;
+
+  /// Medium spacing of 8.0.
+  static const md = 8.0;
+
+  /// Large spacing of 12.0.
+  static const lg = 12.0;
+
+  /// Extra large spacing of 16.0.
+  static const xl = 16.0;
+
+  /// Extra extra large spacing of 20.0.
+  static const xxl = 20.0;
 }

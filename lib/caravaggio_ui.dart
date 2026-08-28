@@ -28,7 +28,7 @@ export 'src/views/indicators/loader.dart' show CLoader, CLoaderType;
 export 'src/views/icon_badge.dart' show CIconBadge;
 export 'src/views/popup_header.dart' show CPopupHeader;
 export 'src/views/popup.dart'
-    show CPopup, CPopupAction, CPopupActionStyle, CPopupActionsRow, showCPopup;
+    show CPopup, CPopupAction, CPopupActionStyle, CPopupActionsRow, CPopupStyle, showCPopup;
 export 'src/views/modal_bottom_sheet.dart' show CModalBottomSheet, showCModalBottomSheet;
 export 'src/views/toast.dart' show CToast, CToastScope, CToastState, CToastVariant, CToastPosition;
 export 'src/views/tabs.dart' show CTabs, CTabItem;

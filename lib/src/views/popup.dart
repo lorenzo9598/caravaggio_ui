@@ -13,6 +13,39 @@ enum CPopupActionStyle {
   outlined,
 }
 
+/// Customizable colors and text styles for [CPopup].
+///
+/// All fields are optional; unset values keep the theme defaults used by
+/// [CPopup] and [CPopupHeader].
+class CPopupStyle {
+  const CPopupStyle({
+    this.headerColor,
+    this.backgroundColor,
+    this.titleTextStyle,
+    this.subtitleTextStyle,
+    this.iconColor,
+    this.iconBackgroundColor,
+  });
+
+  /// Background of the header strip. Default: [CColors.primaryColorLight].
+  final Color? headerColor;
+
+  /// Dialog surface color behind body and footer.
+  final Color? backgroundColor;
+
+  /// Override for the header title [CText] style.
+  final TextStyle? titleTextStyle;
+
+  /// Override for the header subtitle [CText] style.
+  final TextStyle? subtitleTextStyle;
+
+  /// Color of the header icon. Default: [CColors.primaryColor].
+  final Color? iconColor;
+
+  /// Background of the header icon badge. Default: tinted [iconColor].
+  final Color? iconBackgroundColor;
+}
+
 /// Describes a footer action shown as a [CButton].
 ///
 /// [CPopupActionsRow] pops the current route before invoking [onPressed].
@@ -21,6 +54,7 @@ class CPopupAction {
     required this.label,
     required this.onPressed,
     this.style = CPopupActionStyle.elevated,
+    this.textStyle,
   });
 
   /// Button label.
@@ -31,6 +65,9 @@ class CPopupAction {
 
   /// Visual style mapped to [CButton.elevated] or [CButton.outlined].
   final CPopupActionStyle style;
+
+  /// Optional override for the action label [CText] style.
+  final TextStyle? textStyle;
 }
 
 /// Horizontal row of [CPopupAction] buttons that dismiss the current route.
@@ -62,7 +99,7 @@ class CPopupActionsRow extends StatelessWidget {
       action.onPressed();
     }
 
-    final child = CText.label(action.label);
+    final child = CText.label(action.label, style: action.textStyle);
 
     return switch (action.style) {
       CPopupActionStyle.elevated => CButton.elevated(
@@ -89,6 +126,7 @@ class CPopup extends StatelessWidget {
     this.body,
     required this.actions,
     this.elevation = 8,
+    this.style,
   });
 
   static const BorderRadius _borderRadius = BorderRadius.all(AppRadius.defaultRadius);
@@ -113,10 +151,14 @@ class CPopup extends StatelessWidget {
   /// [Dialog] elevation. Default: `8`.
   final double elevation;
 
+  /// Optional visual overrides. `null` keeps theme defaults.
+  final CPopupStyle? style;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
       elevation: elevation,
+      backgroundColor: style?.backgroundColor,
       insetPadding: const EdgeInsets.symmetric(horizontal: 24),
       shape: const RoundedRectangleBorder(borderRadius: _borderRadius),
       clipBehavior: Clip.antiAlias,
@@ -129,6 +171,11 @@ class CPopup extends StatelessWidget {
             title: title,
             subtitle: subtitle,
             borderRadius: const BorderRadius.vertical(top: AppRadius.defaultRadius),
+            backgroundColor: style?.headerColor,
+            titleTextStyle: style?.titleTextStyle,
+            subtitleTextStyle: style?.subtitleTextStyle,
+            iconColor: style?.iconColor,
+            iconBackgroundColor: style?.iconBackgroundColor,
           ),
           if (body != null) Padding(padding: _bodyPadding, child: body),
           Padding(
@@ -153,6 +200,7 @@ Future<T?> showCPopup<T>({
   required List<CPopupAction> actions,
   bool barrierDismissible = true,
   double elevation = 8,
+  CPopupStyle? style,
 }) {
   return showDialog<T>(
     context: context,
@@ -164,6 +212,7 @@ Future<T?> showCPopup<T>({
       body: body,
       actions: actions,
       elevation: elevation,
+      style: style,
     ),
   );
 }

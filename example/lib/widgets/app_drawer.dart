@@ -93,153 +93,150 @@ class _AppDrawerState extends State<AppDrawer> {
         ),
       ),
       child: Drawer(
-        child: Container(
-          color: theme.scaffoldBackgroundColor,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              _AppDrawerHeader(onHomePressed: () => _goHome(context)),
-              _DrawerExpandableSection(
-                title: 'Basics',
-                expanded: _basicsExpanded,
-                onExpansionChanged: (expanded) => setState(() => _basicsExpanded = expanded),
-                children: [
-                  _DrawerTile(
-                    icon: Icons.palette_outlined,
-                    title: 'Colors',
-                    onTap: () => _goTo(context, const ColorsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.text_fields,
-                    title: 'Texts',
-                    onTap: () => _goTo(context, const TextsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.smart_button_outlined,
-                    title: 'Buttons',
-                    onTap: () => _goTo(context, const ButtonsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.input,
-                    title: 'Fields',
-                    onTap: () => _goTo(context, const FieldsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.hourglass_empty,
-                    title: 'Loaders',
-                    onTap: () => _goTo(context, const LoadersPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.calendar_today,
-                    title: 'Pickers',
-                    onTap: () => _goTo(context, const PickersPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.donut_large_outlined,
-                    title: 'Indicators',
-                    onTap: () => _goTo(context, const IndicatorsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.table_chart_outlined,
-                    title: 'Tables',
-                    onTap: () => _goTo(context, const TablesPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.tab_outlined,
-                    title: 'Tabs',
-                    onTap: () => _goTo(context, const TabsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.notifications_outlined,
-                    title: 'Messages',
-                    onTap: () => _goTo(context, const MessagesPage()),
-                  ),
-                ],
-              ),
-              const Divider(),
-              _DrawerExpandableSection(
-                title: 'Advanced',
-                expanded: _advancedExpanded,
-                onExpansionChanged: (expanded) => setState(() => _advancedExpanded = expanded),
-                children: [
-                  _DrawerTile(
-                    icon: Icons.view_quilt_outlined,
-                    title: 'Scaffold',
-                    onTap: () => _goTo(context, const ScaffoldPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.layers_outlined,
-                    title: 'Wrapper',
-                    onTap: () => _goTo(context, const WrapperPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.open_in_new_outlined,
-                    title: 'Popups',
-                    onTap: () => _goTo(context, const PopupPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.vertical_align_top_outlined,
-                    title: 'Modal Bottom Sheet',
-                    onTap: () => _goTo(context, const ModalBottomSheetPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.view_carousel_outlined,
-                    title: 'Carousel',
-                    onTap: () => _goTo(context, const CarouselPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.view_list_outlined,
-                    title: 'Tiles',
-                    onTap: () => _goTo(context, const TilesPage()),
-                  ),
-                ],
-              ),
-              const Divider(),
-              _DrawerExpandableSection(
-                title: 'Views',
-                expanded: _viewsExpanded,
-                onExpansionChanged: (expanded) => setState(() => _viewsExpanded = expanded),
-                children: [
-                  _DrawerTile(
-                    icon: Icons.hourglass_top_outlined,
-                    title: 'Loading',
-                    onTap: () => _goTo(context, const LoadingPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.explore_outlined,
-                    title: 'Discover',
-                    onTap: () => _goTo(context, const ViewsDiscoverPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.insights_outlined,
-                    title: 'Statistics',
-                    onTap: () => _goTo(context, const StatisticsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.tab_outlined,
-                    title: 'Tabs',
-                    onTap: () => _goTo(context, const ViewsTabsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.forum_outlined,
-                    title: 'Dialogs',
-                    onTap: () => _goTo(context, const ViewsDialogsPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.edit_note_outlined,
-                    title: 'Book event',
-                    onTap: () => _goTo(context, const ComplexFormPage()),
-                  ),
-                  _DrawerTile(
-                    icon: Icons.login,
-                    title: 'Login',
-                    onTap: () => _goTo(context, const LoginPage()),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-            ],
-          ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            _AppDrawerHeader(onHomePressed: () => _goHome(context)),
+            _DrawerExpandableSection(
+              title: 'Basics',
+              expanded: _basicsExpanded,
+              onExpansionChanged: (expanded) => setState(() => _basicsExpanded = expanded),
+              children: [
+                _DrawerTile(
+                  icon: Icons.palette_outlined,
+                  title: 'Colors',
+                  onTap: () => _goTo(context, const ColorsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.text_fields,
+                  title: 'Texts',
+                  onTap: () => _goTo(context, const TextsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.smart_button_outlined,
+                  title: 'Buttons',
+                  onTap: () => _goTo(context, const ButtonsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.input,
+                  title: 'Fields',
+                  onTap: () => _goTo(context, const FieldsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.hourglass_empty,
+                  title: 'Loaders',
+                  onTap: () => _goTo(context, const LoadersPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.calendar_today,
+                  title: 'Pickers',
+                  onTap: () => _goTo(context, const PickersPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.donut_large_outlined,
+                  title: 'Indicators',
+                  onTap: () => _goTo(context, const IndicatorsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.table_chart_outlined,
+                  title: 'Tables',
+                  onTap: () => _goTo(context, const TablesPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.tab_outlined,
+                  title: 'Tabs',
+                  onTap: () => _goTo(context, const TabsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.notifications_outlined,
+                  title: 'Messages',
+                  onTap: () => _goTo(context, const MessagesPage()),
+                ),
+              ],
+            ),
+            const Divider(),
+            _DrawerExpandableSection(
+              title: 'Advanced',
+              expanded: _advancedExpanded,
+              onExpansionChanged: (expanded) => setState(() => _advancedExpanded = expanded),
+              children: [
+                _DrawerTile(
+                  icon: Icons.view_quilt_outlined,
+                  title: 'Scaffold',
+                  onTap: () => _goTo(context, const ScaffoldPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.layers_outlined,
+                  title: 'Wrapper',
+                  onTap: () => _goTo(context, const WrapperPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.open_in_new_outlined,
+                  title: 'Popups',
+                  onTap: () => _goTo(context, const PopupPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.vertical_align_top_outlined,
+                  title: 'Modal Bottom Sheet',
+                  onTap: () => _goTo(context, const ModalBottomSheetPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.view_carousel_outlined,
+                  title: 'Carousel',
+                  onTap: () => _goTo(context, const CarouselPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.view_list_outlined,
+                  title: 'Tiles',
+                  onTap: () => _goTo(context, const TilesPage()),
+                ),
+              ],
+            ),
+            const Divider(),
+            _DrawerExpandableSection(
+              title: 'Views',
+              expanded: _viewsExpanded,
+              onExpansionChanged: (expanded) => setState(() => _viewsExpanded = expanded),
+              children: [
+                _DrawerTile(
+                  icon: Icons.hourglass_top_outlined,
+                  title: 'Loading',
+                  onTap: () => _goTo(context, const LoadingPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.explore_outlined,
+                  title: 'Discover',
+                  onTap: () => _goTo(context, const ViewsDiscoverPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.insights_outlined,
+                  title: 'Statistics',
+                  onTap: () => _goTo(context, const StatisticsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.tab_outlined,
+                  title: 'Tabs',
+                  onTap: () => _goTo(context, const ViewsTabsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.forum_outlined,
+                  title: 'Dialogs',
+                  onTap: () => _goTo(context, const ViewsDialogsPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.edit_note_outlined,
+                  title: 'Book event',
+                  onTap: () => _goTo(context, const ComplexFormPage()),
+                ),
+                _DrawerTile(
+                  icon: Icons.login,
+                  title: 'Login',
+                  onTap: () => _goTo(context, const LoginPage()),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+          ],
         ),
       ),
     );

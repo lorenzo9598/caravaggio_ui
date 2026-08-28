@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.1.0] - 2026-08-28
+
+### Added
+- **AppSpacing**: new layout constants `md` (8.0), `lg` (12.0), `xl` (16.0), and `xxl` (20.0).
+- **CPopupStyle**: optional colors and text styles for [CPopup] and [CPopupHeader] (`headerColor`, `backgroundColor`, `titleTextStyle`, `subtitleTextStyle`, `iconColor`, `iconBackgroundColor`).
+- **CPopupAction.textStyle**: optional override for action button labels.
+- **CPopupHeader**: direct style overrides for background, title, subtitle, and icon badge colors.
+
+### Changed
+- **[CDropdown]**: uses `initialValue` instead of deprecated `value` on `DropdownButtonFormField`.
+- **[CRadioGroup]**: refactored to use Flutter's `RadioGroup` widget, simplifying state management.
+
+### Fixed
+- Resolved analyzer warnings in [CDropdown] and [CRadioGroup].
+
 ## [1.0.7]
 
 ### Added

@@ -116,7 +116,7 @@ class _ScaffoldBackButtonPreviewPageState extends State<ScaffoldBackButtonPrevie
   bool _hideTitleOnScroll = true;
   Alignment _titleAlignment = Alignment.center;
 
-  bool _showAppDrawer = false;
+  final bool _showAppDrawer = false;
   bool _showBackButton = true;
   bool _showCustomAction = false;
   bool _customBackPressed = false;

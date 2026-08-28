@@ -14,8 +14,8 @@ class ScaffoldPage extends StatefulWidget {
 }
 
 class _ScaffoldPageState extends State<ScaffoldPage> {
-  bool _hideTitleOnScroll = true;
-  Alignment _titleAlignment = Alignment.center;
+  final bool _hideTitleOnScroll = true;
+  final Alignment _titleAlignment = Alignment.center;
 
   void _openPreview() {
     Navigator.push<void>(
@@ -132,27 +132,6 @@ class _ScaffoldPageState extends State<ScaffoldPage> {
           ],
         );
       },
-    );
-  }
-}
-
-class _AlignmentChip extends StatelessWidget {
-  const _AlignmentChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return FilterChip(
-      label: CText.label(label, size: TextSize.small),
-      selected: selected,
-      onSelected: (_) => onTap(),
     );
   }
 }

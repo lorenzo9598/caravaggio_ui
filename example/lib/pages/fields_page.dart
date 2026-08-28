@@ -177,6 +177,69 @@ class _FieldsPageState extends State<FieldsPage> {
               ],
             ),
             Section(
+              title: 'Inline Label',
+              icon: Icons.input_outlined,
+              items: [
+                (
+                  'Inline (simple)',
+                  CTextField.simple(
+                    decoration: const CFieldDecoration(
+                      labelText: "Email",
+                      hintText: "you@example.com",
+                      labelType: FieldLabelType.inline,
+                    ),
+                    onChanged: _onFieldChanged,
+                  ),
+                ),
+                (
+                  'Inline (bordered)',
+                  CTextField.bordered(
+                    decoration: const CFieldDecoration(
+                      labelText: "Email",
+                      hintText: "you@example.com",
+                      labelType: FieldLabelType.inline,
+                    ),
+                    onChanged: _onFieldChanged,
+                  ),
+                ),
+                (
+                  'Inline (filled)',
+                  CTextField.filled(
+                    decoration: const CFieldDecoration(
+                      labelText: "Email",
+                      hintText: "you@example.com",
+                      labelType: FieldLabelType.inline,
+                    ),
+                    onChanged: _onFieldChanged,
+                  ),
+                ),
+                (
+                  'Inline required',
+                  CTextField.bordered(
+                    decoration: const CFieldDecoration(
+                      labelText: "Password",
+                      labelType: FieldLabelType.inline,
+                      required: true,
+                    ),
+                    obscureText: true,
+                    onChanged: _onFieldChanged,
+                  ),
+                ),
+                (
+                  'Inline dropdown',
+                  CDropdown<String>.bordered(
+                    items: dropdownItems,
+                    decoration: const CFieldDecoration(
+                      labelText: "Country",
+                      hintText: "Select an option",
+                      labelType: FieldLabelType.inline,
+                    ),
+                    onChanged: _onChanged,
+                  ),
+                ),
+              ],
+            ),
+            Section(
               title: 'Textarea',
               icon: Icons.notes_outlined,
               items: [
@@ -283,7 +346,7 @@ class _FieldsPageState extends State<FieldsPage> {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
-                              color: CColors.primaryColor.withOpacity(0.1),
+                              color: CColors.primaryColor.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: CText.label(
@@ -336,7 +399,7 @@ class _FieldsPageState extends State<FieldsPage> {
                           Container(
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                              color: CColors.primaryColor.withOpacity(0.1),
+                              color: CColors.primaryColor.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Icon(Icons.person, size: 14, color: CColors.primaryColor),
@@ -574,7 +637,7 @@ class _FieldsPageState extends State<FieldsPage> {
                   'Dropdown (Filled)',
                   CDropdown<String>.filled(
                     items: dropdownItems,
-                    decoration: demoDecoration,
+                    decoration: demoDecoration.copyWith(labelType: FieldLabelType.inline),
                     onChanged: _onChanged,
                   ),
                 ),

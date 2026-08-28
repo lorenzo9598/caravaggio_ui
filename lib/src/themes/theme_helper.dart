@@ -74,8 +74,8 @@ class ThemeHelper {
 
   /// Returns the input decoration theme data with outlined border and white fill color
   InputDecorationTheme get inputDecorationTheme {
-    return InputDecorationTheme(
-      border: const OutlineInputBorder(
+    return const InputDecorationTheme(
+      border: OutlineInputBorder(
         borderRadius: BorderRadius.all(AppRadius.defaultRadius),
       ),
       filled: true,

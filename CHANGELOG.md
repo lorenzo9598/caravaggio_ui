@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.0.7]
+
+### Added
+- **FieldLabelType** on [CFieldDecoration]: choose label placement for [CTextField], [CAutocomplete], and [CDropdown].
+  - `FieldLabelType.above` (default) — label rendered above the field (previous behavior).
+  - `FieldLabelType.inline` — Material floating label via `InputDecoration.labelText`.
+- With `inline` + `required`, an asterisk is appended to `labelText` (`Label *`).
+
+### Notes
+- `FieldLabelType.inline` requires `labelText` (not a `label` widget) and does not support `labelIcon` (asserts in debug).
+
 ## [1.0.6]
 
 ### Added

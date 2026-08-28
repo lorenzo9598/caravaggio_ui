@@ -63,7 +63,6 @@ class CDropdownStyle extends CFieldStyle {
   final TextStyle? textStyle;
 
   /// Creates a simple dropdown style.
-  @override
   factory CDropdownStyle.simple({
     Color? foregroundColor,
     TextStyle? itemsTextStyle,
@@ -79,7 +78,6 @@ class CDropdownStyle extends CFieldStyle {
   }
 
   /// Creates a filled dropdown style.
-  @override
   factory CDropdownStyle.filled({
     Color? backgroundColor,
     Color? foregroundColor,
@@ -100,7 +98,6 @@ class CDropdownStyle extends CFieldStyle {
   }
 
   /// Creates a bordered dropdown style.
-  @override
   factory CDropdownStyle.bordered({
     Color? foregroundColor,
     TextStyle? itemsTextStyle,
@@ -117,7 +114,6 @@ class CDropdownStyle extends CFieldStyle {
   }
 
   /// Creates a bordered and filled dropdown style.
-  @override
   factory CDropdownStyle.borderedFilled({
     Color? backgroundColor,
     Color? foregroundColor,
@@ -350,8 +346,7 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
           fontStyle: FontStyle.italic,
           color: widget.disabled ? Colors.grey[350] ?? Colors.grey : CColors.primaryColorLight,
         ),
-        // labelText is now displayed above the field, not as floating label
-        labelText: null,
+        labelText: widget.decoration.inlineLabelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: widget.style.bordered ? BorderSide(color: widget.disabled ? Colors.grey[350] ?? Colors.grey : _borderColor, width: 1) : BorderSide.none,

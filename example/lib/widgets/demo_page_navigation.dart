@@ -1,5 +1,3 @@
-import 'dart:ui' show ImageFilter;
-
 import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:caravaggio_ui_app/pages/demo_pages.dart';
 import 'package:caravaggio_ui_app/pages/page_constants.dart';

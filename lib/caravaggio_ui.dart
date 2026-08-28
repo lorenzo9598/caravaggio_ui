@@ -12,7 +12,7 @@ export 'src/forms/buttons/button.dart'
 
 export 'src/forms/checkboxes/checkbox.dart' show CCheckbox, CCheckboxController;
 
-export 'src/forms/fields/commons/classes.dart' show CFieldDecoration, CFieldStyle;
+export 'src/forms/fields/commons/classes.dart' show CFieldDecoration, CFieldStyle, FieldLabelType;
 export 'src/forms/fields/autocomplete.dart' show CAutocomplete;
 export 'src/forms/fields/dropdown.dart' show CDropdown, CDropdownController, CDropdownItemModel, CDropdownStyle;
 export 'src/forms/fields/textfield.dart' show CTextField;

@@ -1,6 +1,17 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
+/// Placement of a field label relative to the input.
+enum FieldLabelType {
+  /// Label rendered above the field.
+  above,
+
+  /// Label rendered as Material [InputDecoration.labelText] inside the field.
+  ///
+  /// Only supported with [CFieldDecoration.labelText] (not [CFieldDecoration.label]).
+  inline,
+}
+
 /// Decoration options for a form field.
 class CFieldDecoration {
   /// Creates a [CFieldDecoration] instance.
@@ -13,9 +24,18 @@ class CFieldDecoration {
     this.label,
     this.labelIcon,
     this.required = false,
-  }) : assert(
+    this.labelType = FieldLabelType.above,
+  })  : assert(
           labelText == null || label == null,
           'labelText and label are mutually exclusive. Use only one of them.',
+        ),
+        assert(
+          labelType != FieldLabelType.inline || label == null,
+          'FieldLabelType.inline requires labelText, not a label widget.',
+        ),
+        assert(
+          labelType != FieldLabelType.inline || labelIcon == null,
+          'labelIcon is not supported with FieldLabelType.inline.',
         );
 
   /// The border radius of the field decoration.
@@ -30,19 +50,37 @@ class CFieldDecoration {
   /// The hint text of the field decoration.
   final String? hintText;
 
-  /// The label text of the field decoration (displayed above the field).
+  /// The label text of the field decoration.
+  ///
+  /// With [FieldLabelType.above] it is displayed above the field.
+  /// With [FieldLabelType.inline] it is passed to [InputDecoration.labelText].
   /// Mutually exclusive with [label].
   final String? labelText;
 
   /// The label widget of the field decoration (displayed above the field).
   /// Mutually exclusive with [labelText].
+  /// Not supported with [FieldLabelType.inline].
   final Widget? label;
 
   /// The icon displayed before the label text or label widget.
+  /// Not supported with [FieldLabelType.inline].
   final Widget? labelIcon;
 
-  /// Whether the field is required (shows a red asterisk).
+  /// Whether the field is required (shows an asterisk).
   final bool required;
+
+  /// Where the label is placed. Defaults to [FieldLabelType.above].
+  final FieldLabelType labelType;
+
+  /// [InputDecoration.labelText] when [labelType] is [FieldLabelType.inline].
+  ///
+  /// Appends ` *` when [required] is true.
+  String? get inlineLabelText {
+    if (labelType != FieldLabelType.inline || labelText == null) {
+      return null;
+    }
+    return required ? '$labelText *' : labelText;
+  }
 
   /// Creates a copy of this decoration with the given fields replaced with the new values.
   CFieldDecoration copyWith({
@@ -54,6 +92,7 @@ class CFieldDecoration {
     Widget? label,
     Widget? labelIcon,
     bool? required,
+    FieldLabelType? labelType,
   }) {
     return CFieldDecoration(
       radius: radius ?? this.radius,
@@ -64,6 +103,7 @@ class CFieldDecoration {
       label: label ?? this.label,
       labelIcon: labelIcon ?? this.labelIcon,
       required: required ?? this.required,
+      labelType: labelType ?? this.labelType,
     );
   }
 }

@@ -17,6 +17,10 @@ class FieldLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (decoration.labelType == FieldLabelType.inline) {
+      return const SizedBox.shrink();
+    }
+
     // Check if we have either labelText or label
     final hasLabel = decoration.labelText != null || decoration.label != null;
     if (!hasLabel) {
@@ -137,6 +141,7 @@ class FieldContent extends StatelessWidget {
         prefixIcon: decoration.prefixIcon,
         suffixIcon: decoration.suffixIcon,
         hintText: decoration.hintText,
+        labelText: decoration.inlineLabelText,
         hintStyle: TextStyle(color: style.foregroundColor.withValues(alpha: .7)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(decoration.radius),

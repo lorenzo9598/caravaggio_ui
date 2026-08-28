@@ -211,7 +211,7 @@ class _ComplexFormPageState extends State<ComplexFormPage> {
                             onChanged: (_) {},
                           ),
                           const SizedBox(height: 24),
-                          _FormSectionTitle(label: 'Session'),
+                          const _FormSectionTitle(label: 'Session'),
                           const SizedBox(height: 12),
                           CTextField.filled(
                             controller: _titleController,
@@ -259,7 +259,7 @@ class _ComplexFormPageState extends State<ComplexFormPage> {
                             onChanged: (_) {},
                           ),
                           const SizedBox(height: 24),
-                          _FormSectionTitle(label: 'When'),
+                          const _FormSectionTitle(label: 'When'),
                           const SizedBox(height: 12),
                           _ScheduleField(
                             label: 'Date',
@@ -303,7 +303,7 @@ class _ComplexFormPageState extends State<ComplexFormPage> {
                             ),
                           ),
                           const SizedBox(height: 24),
-                          _FormSectionTitle(label: 'Before you submit'),
+                          const _FormSectionTitle(label: 'Before you submit'),
                           const SizedBox(height: 10),
                           CCheckbox(
                             controller: _remindersController,
@@ -389,7 +389,7 @@ class _ScheduleField extends StatelessWidget {
           CText.body(
             error!,
             size: TextSize.small,
-            style: TextStyle(color: AppColors.errorColor),
+            style: const TextStyle(color: AppColors.errorColor),
           ),
         ],
         const SizedBox(height: 10),

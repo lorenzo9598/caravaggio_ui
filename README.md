@@ -254,6 +254,15 @@ CTextField.borderedFilled(),
 CTextField.filled(decoration: const CFieldDecoration(radius: AppRadius.m)),
 ```
 
+Labels are configured on [CFieldDecoration] via `labelText` (or a custom `label` widget) and [FieldLabelType]:
+
+| `labelType` | Behavior |
+| --- | --- |
+| `FieldLabelType.above` (default) | Label above the field |
+| `FieldLabelType.inline` | Material floating label (`InputDecoration.labelText`) |
+
+`inline` works only with `labelText` (not `label`). `labelIcon` is not supported with `inline`. When `required: true` and `inline`, an asterisk is appended to the label (`Label *`).
+
 ##### CTextField
 
 ```dart
@@ -267,6 +276,15 @@ CTextField.simple(
   onChanged: (_) {
     // ...
   },
+);
+
+// Material floating label
+CTextField.bordered(
+  decoration: CFieldDecoration(
+    labelText: 'Email',
+    labelType: FieldLabelType.inline,
+    required: true,
+  ),
 );
 ```
 

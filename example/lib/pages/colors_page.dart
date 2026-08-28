@@ -5,8 +5,6 @@ import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
 import 'package:caravaggio_ui_app/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 
-import 'page_constants.dart';
-
 class ColorsPage extends StatelessWidget {
   const ColorsPage({super.key});
 

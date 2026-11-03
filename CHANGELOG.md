@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [1.1.1] - 2026-11-03
+
+### Added
+- **CModalBottomSheet** / **showCModalBottomSheet**: optional [CPopupStyle] for the same header and surface overrides as [CPopup] (`headerColor`, `backgroundColor`, `titleTextStyle`, `subtitleTextStyle`, `iconColor`, `iconBackgroundColor`).
+
+### Changed
+- **CPopupStyle** docs: shared by [CPopup] and [CModalBottomSheet].
+
 ## [1.1.0] - 2026-08-28
 
 ### Added

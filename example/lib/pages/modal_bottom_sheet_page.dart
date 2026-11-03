@@ -25,7 +25,7 @@ class ModalBottomSheetPage extends StatelessWidget {
         ),
       ];
 
-  void _showDemoSheet(BuildContext context) {
+  void _showDemoSheet(BuildContext context, {CPopupStyle? style}) {
     showCModalBottomSheet(
       context: context,
       icon: Icons.tune_outlined,
@@ -36,6 +36,7 @@ class ModalBottomSheetPage extends StatelessWidget {
         size: TextSize.small,
       ),
       actions: _demoActions(context),
+      style: style,
     );
   }
 
@@ -57,6 +58,19 @@ class ModalBottomSheetPage extends StatelessWidget {
                   CButton.elevated(
                     onPressed: () => _showDemoSheet(context),
                     child: CText.label('Open bottom sheet'),
+                  ),
+                ),
+                (
+                  'Custom headerColor',
+                  CButton.outlined(
+                    onPressed: () => _showDemoSheet(
+                      context,
+                      style: const CPopupStyle(
+                        headerColor: Colors.white,
+                        iconColor: Color(0xFF662D8C),
+                      ),
+                    ),
+                    child: CText.label('Open with white header'),
                   ),
                 ),
               ],

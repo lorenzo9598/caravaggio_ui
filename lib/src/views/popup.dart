@@ -13,10 +13,10 @@ enum CPopupActionStyle {
   outlined,
 }
 
-/// Customizable colors and text styles for [CPopup].
+/// Customizable colors and text styles for [CPopup] and [CModalBottomSheet].
 ///
 /// All fields are optional; unset values keep the theme defaults used by
-/// [CPopup] and [CPopupHeader].
+/// [CPopup], [CModalBottomSheet], and [CPopupHeader].
 class CPopupStyle {
   const CPopupStyle({
     this.headerColor,

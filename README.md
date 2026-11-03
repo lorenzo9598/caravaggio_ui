@@ -522,6 +522,10 @@ showCPopup(
       },
     ),
   ],
+  style: CPopupStyle(
+    headerColor: Colors.white,
+    iconColor: CColors.primaryColor,
+  ),
 );
 ```
 
@@ -534,8 +538,11 @@ showCPopup(
 | `actions` | Footer buttons as [CPopupAction] entries. Each action pops the route, then runs `onPressed`. |
 | `barrierDismissible` | Whether tapping outside closes the dialog. Default: true. |
 | `elevation` | [Dialog] elevation. Default: `8`. |
+| `style` | Optional [CPopupStyle] overrides for header, surface, title/subtitle, and icon badge. |
 
 [CPopupActionStyle] offers `elevated` (filled) and `outlined` (bordered) button styles.
+
+[CPopupStyle] fields (all optional): `headerColor`, `backgroundColor`, `titleTextStyle`, `subtitleTextStyle`, `iconColor`, `iconBackgroundColor`.
 
 See the example app: `example/lib/pages/popup_page.dart` and `example/lib/pages/views_dialogs_page.dart`.
 
@@ -566,6 +573,10 @@ showCModalBottomSheet(
       },
     ),
   ],
+  style: CPopupStyle(
+    headerColor: Colors.white,
+    iconColor: CColors.primaryColor,
+  ),
 );
 ```
 
@@ -577,6 +588,7 @@ Omit `actions` for content-only sheets (e.g. a list of tappable rows). The sheet
 | `actions` | Optional footer [CPopupAction] buttons. |
 | `isDismissible` | Whether tapping the scrim closes the sheet. Default: true. |
 | `enableDrag` | Whether the sheet can be dragged down to dismiss. Default: true. |
+| `style` | Optional [CPopupStyle] overrides (same as [CPopup]). |
 
 See the example app: `example/lib/pages/modal_bottom_sheet_page.dart` and `example/lib/pages/views_dialogs_page.dart`.
 

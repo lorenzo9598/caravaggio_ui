@@ -15,6 +15,7 @@ class CModalBottomSheet extends StatelessWidget {
     this.subtitle,
     required this.body,
     this.actions,
+    this.style,
   });
 
   static const BorderRadius _borderRadius = BorderRadius.vertical(top: AppRadius.defaultRadius);
@@ -36,6 +37,9 @@ class CModalBottomSheet extends StatelessWidget {
   /// Optional footer buttons rendered by [CPopupActionsRow].
   final List<CPopupAction>? actions;
 
+  /// Optional visual overrides shared with [CPopup]. `null` keeps theme defaults.
+  final CPopupStyle? style;
+
   @override
   Widget build(BuildContext context) {
     final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
@@ -43,7 +47,7 @@ class CModalBottomSheet extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: bottomInset),
       child: Material(
-        color: Theme.of(context).colorScheme.surface,
+        color: style?.backgroundColor ?? Theme.of(context).colorScheme.surface,
         borderRadius: _borderRadius,
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -55,6 +59,11 @@ class CModalBottomSheet extends StatelessWidget {
               title: title,
               subtitle: subtitle,
               borderRadius: _borderRadius,
+              backgroundColor: style?.headerColor,
+              titleTextStyle: style?.titleTextStyle,
+              subtitleTextStyle: style?.subtitleTextStyle,
+              iconColor: style?.iconColor,
+              iconBackgroundColor: style?.iconBackgroundColor,
             ),
             Padding(padding: _bodyPadding, child: body),
             if (actions != null && actions!.isNotEmpty)
@@ -83,6 +92,7 @@ Future<T?> showCModalBottomSheet<T>({
   List<CPopupAction>? actions,
   bool isDismissible = true,
   bool enableDrag = true,
+  CPopupStyle? style,
 }) {
   return showModalBottomSheet<T>(
     context: context,
@@ -96,6 +106,7 @@ Future<T?> showCModalBottomSheet<T>({
       subtitle: subtitle,
       body: body,
       actions: actions,
+      style: style,
     ),
   );
 }

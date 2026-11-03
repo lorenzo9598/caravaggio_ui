@@ -25,7 +25,7 @@ class PopupPage extends StatelessWidget {
         ),
       ];
 
-  void _showDemoPopup(BuildContext context) {
+  void _showDemoPopup(BuildContext context, {CPopupStyle? style}) {
     showCPopup(
       context: context,
       icon: Icons.info_outline,
@@ -36,6 +36,7 @@ class PopupPage extends StatelessWidget {
         size: TextSize.small,
       ),
       actions: _demoActions(context),
+      style: style,
     );
   }
 
@@ -57,6 +58,19 @@ class PopupPage extends StatelessWidget {
                   CButton.elevated(
                     onPressed: () => _showDemoPopup(context),
                     child: CText.label('Open popup'),
+                  ),
+                ),
+                (
+                  'Custom headerColor',
+                  CButton.outlined(
+                    onPressed: () => _showDemoPopup(
+                      context,
+                      style: const CPopupStyle(
+                        headerColor: Colors.white,
+                        iconColor: Color(0xFF662D8C),
+                      ),
+                    ),
+                    child: CText.label('Open with white header'),
                   ),
                 ),
               ],

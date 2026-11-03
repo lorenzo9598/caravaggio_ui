@@ -1,0 +1,77 @@
+# Creates git tag v{{version}} from pubspec.yaml when main advances, then
+# dispatches publish.yml on that tag (GITHUB_TOKEN tag pushes do not trigger
+# other workflows, so publish is started explicitly).
+#
+# Requires publish.yml + trusted publishing on pub.dev (see that workflow).
+#
+# Flow: bump version in pubspec.yaml → merge/push to main → tag + publish.
+name: Tag release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pubspec.yaml'
+      # Allow testing this workflow by pushing the file itself to main.
+      - '.github/workflows/tag-release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: tag-release
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read version from pubspec.yaml
+        id: version
+        run: |
+          version="$(sed -nE 's/^version:[[:space:]]*([0-9]+\.[0-9]+\.[0-9]+).*/\1/p' pubspec.yaml | head -1)"
+          if [[ -z "$version" ]]; then
+            echo "::error::Could not parse version from pubspec.yaml"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "Parsed version: $version (tag v$version)"
+
+      - name: Check if tag already exists
+        id: tag_check
+        run: |
+          tag="${{ steps.version.outputs.tag }}"
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Tag $tag already exists — skipping create and publish."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Tag $tag does not exist — will create and publish."
+          fi
+
+      - name: Create and push tag
+        if: steps.tag_check.outputs.exists == 'false'
+        run: |
+          tag="${{ steps.version.outputs.tag }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$tag" -m "Release $tag"
+          git push origin "$tag"
+
+      - name: Dispatch publish workflow on tag
+        if: steps.tag_check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${{ steps.version.outputs.tag }}"
+          # Target the tag ref so pub.dev OIDC accepts the publish (ref_type=tag).
+          gh workflow run publish.yml --ref "$tag"
+          echo "Dispatched publish.yml on $tag"

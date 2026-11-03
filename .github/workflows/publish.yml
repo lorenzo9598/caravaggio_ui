@@ -3,13 +3,11 @@
 # One-time setup on pub.dev (package Admin → Automated publishing):
 #   Repository:  lorenzo9598/caravaggio_ui
 #   Tag pattern: v{{version}}
+#   Enable push + workflow_dispatch events
 #
 # Triggers:
 #   - push of a tag matching vX.Y.Z (e.g. v1.1.1)
 #   - workflow_dispatch on a tag ref (used by tag-release.yml)
-#
-# Manual dry-run (no upload): Actions → Publish to pub.dev → Run workflow
-# on a tag ref with "Dry run" checked.
 name: Publish to pub.dev
 
 on:
@@ -17,18 +15,9 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
-    inputs:
-      test_run:
-        description: Dry run — validate the package archive without publishing
-        type: boolean
-        default: false
 
 jobs:
   publish:
     permissions:
       id-token: write
-      contents: read
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    with:
-      use-flutter: true
-      test-run: ${{ github.event_name == 'workflow_dispatch' && inputs.test_run || false }}

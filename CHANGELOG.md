@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [Unreleased]
+
+### Added
+- **CBottomBar** / **CBottomBarItem**: bottom navigation for the app shell (2–5 destinations). Pass it to **CScaffold** `bottomBar` (the example `CustomScaffold` forwards the same parameter). The package is not published with this change.
+
 ## [1.1.1] - 2026-11-03
 
 ### Added

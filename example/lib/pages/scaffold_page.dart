@@ -1,4 +1,5 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
+import 'package:caravaggio_ui_app/pages/bottom_bar_preview_page.dart';
 import 'package:caravaggio_ui_app/pages/demo_pages.dart';
 import 'package:caravaggio_ui_app/pages/scaffold_preview_page.dart';
 import 'package:caravaggio_ui_app/widgets/demo_scaffold_title.dart';
@@ -26,6 +27,15 @@ class _ScaffoldPageState extends State<ScaffoldPage> {
     );
   }
 
+  void _openBottomBarPreview() {
+    Navigator.push<void>(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => const BottomBarPreviewPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -35,7 +45,8 @@ class _ScaffoldPageState extends State<ScaffoldPage> {
       titleAlignment: _titleAlignment,
       bodyBuilder: (context, topPadding) {
         return Sections(
-          padding: EdgeInsets.only(top: topPadding + 12, left: 16, right: 16, bottom: 12),
+          padding: EdgeInsets.only(
+              top: topPadding + 12, left: 16, right: 16, bottom: 12),
           sections: [
             Section(
               title: 'CScaffold vs CustomScaffold',
@@ -74,6 +85,30 @@ class _ScaffoldPageState extends State<ScaffoldPage> {
                   CButton.elevated(
                     onPressed: _openPreview,
                     child: CText.label('Open preview'),
+                  ),
+                ),
+              ],
+            ),
+            Section(
+              title: 'Bottom bar',
+              icon: Icons.border_bottom,
+              items: [
+                (
+                  'CBottomBar',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CText.body(
+                        'Pass bottomBar to CScaffold (or CustomScaffold). The body sits above the bar. '
+                        'The bar reports the tapped index; the page owns the current one.',
+                        size: TextSize.small,
+                      ),
+                      const SizedBox(height: 8),
+                      CButton.elevated(
+                        onPressed: _openBottomBarPreview,
+                        child: CText.label('Open bottom bar'),
+                      ),
+                    ],
                   ),
                 ),
               ],

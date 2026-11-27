@@ -376,8 +376,15 @@ class _CDropdownState<T> extends State<CDropdown<T>> {
           borderRadius: BorderRadius.all(widget.decoration.radius),
           borderSide: widget.style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none,
         ),
-        errorStyle: const TextStyle(height: 0),
-        fillColor: widget.style.filled ? widget.style.backgroundColor ?? Colors.transparent : null,
+        contentPadding: kCFieldContentPadding,
+        filled: true,
+        fillColor: Colors.transparent,
+        errorStyle: TextStyle(
+          color: Colors.red[900] ?? Colors.red,
+          fontSize: 12,
+          height: 1.3,
+        ),
+        errorMaxLines: 3,
       );
 
   @override

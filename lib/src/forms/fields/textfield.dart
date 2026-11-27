@@ -240,7 +240,6 @@ class CTextField extends StatelessWidget {
       key: key,
       decoration: decoration,
       style: style,
-      maxLines: maxLines,
       child: FieldContent(
         decoration: decoration,
         style: style,

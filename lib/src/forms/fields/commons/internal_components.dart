@@ -1,6 +1,14 @@
 import 'package:caravaggio_ui/caravaggio_ui.dart';
 import 'package:flutter/material.dart';
 
+/// Horizontal and vertical inset shared by text fields and dropdowns.
+///
+/// Vertical inset keeps a single-line field at a comfortable touch height.
+const EdgeInsets kCFieldContentPadding = EdgeInsets.symmetric(
+  horizontal: AppSpacing.xl,
+  vertical: 14,
+);
+
 /// A widget that displays a label above a field (with optional icon and required indicator).
 class FieldLabel extends StatelessWidget {
   const FieldLabel({
@@ -137,40 +145,49 @@ class FieldContent extends StatelessWidget {
   /// The maximum number of lines for the field.
   final int? maxLines;
 
-  InputDecoration get inputDecoration => InputDecoration(
-        prefixIcon: decoration.prefixIcon,
-        suffixIcon: decoration.suffixIcon,
-        hintText: decoration.hintText,
-        labelText: decoration.inlineLabelText,
-        hintStyle: TextStyle(color: style.foregroundColor.withValues(alpha: .7)),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(decoration.radius),
-          borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(decoration.radius),
-          borderSide: BorderSide(color: style.foregroundColor, width: 2),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(decoration.radius),
-          borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(decoration.radius),
-          borderSide: BorderSide(color: Colors.red[900] ?? Colors.red, width: 2),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(decoration.radius),
-          borderSide: style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none,
-        ),
-        fillColor: style.filled ? style.backgroundColor ?? Colors.transparent : null,
-      );
+  OutlineInputBorder _outline(BorderSide side) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.all(decoration.radius),
+      borderSide: side,
+    );
+  }
+
+  BorderSide get _restingSide => style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none;
+
+  InputDecoration get inputDecoration {
+    final errorSide = BorderSide(color: Colors.red[900] ?? Colors.red, width: 2);
+    return InputDecoration(
+      prefixIcon: decoration.prefixIcon,
+      suffixIcon: decoration.suffixIcon,
+      hintText: decoration.hintText,
+      labelText: decoration.inlineLabelText,
+      contentPadding: kCFieldContentPadding,
+      isDense: false,
+      filled: true,
+      fillColor: Colors.transparent,
+      hintStyle: TextStyle(color: style.foregroundColor.withValues(alpha: .7)),
+      border: _outline(_restingSide),
+      enabledBorder: _outline(_restingSide),
+      focusedBorder: _outline(BorderSide(color: style.foregroundColor, width: 2)),
+      errorBorder: _outline(errorSide),
+      focusedErrorBorder: _outline(errorSide),
+      disabledBorder: _outline(style.bordered ? const BorderSide(color: Colors.grey, width: 2) : BorderSide.none),
+      errorStyle: TextStyle(
+        color: Colors.red[900] ?? Colors.red,
+        fontSize: 12,
+        height: 1.3,
+      ),
+      errorMaxLines: 3,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
       decoration: inputDecoration,
+      cursorColor: style.foregroundColor,
+      style: TextStyle(color: style.foregroundColor),
       autocorrect: autocorrect ?? false,
       onChanged: onChanged,
       validator: validator,
@@ -194,7 +211,6 @@ class FieldContainer extends StatelessWidget {
     required this.decoration,
     required this.style,
     required this.child,
-    this.maxLines,
   });
 
   /// The decoration properties for the container.
@@ -202,9 +218,6 @@ class FieldContainer extends StatelessWidget {
 
   /// The style properties for the container.
   final CFieldStyle style;
-
-  /// The maximum number of lines for the container.
-  final int? maxLines;
 
   /// The widget to be displayed inside the container.
   final Widget child;
@@ -219,39 +232,16 @@ class FieldContainer extends StatelessWidget {
           decoration: decoration,
           style: style,
         ),
-        Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  decoration.radius,
-                ),
-                gradient: style.filled
-                    ? style.backgroundColor != null
-                        ? null
-                        : style.gradient ?? CGradient.primaryToSecondary.opacity(0.3)
-                    : null,
-                color: style.filled ? style.backgroundColor : null,
-              ),
-              child: TextField(
-                enabled: false,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(decoration.radius),
-                    borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(decoration.radius),
-                    borderSide: style.bordered ? BorderSide(color: style.foregroundColor, width: 1) : BorderSide.none,
-                  ),
-                  fillColor: Colors.transparent,
-                ),
-                maxLines: maxLines ?? 1,
-              ),
+        ClipRRect(
+          borderRadius: BorderRadius.all(decoration.radius),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(decoration.radius),
+              gradient: style.filled && style.backgroundColor == null ? style.gradient ?? CGradient.primaryToSecondary.opacity(0.3) : null,
+              color: style.filled ? style.backgroundColor : null,
             ),
-            child,
-          ],
+            child: child,
+          ),
         ),
       ],
     );

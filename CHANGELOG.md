@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.  
 
+## [Unreleased]
+
+### Changed
+- **Fields**: one surface instead of a disabled field stacked under the real input. Text, cursor, and padding follow the field style, and a single-line field keeps a comfortable touch height.
+- **CDropdown**: validation message is visible (it was collapsed with `height: 0`).
+
 ## [1.1.1] - 2026-11-03
 
 ### Added

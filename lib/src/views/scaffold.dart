@@ -43,6 +43,7 @@ class CScaffold extends StatefulWidget {
     this.backgroundLayers = const [],
     this.scrollOverlayColor,
     this.onBackPressed,
+    this.bottomBar,
   });
 
   /// Main content below the overlay app bar.
@@ -128,6 +129,12 @@ class CScaffold extends StatefulWidget {
 
   /// Called when the default back button is pressed. Defaults to [Navigator.pop].
   final VoidCallback? onBackPressed;
+
+  /// Optional bar pinned to the bottom of the scaffold, typically a CBottomBar.
+  ///
+  /// The scaffold lays the body out above this bar, so scroll content is not
+  /// covered. The bar is responsible for its own bottom safe area.
+  final Widget? bottomBar;
 
   @override
   State<CScaffold> createState() => CScaffoldState();
@@ -327,6 +334,7 @@ class CScaffoldState extends State<CScaffold> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: widget.drawer,
+      bottomNavigationBar: widget.bottomBar,
       body: Stack(
         children: [
           Container(

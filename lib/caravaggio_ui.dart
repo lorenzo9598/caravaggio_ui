@@ -38,6 +38,7 @@ export 'src/views/tile.dart' show CTile;
 export 'src/views/wrapper.dart' show CWrapper;
 export 'src/views/scaffold.dart'
     show CScaffold, CScaffoldState, kCScaffoldLeadingWidth, kCScaffoldTitleHideScrollRange;
+export 'src/views/bottom_bar.dart' show CBottomBar, CBottomBarItem;
 export 'src/views/tables/table.dart' show CTable, CTableHeader, CTableRow, CTableCell;
 
 export 'package:caravaggio_calendar_picker/caravaggio_calendar_picker.dart'

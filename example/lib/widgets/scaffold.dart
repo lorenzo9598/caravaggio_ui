@@ -30,6 +30,7 @@ class CustomScaffold extends StatefulWidget {
     this.backToHome = false,
     this.demoPageId,
     this.showBackgroundLayers = false,
+    this.bottomBar,
   });
 
   /// When set, pins [DemoPageNavigation] to the bottom and exposes [DemoNavScope].
@@ -77,6 +78,9 @@ class CustomScaffold extends StatefulWidget {
   final bool backToHome;
 
   final bool showBackgroundLayers;
+
+  /// Optional bar pinned to the bottom, typically a [CBottomBar].
+  final Widget? bottomBar;
 
   /// Returns the top padding from the nearest [CustomScaffold] / [CScaffold].
   static double? topPaddingOf(BuildContext context) => CScaffold.topPaddingOf(context);
@@ -201,6 +205,7 @@ class CustomScaffoldState extends State<CustomScaffold> with TickerProviderState
       scrollOverlayColor: widget.scrollOverlayColor,
       onBackPressed: widget.onBackPressed ??
           (widget.backToHome ? () => navigateToDemoHome(context) : null),
+      bottomBar: widget.bottomBar,
       backgroundGradient: widget.backgroundGradient ??
           LinearGradient(
             colors: [

@@ -28,6 +28,7 @@ A comprehensive UI package designed to streamline your Flutter app development p
   - [CRadioGroup](#cradiogroup)
 - [Views](#views)
   - [CScaffold](#cscaffold)
+  - [CBottomBar](#cbottombar)
   - [CTabs](#ctabs)
   - [CPopup and showCPopup](#cpopup-and-showcpopup)
   - [CModalBottomSheet and showCModalBottomSheet](#cmodalbottomsheet-and-showcmodalbottomsheet)
@@ -424,6 +425,37 @@ CScaffold(
 Read top inset from a descendant with `CScaffold.topPaddingOf(context)`, or use `CScaffoldState.topPadding` from a `GlobalKey<CScaffoldState>`.
 
 See the example app: `example/lib/pages/scaffold_page.dart` and `example/lib/pages/scaffold_preview_page.dart`.
+
+### CBottomBar
+
+Bottom navigation for the app shell. Two to five destinations. The bar does not change routes: `onTap` reports the index and the parent keeps `currentIndex`.
+
+```dart
+CScaffold(
+  bottomBar: CBottomBar(
+    currentIndex: index,
+    onTap: (next) => setState(() => index = next),
+    items: const [
+      CBottomBarItem(icon: Icons.home_outlined, selectedIcon: Icons.home, label: 'Home'),
+      CBottomBarItem(icon: Icons.search, label: 'Cerca'),
+    ],
+  ),
+  bodyBuilder: (context, topPadding) {
+    return ListView(
+      padding: EdgeInsets.only(top: topPadding),
+      children: const [],
+    );
+  },
+)
+```
+
+| Parameter | Description |
+| --- | --- |
+| `items` | 2–5 destinations, left to right. |
+| `currentIndex` | Selected destination. |
+| `onTap` | Called with the tapped index. |
+
+Pass the bar as `CScaffold.bottomBar` so the body is laid out above it. Each destination is at least 48 px tall.
 
 ### CTabs
 
